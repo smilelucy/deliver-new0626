@@ -1306,7 +1306,7 @@ namespace PULI.Views
                                             //Console.WriteLine("ddddistance~~" + d);
 
                                             // GPS 簽到
-                                            if (d < 300 && punch_in[totalList.daily_shipments[setnum].ct_name] == false)
+                                            if (d < 20 && punch_in[totalList.daily_shipments[setnum].ct_name] == false)
                                             {
                                                 punchyesorno[totalList.daily_shipments[setnum].ct_name] = true;
                                                 //Console.WriteLine("who3" + totalList.daily_shipments[setnum].ct_name);
@@ -2146,292 +2146,295 @@ namespace PULI.Views
 
             foreach (var i in questionList.qbs) // 看選項有幾個就跑幾次
             {
-
-                if (i.qb02 == "1")
+                if(Int32.Parse(i.qb_order) < 3)
                 {
-                    var label_que_name = new Label // 問題題號+題目
+                    if (i.qb02 == "1")
                     {
-                        Text = i.qb_order + " " + i.qb01,
-                        FontSize = 20,
-                        TextColor = Color.Black
-                    };
-
-                    var stack_ques = new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal
-                    };
-
-                    foreach (var j in i.qb03) // 跑選項的for迴圈(for產生幾個checkbox)
-                    {
-                        var temp_j = "";
-                        var temp_value = "";
-                        var temp_ans = "";
-
-                        for (int a = 0; a < checkList2.Count(); a++)
+                        var label_que_name = new Label // 問題題號+題目
                         {
-                            if (checkList2[a].wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
-                            {
-                                if (checkList2[a].qb_s_num == i.qb_s_num) // 判斷哪一題
-                                {
-                                    temp_j = checkList2[a].wqb01; // 答案
-                                    //temp_value = checkList2[a].wqb99; // entry
-                                }
-                            }
-                        }
-                        //if(ispress == true)
-                        //{
-                        //    for (int z = 0; z < checkList3.Count(); z++)
-                        //    {
-                        //        if (checkList3[z].wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
-                        //        {
-                        //            if (checkList3[z].qb_s_num == i.qb_s_num) // 判斷哪一題
-                        //            {
-                        //                //temp_j = checkList2[z].wqb01; // 答案
-                        //                temp_ans = checkList3[z].wqb99; // entry
-                        //                //Console.WriteLine("temp_ans " + temp_ans);
-                        //                AccDatabase.SaveAccountAsync(new TempAccount
-                        //                {
-                        //                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                        //                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                        //                    qb_s_num = i.qb_s_num, // 問題編號
-                        //                    wqb01 = j,
-                        //                    wqb99 = temp_ans
-                        //                });
-                        //            }
-                        //        }
-                        //    }
-                        //}
-
-
-
-                        bool ischeck = (temp_j == j) ? true : false; // 再把剛剛的答案抓回來判斷(如果是就把他勾起來)
-                        //bool isEntry = (temp_j == "是") ? true : false; // 如果答案是 是 -> entry顯示
-
-
-                        var check_box = new CheckBox // 產生checkbox
-                        {
-                            IsChecked = ischeck,
-                            Color = Color.FromHex("264653")
+                            Text = i.qb_order + " " + i.qb01,
+                            FontSize = 20,
+                            TextColor = Color.Black
                         };
-                        //if (j == "是")
-                        //{
-                        //    entny = new Entry // 產生Entry
-                        //    {
-                        //        Placeholder = "請說明",
-                        //        Text = temp_value,
-                        //        IsVisible = isEntry,
-                        //        IsEnabled = isEntry
 
-
-                        //    };
-
-
-
-                        //    entny.TextChanged += async (ss, ee) =>  // 點擊Entry
-                        //    {
-                        //        for (int a = 0; a < checkList2.Count(); a++)
-                        //        {
-                        //            if (checkList2[a].qb_s_num == i.qb_s_num) // 第幾題
-                        //            {
-                        //                checkList2[a].wqb99 = ee.NewTextValue;
-                        //                entrytxt = ee.NewTextValue;
-                        //                //var check2 = new TempAccount
-                        //                //{
-                        //                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                        //                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                        //                //    qb_s_num = i.qb_s_num, // 問題編號
-                        //                //    wqb01 = j, // 答案
-                        //                //    wqb99 = entrytxt
-                        //                //};
-                        //                //checkList3.Add(check2);
-                        //                //ispress = true;
-                        //                //reset();
-                        //                //AccDatabase.SaveAccountAsync(new TempAccount
-                        //                //{
-
-                        //                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                        //                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                        //                //    qb_s_num = i.qb_s_num, // 問題編號
-                        //                //    //wqb01 = j,
-                        //                //    wqb99 = entrytxt
-                        //                //});
-                        //                //Console.WriteLine("ENTRY~~" + entrytxt);
-                        //                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                        //                //if(TmpNum == i.qb_s_num)
-                        //                //{
-                        //                //    id = Temp[TmpNum];
-                        //                //    //Console.WriteLine("IDin~~");
-                        //                //    //Console.WriteLine("id " + id);
-                        //                //    int Q = AccDatabase.SaveAccountAsync(new TempAccount
-                        //                //    {
-                        //                //        //wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                        //                //        //qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                        //                //        //qb_s_num = i.qb_s_num, // 問題編號
-                        //                //        //wqb01 = j,
-                        //                //        ID = id,
-                        //                //        wqb99 = entrytxt
-                        //                //    });
-                        //                //    //Console.WriteLine("QQ " + Q);
-                        //                //    //Console.WriteLine("TmpID2 " + id);
-                        //                //    //Console.WriteLine("wqb99 " + entrytxt);
-                        //                //}
-
-                        //            }
-                        //        }
-                        //    };
-                        //}
-                        check_box.CheckedChanged += async (s, e) =>
+                        var stack_ques = new StackLayout
                         {
-                            if (e.Value)
+                            Orientation = StackOrientation.Horizontal
+                        };
+
+                        foreach (var j in i.qb03) // 跑選項的for迴圈(for產生幾個checkbox)
+                        {
+                            var temp_j = "";
+                            var temp_value = "";
+                            var temp_ans = "";
+
+                            for (int a = 0; a < checkList2.Count(); a++)
                             {
-                                isSet = true;
-                                //for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
-                                //{
-                                //    var a = MapView.AccDatabase.GetAccountAsync(b);
-
-
-                                //    foreach (var TempAnsList in a)
-                                //    {
-                                //        if(TempAnsList.wqh_s_num == questionList.wqh_s_num)
-                                //        {
-                                //            if(TempAnsList.qb_s_num == i.qb_s_num)
-                                //            {
-                                //                //Console.WriteLine("which~~~" + TempAnsList.wqh_s_num);
-                                //                //Console.WriteLine("num~~~~~" + TempAnsList.qb_s_num);
-                                //                AccDatabase.DeleteItem(TempAnsList.ID);
-                                //                //Console.WriteLine("DELETE~~~");
-                                //            }
-                                //        }
-
-                                //    }
-                                //}
-                                //Console.WriteLine("True!!!");
-                                //Console.WriteLine("NUM~~~" + i.qb_s_num);
-                                //Console.WriteLine("wqh_s_num : " + questionList.wqh_s_num);
-                                //Console.WriteLine("qb_s_num : " + i.qb_s_num);
-                                //Console.WriteLine("qb03 : " + j);
-                                try
+                                if (checkList2[a].wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
                                 {
-                                    //AccDatabase.SaveAccountAsync(new TempAccount
-                                    //{
-
-                                    //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                    //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                    //    qb_s_num = i.qb_s_num, // 問題編號
-                                    //    wqb01 = j,
-                                    //    //wqb99 = entrytxt
-                                    //});
-
-                                    // 把問題和答案存進SQLite
-                                    QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName);
-
-                                    var check = new checkInfo
+                                    if (checkList2[a].qb_s_num == i.qb_s_num) // 判斷哪一題
                                     {
-                                        wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                        qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                        qb_s_num = i.qb_s_num, // 問題編號
-                                        wqb01 = j // 答案
-
-                                    };
-                                    checkList2.Add(check);
-                                    ////Console.WriteLine("CHECK" + checkList[0]);
-                                    reset(); // 因為+entry之前畫面已run好，所以要+entry要重run一次再把選項抓回來填進去
-                                }
-                                catch
-                                {
-                                    //Console.WriteLine("ERROE~~HERE~~~line: 1194 ");
-                                }
-
-
-                            }
-                            else
-                            {
-
-                                for (int a = 0; a < checkList2.Count(); a++)
-                                {
-                                    if (checkList2[a].qb_s_num == i.qb_s_num)
-                                    {
-                                        checkList2.RemoveAt(a);
+                                        temp_j = checkList2[a].wqb01; // 答案
+                                                                      //temp_value = checkList2[a].wqb99; // entry
                                     }
                                 }
                             }
+                            //if(ispress == true)
+                            //{
+                            //    for (int z = 0; z < checkList3.Count(); z++)
+                            //    {
+                            //        if (checkList3[z].wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
+                            //        {
+                            //            if (checkList3[z].qb_s_num == i.qb_s_num) // 判斷哪一題
+                            //            {
+                            //                //temp_j = checkList2[z].wqb01; // 答案
+                            //                temp_ans = checkList3[z].wqb99; // entry
+                            //                //Console.WriteLine("temp_ans " + temp_ans);
+                            //                AccDatabase.SaveAccountAsync(new TempAccount
+                            //                {
+                            //                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                            //                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                            //                    qb_s_num = i.qb_s_num, // 問題編號
+                            //                    wqb01 = j,
+                            //                    wqb99 = temp_ans
+                            //                });
+                            //            }
+                            //        }
+                            //    }
+                            //}
 
-                            foreach (var b in checkList2)
+
+
+                            bool ischeck = (temp_j == j) ? true : false; // 再把剛剛的答案抓回來判斷(如果是就把他勾起來)
+                                                                         //bool isEntry = (temp_j == "是") ? true : false; // 如果答案是 是 -> entry顯示
+
+
+                            var check_box = new CheckBox // 產生checkbox
                             {
-                                //Console.WriteLine("wqh_s_num : " + b.wqh_s_num);
-                                //Console.WriteLine("qb_s_num : " + b.qb_s_num);
-                                //Console.WriteLine("qb03 : " + b.wqb01);
-                                //Console.WriteLine("enrty : " + b.wqb99);
-                            }
-                        };
+                                IsChecked = ischeck,
+                                Color = Color.FromHex("264653")
+                            };
+                            //if (j == "是")
+                            //{
+                            //    entny = new Entry // 產生Entry
+                            //    {
+                            //        Placeholder = "請說明",
+                            //        Text = temp_value,
+                            //        IsVisible = isEntry,
+                            //        IsEnabled = isEntry
 
-                        var label_check = new Label // 選項
-                        {
-                            Text = j,
-                            TextColor = Color.Black,
-                            FontSize = 20
-                        };
 
-                       
+                            //    };
 
-                        var stack_check = new StackLayout // checkbox跟選項
+
+
+                            //    entny.TextChanged += async (ss, ee) =>  // 點擊Entry
+                            //    {
+                            //        for (int a = 0; a < checkList2.Count(); a++)
+                            //        {
+                            //            if (checkList2[a].qb_s_num == i.qb_s_num) // 第幾題
+                            //            {
+                            //                checkList2[a].wqb99 = ee.NewTextValue;
+                            //                entrytxt = ee.NewTextValue;
+                            //                //var check2 = new TempAccount
+                            //                //{
+                            //                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                            //                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                            //                //    qb_s_num = i.qb_s_num, // 問題編號
+                            //                //    wqb01 = j, // 答案
+                            //                //    wqb99 = entrytxt
+                            //                //};
+                            //                //checkList3.Add(check2);
+                            //                //ispress = true;
+                            //                //reset();
+                            //                //AccDatabase.SaveAccountAsync(new TempAccount
+                            //                //{
+
+                            //                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                            //                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                            //                //    qb_s_num = i.qb_s_num, // 問題編號
+                            //                //    //wqb01 = j,
+                            //                //    wqb99 = entrytxt
+                            //                //});
+                            //                //Console.WriteLine("ENTRY~~" + entrytxt);
+                            //                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                            //                //if(TmpNum == i.qb_s_num)
+                            //                //{
+                            //                //    id = Temp[TmpNum];
+                            //                //    //Console.WriteLine("IDin~~");
+                            //                //    //Console.WriteLine("id " + id);
+                            //                //    int Q = AccDatabase.SaveAccountAsync(new TempAccount
+                            //                //    {
+                            //                //        //wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                            //                //        //qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                            //                //        //qb_s_num = i.qb_s_num, // 問題編號
+                            //                //        //wqb01 = j,
+                            //                //        ID = id,
+                            //                //        wqb99 = entrytxt
+                            //                //    });
+                            //                //    //Console.WriteLine("QQ " + Q);
+                            //                //    //Console.WriteLine("TmpID2 " + id);
+                            //                //    //Console.WriteLine("wqb99 " + entrytxt);
+                            //                //}
+
+                            //            }
+                            //        }
+                            //    };
+                            //}
+                            check_box.CheckedChanged += async (s, e) =>
+                            {
+                                if (e.Value)
+                                {
+                                    isSet = true;
+                                    //for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+                                    //{
+                                    //    var a = MapView.AccDatabase.GetAccountAsync(b);
+
+
+                                    //    foreach (var TempAnsList in a)
+                                    //    {
+                                    //        if(TempAnsList.wqh_s_num == questionList.wqh_s_num)
+                                    //        {
+                                    //            if(TempAnsList.qb_s_num == i.qb_s_num)
+                                    //            {
+                                    //                //Console.WriteLine("which~~~" + TempAnsList.wqh_s_num);
+                                    //                //Console.WriteLine("num~~~~~" + TempAnsList.qb_s_num);
+                                    //                AccDatabase.DeleteItem(TempAnsList.ID);
+                                    //                //Console.WriteLine("DELETE~~~");
+                                    //            }
+                                    //        }
+
+                                    //    }
+                                    //}
+                                    //Console.WriteLine("True!!!");
+                                    //Console.WriteLine("NUM~~~" + i.qb_s_num);
+                                    //Console.WriteLine("wqh_s_num : " + questionList.wqh_s_num);
+                                    //Console.WriteLine("qb_s_num : " + i.qb_s_num);
+                                    //Console.WriteLine("qb03 : " + j);
+                                    try
+                                    {
+                                        //AccDatabase.SaveAccountAsync(new TempAccount
+                                        //{
+
+                                        //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                                        //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                                        //    qb_s_num = i.qb_s_num, // 問題編號
+                                        //    wqb01 = j,
+                                        //    //wqb99 = entrytxt
+                                        //});
+
+                                        // 把問題和答案存進SQLite
+                                        QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName);
+
+                                        var check = new checkInfo
+                                        {
+                                            wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                                            qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                                            qb_s_num = i.qb_s_num, // 問題編號
+                                            wqb01 = j // 答案
+
+                                        };
+                                        checkList2.Add(check);
+                                        ////Console.WriteLine("CHECK" + checkList[0]);
+                                        reset(); // 因為+entry之前畫面已run好，所以要+entry要重run一次再把選項抓回來填進去
+                                    }
+                                    catch
+                                    {
+                                        //Console.WriteLine("ERROE~~HERE~~~line: 1194 ");
+                                    }
+
+
+                                }
+                                else
+                                {
+
+                                    for (int a = 0; a < checkList2.Count(); a++)
+                                    {
+                                        if (checkList2[a].qb_s_num == i.qb_s_num)
+                                        {
+                                            checkList2.RemoveAt(a);
+                                        }
+                                    }
+                                }
+
+                                foreach (var b in checkList2)
+                                {
+                                    //Console.WriteLine("wqh_s_num : " + b.wqh_s_num);
+                                    //Console.WriteLine("qb_s_num : " + b.qb_s_num);
+                                    //Console.WriteLine("qb03 : " + b.wqb01);
+                                    //Console.WriteLine("enrty : " + b.wqb99);
+                                }
+                            };
+
+                            var label_check = new Label // 選項
+                            {
+                                Text = j,
+                                TextColor = Color.Black,
+                                FontSize = 20
+                            };
+
+
+
+                            var stack_check = new StackLayout // checkbox跟選項
+                            {
+                                Orientation = StackOrientation.Horizontal,
+                                Children = { check_box, label_check }
+                            };
+
+
+                            //var ques_all_check = new StackLayout
+                            //{
+                            //    Orientation = StackOrientation.Horizontal,
+                            //    Children = { stack_check, stack }
+                            //};
+
+
+                            stack_ques.Children.Add(stack_check);
+
+
+                            //var final_stack = new StackLayout
+                            //{
+                            //    Orientation = StackOrientation.Horizontal,
+                            //    Children = { stack_ques, label_que_name }
+                            //};
+                        }
+
+                        quesStack.Children.Add(stack); // w
+
+                        //quesStack.Children.Add(final_stack);
+                        //quesStack.Children.Add(label_que_name);
+                        //quesStack.Children.Add(stack_ques);
+
+
+                        var final_stack = new StackLayout
                         {
                             Orientation = StackOrientation.Horizontal,
-                            Children = { check_box, label_check }
+                            Children = { label_que_name, stack_ques }
                         };
 
-                      
-                        //var ques_all_check = new StackLayout
+                        //var lastest_stack = new StackLayout
                         //{
-                        //    Orientation = StackOrientation.Horizontal,
-                        //    Children = { stack_check, stack }
+                        //    Orientation = StackOrientation.Vertical,
+                        //    Children = { final_stack, more_form }
                         //};
 
-                        
-                        stack_ques.Children.Add(stack_check);
+                        Frame frame = new Frame // frame包上面那個stacklayout
+                        {
+                            Padding = new Thickness(15, 5, 10, 5),
 
+                            BackgroundColor = Color.FromHex("eddcd2"),
+                            CornerRadius = 10,
+                            HasShadow = false,
+                            Content = final_stack
+                        };
 
-                        //var final_stack = new StackLayout
-                        //{
-                        //    Orientation = StackOrientation.Horizontal,
-                        //    Children = { stack_ques, label_que_name }
-                        //};
+                        quesStack.Children.Add(frame);
+                        //quesStack.Children.Add(more_form);
+                        Messager4();
+
                     }
-
-                    quesStack.Children.Add(stack); // w
-
-                    //quesStack.Children.Add(final_stack);
-                    //quesStack.Children.Add(label_que_name);
-                    //quesStack.Children.Add(stack_ques);
-                   
-
-                    var final_stack = new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal,
-                        Children = { label_que_name, stack_ques }
-                    };
-
-                    //var lastest_stack = new StackLayout
-                    //{
-                    //    Orientation = StackOrientation.Vertical,
-                    //    Children = { final_stack, more_form }
-                    //};
-
-                    Frame frame = new Frame // frame包上面那個stacklayout
-                    {
-                        Padding = new Thickness(15, 5, 10, 5),
-
-                        BackgroundColor = Color.FromHex("eddcd2"),
-                        CornerRadius = 10,
-                        HasShadow = false,
-                        Content = final_stack
-                    };
-                    
-                    quesStack.Children.Add(frame);
-                    //quesStack.Children.Add(more_form);
-                    Messager4();
-
                 }
+                
                
             }
             //var more_form = new Button // 更多題目的回饋單
@@ -2539,7 +2542,7 @@ namespace PULI.Views
         {
             try
             {
-                //Console.WriteLine("postGPS~~~");
+                Console.WriteLine("postGPS~~~");
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("AUTHORIZATION", "Token " + MainPage.token);
 
@@ -2547,8 +2550,8 @@ namespace PULI.Views
                 //formData.Add(tempData);
                 formData.Add(new StringContent(position.Latitude.ToString()), "gsl01");//打卡經度
                 formData.Add(new StringContent(position.Longitude.ToString()), "gsl02");//打卡緯度
-                //Console.WriteLine("yyyyyyyyyyyyyyy經度 : " + position.Latitude);
-                //Console.WriteLine("xxxxxxxxxxxxxxxx緯度 : " + position.Longitude);
+                Console.WriteLine("yyyyyyyyyyyyyyy經度 : " + position.Latitude);
+                Console.WriteLine("xxxxxxxxxxxxxxxx緯度 : " + position.Longitude);
                 var request = new HttpRequestMessage()
                 {
                     RequestUri = new Uri("http://59.120.147.32:8080/lt_care/api/account/save_gps"),
