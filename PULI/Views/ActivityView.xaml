@@ -29,12 +29,12 @@
                                             
                                                 HorizontalOptions="FillAndExpand"
                                                 x:Name="buttonres"
-                                                Margin="5,5,-5,5"
-                                                Pressed="Button_OnPressed"
+                                                Margin="5,5,5,5"
+                                                
                                                 
                                                 Clicked="buttonres_Clicked"/>
 
-                <Button BackgroundColor= "#5ABFC9"
+                <!--<Button BackgroundColor= "#5ABFC9"
                                             Text="異動表"
                                             TextColor="White"
                                             FontSize="20"
@@ -48,7 +48,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             x:Name="buttoncheck"
                                             Margin="0,5,5,5"
-                                            Clicked="buttoncheck_Clicked"/>
+                                            Clicked="buttoncheck_Clicked"/>-->
             </StackLayout>
         </Frame>
        

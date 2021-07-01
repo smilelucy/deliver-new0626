@@ -27,7 +27,7 @@ namespace PULI.Views
             {
                 if (MainPage.totalList.daily_shipments.Count != 0)
                 {
-                    MessagingCenter.Send(this, "SET_MAP", true); // 傳送"UPDATE_BONUS"的指令給訂閱者(Subscribe)
+                    MessagingCenter.Send(this, "SET_MAP", true); 
                     Console.WriteLine("SETMAP_4");
                 }
             }
@@ -39,14 +39,14 @@ namespace PULI.Views
                     Console.WriteLine("SETMAP_6");
                 }
             }
-            if (MainPage.AUTH == "4")
-            {
-                if (MainPage.totalList.daily_shipments.Count != 0)
-                {
-                    MessagingCenter.Send(this, "SET_FORM", true);
-                    Console.WriteLine("SETFORM");
-                }
-            }
+            //if (MainPage.AUTH == "4")
+            //{
+            //    if (MainPage.totalList.daily_shipments.Count != 0)
+            //    {
+            //        MessagingCenter.Send(this, "SET_FORM", true);
+            //        Console.WriteLine("SETFORM");
+            //    }
+            //}
             //else
             //{
             //    if(MainPage.userList.daily_shipment_nums > 0)
@@ -62,6 +62,12 @@ namespace PULI.Views
                 {
                     MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
                     Console.WriteLine("SETSHIPMENT");
+                }
+                else
+                {
+                    //DisplayAlert("系統訊息", "後臺尚未產生資料或資料接收不齊全", "ok");
+                    Console.WriteLine("no shipment_homeview~~");
+                    Console.WriteLine("homecount~~ " + MainPage.totalList.daily_shipments.Count);
                 }
             }
             //else

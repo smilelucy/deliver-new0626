@@ -71,14 +71,14 @@ namespace PULI.Views
                 //    Console.WriteLine("SETFORM");
                 //}
             }
-            //else
-            //{
-            //    if (MainPage.userList.daily_shipment_nums > 0)
-            //    {
-            //        MessagingCenter.Send(this, "SET_FORM", true);
-            //        Console.WriteLine("SETFORM"); // for外送員的回饋單
-            //    }
-            //}
+            else
+            {
+                if (MainPage.userList.daily_shipment_nums > 0)
+                {
+                    MessagingCenter.Send(this, "SET_FORM", true);
+                    Console.WriteLine("SETFORM"); // for外送員的回饋單
+                }
+            }
 
             if (MainPage.AUTH == "4")
             {
@@ -88,6 +88,12 @@ namespace PULI.Views
                 {
                     MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
                     Console.WriteLine("SETSHIPMENT");
+                }
+                else
+                {
+                    //DisplayAlert("系統訊息", "後臺尚未產生資料或資料接收不齊全", "ok");
+                    Console.WriteLine("no shipment_homeview~~");
+                    Console.WriteLine("homecount~~ " + MainPage.totalList.daily_shipments.Count);
                 }
             }
             //else

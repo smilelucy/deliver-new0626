@@ -1,4 +1,5 @@
-﻿using Plugin.Media;
+﻿using Deliver.Services;
+using Plugin.Media;
 using PULI.Model;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace PULI.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UploadView : ContentPage
     {
+        WebService web = new WebService();
+
         public UploadView()
         {
             InitializeComponent();
@@ -67,11 +70,12 @@ namespace PULI.Views
                 try
                 {
                     Content = ViewService.Loading();
+                    //bool post = web.Post_work(MainPage.token, note.Text, img_sc);
                     HttpClient client = new HttpClient();
                     client.DefaultRequestHeaders.Add("AUTHORIZATION", "Token " + MainPage.token);
                     MultipartFormDataContent formData = new MultipartFormDataContent();
                     //img_sc.Headers.Add("Content-Type", "image/jpeg");
-                    
+
                     if (!string.IsNullOrEmpty(note.Text))
                         formData.Add(new StringContent(note.Text), "WorkLogNote");
                     //WorkLogPicture

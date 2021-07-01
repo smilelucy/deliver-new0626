@@ -69,6 +69,7 @@ namespace PULI.Views
                     //listview.ItemTemplate = new DataTemplate(typeof(ShipCell)); // 把模式設為ActivityCell
                     //listview.SelectedItem = null; // 
                     //listview.ItemsSource = totalList.daily_shipments; // ItemTemplate的資料來源
+                    Console.WriteLine("count~~ " + totalList.daily_shipments.Count());
                     for (int i = 0; i < totalList.daily_shipments.Count; i++)
                     {
 
@@ -709,7 +710,7 @@ namespace PULI.Views
                     resSucStack.IsEnabled = false;
                     resSucStack.IsVisible = false;
                     buttonres.IsVisible = true;
-                    buttoncheck.IsVisible = true;
+                    //buttoncheck.IsVisible = true;
                 }
                 else
                 {
@@ -757,28 +758,28 @@ namespace PULI.Views
         //    quesStack.Children.Add(button_stack);
         //    return null;
         //}
-        public async void setView2() // 異動表
-        {
-            Console.WriteLine("SETVIEW2");
-            Console.WriteLine("timeactivity~~~ " + MainPage._time);
-            if (MainPage._time == "早上")
-            {
-                totalList = await web.Get_Daily_Shipment(MainPage.token);
-            }
-            else
-            {
-                totalList = await web.Get_Daily_Shipment_night(MainPage.token);
-            }
-            //Console.WriteLine("tttt" + totalList.abnormals[0].different);
-            //Console.WriteLine("iiii" + totalList.abnormals[0].ClientName);
-            listview2.ItemTemplate = new DataTemplate(typeof(AbnormalCell)); // 把模式設為activitycell
-            listview2.SelectedItem = null; // 
-            listview2.ItemsSource = totalList.abnormals; // itemtemplate的資料來源
-            //resSucStack.IsEnabled = true;
-            //resSucStack.IsVisible = true;
-            //resSucStack.IsVisible = true;
-            //resSucStack.IsEnabled = true;
-        }
+        //public async void setView2() // 異動表
+        //{
+        //    Console.WriteLine("SETVIEW2");
+        //    Console.WriteLine("timeactivity~~~ " + MainPage._time);
+        //    if (MainPage._time == "早上")
+        //    {
+        //        totalList = await web.Get_Daily_Shipment(MainPage.token);
+        //    }
+        //    else
+        //    {
+        //        totalList = await web.Get_Daily_Shipment_night(MainPage.token);
+        //    }
+        //    //Console.WriteLine("tttt" + totalList.abnormals[0].different);
+        //    //Console.WriteLine("iiii" + totalList.abnormals[0].ClientName);
+        //    listview2.ItemTemplate = new DataTemplate(typeof(AbnormalCell)); // 把模式設為activitycell
+        //    listview2.SelectedItem = null; // 
+        //    listview2.ItemsSource = totalList.abnormals; // itemtemplate的資料來源
+        //    //resSucStack.IsEnabled = true;
+        //    //resSucStack.IsVisible = true;
+        //    //resSucStack.IsVisible = true;
+        //    //resSucStack.IsEnabled = true;
+        //}
 
         private void Messager()
         {
@@ -816,38 +817,38 @@ namespace PULI.Views
                         Console.WriteLine("setshipform2~~~~");
                     }
                 });
-                MessagingCenter.Subscribe<HomeView, bool>(this, "SET_CHANGE_FORM", (sender, arg) =>
-                {
-                    // do something when the msg "UPDATE_BONUS" is recieved
-                    if (arg)
-                    {
-                        //totalList = new TotalList();
-                        totalList = null;
-                        setView2();
+                //MessagingCenter.Subscribe<HomeView, bool>(this, "SET_CHANGE_FORM", (sender, arg) =>
+                //{
+                //    // do something when the msg "UPDATE_BONUS" is recieved
+                //    if (arg)
+                //    {
+                //        //totalList = new TotalList();
+                //        totalList = null;
+                //        setView2();
 
-                    }
-                });
-                MessagingCenter.Subscribe<HomeView2, bool>(this, "SET_CHANGE_FORM", (sender, arg) =>
-                {
-                    // do something when the msg "UPDATE_BONUS" is recieved
-                    if (arg)
-                    {
-                        //totalList = new TotalList();
-                        totalList = null;
-                        setView2();
-                    }
-                });
+                //    }
+                //});
+                //MessagingCenter.Subscribe<HomeView2, bool>(this, "SET_CHANGE_FORM", (sender, arg) =>
+                //{
+                //    // do something when the msg "UPDATE_BONUS" is recieved
+                //    if (arg)
+                //    {
+                //        //totalList = new TotalList();
+                //        totalList = null;
+                //        setView2();
+                //    }
+                //});
                 // HomeViewHelperAndDiliver
-                MessagingCenter.Subscribe<HomeViewHelperAndDiliver, bool>(this, "SET_CHANGE_FORM", (sender, arg) =>
-                {
-                    // do something when the msg "UPDATE_BONUS" is recieved
-                    if (arg)
-                    {
-                        //totalList = new TotalList();
-                        totalList = null;
-                        setView2();
-                    }
-                });
+                //MessagingCenter.Subscribe<HomeViewHelperAndDiliver, bool>(this, "SET_CHANGE_FORM", (sender, arg) =>
+                //{
+                //    // do something when the msg "UPDATE_BONUS" is recieved
+                //    if (arg)
+                //    {
+                //        //totalList = new TotalList();
+                //        totalList = null;
+                //        setView2();
+                //    }
+                //});
                 MessagingCenter.Subscribe<MemberView, bool>(this, "OUT", (sender, arg) =>
                 {
                     if (arg)
@@ -904,17 +905,17 @@ namespace PULI.Views
             
         }
 
-        private void Button_OnPressed(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                btn.BackgroundColor = Color.White;
-                btn.TextColor = Color.FromHex("5ABFC9");
-                buttoncheck.BackgroundColor = Color.FromHex("5ABFC9");
-                buttoncheck.TextColor = Color.White;
-            }
+        //private void Button_OnPressed(object sender, EventArgs e)
+        //{
+        //    if (sender is Button btn)
+        //    {
+        //        btn.BackgroundColor = Color.White;
+        //        btn.TextColor = Color.FromHex("5ABFC9");
+        //        buttoncheck.BackgroundColor = Color.FromHex("5ABFC9");
+        //        buttoncheck.TextColor = Color.White;
+        //    }
 
-        }
+        //}
         private void Button2_OnPressed(object sender, EventArgs e)
         {
             if (sender is Button btn)
@@ -955,8 +956,8 @@ namespace PULI.Views
             resSucStack2.IsEnabled = false;
             buttonres.BackgroundColor = Color.White;
             buttonres.TextColor = Color.FromHex("#5ABFC9");
-            buttoncheck.BackgroundColor = Color.FromHex("#5ABFC9");
-            buttoncheck.TextColor = Color.White;
+            //buttoncheck.BackgroundColor = Color.FromHex("#5ABFC9");
+            //buttoncheck.TextColor = Color.White;
         }
     }
 }
