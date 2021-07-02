@@ -167,9 +167,187 @@ namespace PULI.Views
             ////Console.WriteLine("result_num~~~ " + result_num);
             ////Console.WriteLine("result~~ " + result);
             //Console.WriteLine("COUNT~~~" + questionnaireslist.Count());
+            foreach (var a in questionnaireslist)
+            {
+                foreach (var i in a.qbs)
+                {
+                    TmpAddList[a.wqh_s_num + i.qb_order] = false;
+                    TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
+                    IsResetList[a.wqh_s_num + i.qb_order] = false;
+                    IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+                    TmpAnsList[a.ClientName + i.qb_order] = "";
+                    CheckboxList[a.ClientName] = false;
+
+                    if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        ////////Console.WriteLine("IMMMM~~~~");
+                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
+                        {
+                            var q = ChooseDB.GetAccountAsync(b);
+
+
+                            foreach (var TempChooseList in q)
+                            {
+                                if (TempChooseList.ClientName == a.ClientName)
+                                {
+                                    //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                                    CheckboxList[a.ClientName] = true;
+                                }
+
+                            }
+                        }
+                    }
+                    ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
+                    if (ResetDB.GetAccountAsync2().Count() > 0)
+                    {
+                        for (int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
+                        {
+                            var d = ResetDB.GetAccountAsync(c);
+                            foreach (var TempResetList in d)
+                            {
+                                if (TempResetList.wqh_s_num == a.wqh_s_num)
+                                {
+                                    if (TempResetList.qb_order == i.qb_order)
+                                    {
+                                        IsResetList[a.wqh_s_num + i.qb_order] = true;
+                                        isDB = true;
+                                        if (TempResetList.color == "Red")
+                                        {
+                                            //isRed = true;
+                                            //isGreen = false;
+                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Red";
+                                        }
+                                        else
+                                        {
+                                            //isGreen = true;
+                                            //isRed = false;
+                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Green";
+                                        }
+                                        //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
+                                        //Console.WriteLine("qborder~~ " + i.qb_order);
+                                        //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
+                    if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        ////////Console.WriteLine("1111~~~~");
+                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+                        {
+                            var w = MapView.AccDatabase.GetAccountAsync(b);
+
+                            //////Console.WriteLine("2222~~~~");
+                            foreach (var TempAnsList in w)
+                            {
+                                ////////Console.WriteLine("3333~~~~");
+                                string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
+                                //////////Console.WriteLine("WHO~~" + who);
+                                //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
+                                ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
+                                ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
+                                if (TempAnsList.wqh_s_num == a.wqh_s_num) // 判斷問卷編號
+                                {
+                                    ////////Console.WriteLine("4444~~~~");
+                                    if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
+                                    {
+                                        ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
+                                        ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
+                                        ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
+                                        TmpAnsList[a.ClientName + i.qb_order] = TempAnsList.wqb01;
+                                        ////////Console.WriteLine("EEE~~~ " + TmpAnsList[questionList.ClientName + i.qb_order]);
+                                        //////////Console.WriteLine("number " + TempAnsList.qb_s_num);
+                                        //////////Console.WriteLine("who " + TempAnsList.qh_s_num);
+
+                                        for (int c = 0; c < checkList2.Count(); c++)
+                                        {
+                                            if (checkList2[c].wqh_s_num == a.wqh_s_num)
+                                            {
+                                                if (checkList2[c].qb_s_num == i.qb_s_num)
+                                                {
+                                                    //checkList.RemoveAt(a);
+                                                    checkList2.RemoveAt(c);
+                                                }
+                                            }
+
+
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+                        }
+
+
+
+                    }
+                    ////////Console.WriteLine("TempAdd~~~ " + TempAddDB.GetAccountAsync2().Count());
+                    if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        //////////Console.WriteLine("IMMMM~~~~");
+                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
+                        {
+                            var e = TempAddDB.GetAccountAsync(b);
+
+
+                            foreach (var AddList in e)
+                            {
+                                if (AddList.wqh_s_num == a.wqh_s_num)
+                                {
+                                    if (AddList.qb_order == i.qb_order)
+                                    {
+                                        TmpAddList[a.wqh_s_num + i.qb_order] = true;
+                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                        ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
+                                    }
+                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+
+                                }
+
+                            }
+                        }
+                    }
+                    if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        //////////Console.WriteLine("IMMMM~~~~");
+                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
+                        {
+                            var r = TempAddDB_else.GetAccountAsync(b);
+
+
+                            foreach (var Add_elseList in r)
+                            {
+                                if (Add_elseList.wqh_s_num == a.wqh_s_num)
+                                {
+                                    if (Add_elseList.qb_order == i.qb_order)
+                                    {
+                                        TmpAdd_elseList[a.wqh_s_num + i.qb_order] = true;
+                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                        ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
+                                    }
+                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
 
             // 處理同上按鈕
-            if(questionnaireslist.Count() != 0) // 防呆(防止後台沒傳資料近來)
+            if (questionnaireslist.Count() != 0) // 防呆(防止後台沒傳資料近來)
             {
                 for (int b = 0; b < questionnaireslist.Count(); b++) // 0是初始 1是正常 -1是重複
                 {
@@ -212,15 +390,15 @@ namespace PULI.Views
                     //Console.WriteLine("value.qb_s_num~~ " + value.qb_s_num);
                     if(value.ClientName != "")
                     {
-                        CheckboxList[value.ClientName] = false;
+                        
                         //Console.WriteLine("value~~ " + value.ClientName);
                         //Console.WriteLine("wqh~~ " + value.wqh_s_num);
 
                         //Console.WriteLine("count~~ " + value.qbs.Count());
-                        for (int i = 0; i < value.qbs.Count; i++)
-                        {
+                        //for (int i = 0; i < value.qbs.Count; i++)
+                        //{
                             //Console.WriteLine("qb03~~ " + value.qbs[i].qb03);
-                        }
+                        //}
                         //Console.WriteLine("qb03~~ " + value.qbs[0].qb03);
                         //Console.WriteLine("valuename~~ " + value.ClientName);
                         questionView(value);
@@ -252,6 +430,183 @@ namespace PULI.Views
             ////////Console.WriteLine("chooseDB~~ " + ChooseDB.GetAccountAsync2().Count());
             ////////Console.WriteLine("resetDB~~ " + ResetDB.GetAccountAsync2().Count());
             ////////Console.WriteLine("entryDB~~ " + EntryDB.GetAccountAsync2().Count());
+            foreach(var a in questionnaireslist)
+            {
+                foreach (var i in a.qbs)
+                {
+                    TmpAddList[a.wqh_s_num + i.qb_order] = false;
+                    TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
+                    IsResetList[a.wqh_s_num + i.qb_order] = false;
+                    IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+                    TmpAnsList[a.ClientName + i.qb_order] = "";
+
+                    if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        ////////Console.WriteLine("IMMMM~~~~");
+                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
+                        {
+                            var q = ChooseDB.GetAccountAsync(b);
+
+
+                            foreach (var TempChooseList in q)
+                            {
+                                if (TempChooseList.ClientName == a.ClientName)
+                                {
+                                    //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                                    CheckboxList[a.ClientName] = true;
+                                }
+
+                            }
+                        }
+                    }
+                    ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
+                    if (ResetDB.GetAccountAsync2().Count() > 0)
+                    {
+                        for (int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
+                        {
+                            var d = ResetDB.GetAccountAsync(c);
+                            foreach (var TempResetList in d)
+                            {
+                                if (TempResetList.wqh_s_num == a.wqh_s_num)
+                                {
+                                    if (TempResetList.qb_order == i.qb_order)
+                                    {
+                                        IsResetList[a.wqh_s_num + i.qb_order] = true;
+                                        isDB = true;
+                                        if (TempResetList.color == "Red")
+                                        {
+                                            //isRed = true;
+                                            //isGreen = false;
+                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Red";
+                                        }
+                                        else
+                                        {
+                                            //isGreen = true;
+                                            //isRed = false;
+                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Green";
+                                        }
+                                        //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
+                                        //Console.WriteLine("qborder~~ " + i.qb_order);
+                                        //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
+                    if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        ////////Console.WriteLine("1111~~~~");
+                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+                        {
+                            var w = MapView.AccDatabase.GetAccountAsync(b);
+
+                            //////Console.WriteLine("2222~~~~");
+                            foreach (var TempAnsList in w)
+                            {
+                                ////////Console.WriteLine("3333~~~~");
+                                string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
+                                //////////Console.WriteLine("WHO~~" + who);
+                                //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
+                                ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
+                                ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
+                                if (TempAnsList.wqh_s_num == a.wqh_s_num) // 判斷問卷編號
+                                {
+                                    ////////Console.WriteLine("4444~~~~");
+                                    if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
+                                    {
+                                        ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
+                                        ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
+                                        ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
+                                        TmpAnsList[a.ClientName + i.qb_order] = TempAnsList.wqb01;
+                                        ////////Console.WriteLine("EEE~~~ " + TmpAnsList[questionList.ClientName + i.qb_order]);
+                                        //////////Console.WriteLine("number " + TempAnsList.qb_s_num);
+                                        //////////Console.WriteLine("who " + TempAnsList.qh_s_num);
+
+                                        for (int c = 0; c < checkList2.Count(); c++)
+                                        {
+                                            if (checkList2[c].wqh_s_num == a.wqh_s_num)
+                                            {
+                                                if (checkList2[c].qb_s_num == i.qb_s_num)
+                                                {
+                                                    //checkList.RemoveAt(a);
+                                                    checkList2.RemoveAt(c);
+                                                }
+                                            }
+
+
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+                        }
+
+
+
+                    }
+                    ////////Console.WriteLine("TempAdd~~~ " + TempAddDB.GetAccountAsync2().Count());
+                    if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        //////////Console.WriteLine("IMMMM~~~~");
+                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
+                        {
+                            var e = TempAddDB.GetAccountAsync(b);
+
+
+                            foreach (var AddList in e)
+                            {
+                                if (AddList.wqh_s_num == a.wqh_s_num)
+                                {
+                                    if (AddList.qb_order == i.qb_order)
+                                    {
+                                        TmpAddList[a.wqh_s_num + i.qb_order] = true;
+                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                        ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
+                                    }
+                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+
+                                }
+
+                            }
+                        }
+                    }
+                    if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    {
+                        //////////Console.WriteLine("IMMMM~~~~");
+                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                        for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
+                        {
+                            var r = TempAddDB_else.GetAccountAsync(b);
+
+
+                            foreach (var Add_elseList in r)
+                            {
+                                if (Add_elseList.wqh_s_num == a.wqh_s_num)
+                                {
+                                    if (Add_elseList.qb_order == i.qb_order)
+                                    {
+                                        TmpAdd_elseList[a.wqh_s_num + i.qb_order] = true;
+                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                        ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
+                                    }
+                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
             TFcount = 0;
             quesStack.Children.Clear();
             foreach (var value in questionnaireslist)
@@ -320,14 +675,13 @@ namespace PULI.Views
                 _QB_S_NUM = i.qb_s_num;
                 //Console.WriteLine("_QB_S_NUM@@@@ " + _QB_S_NUM);
                 //Console.WriteLine("qbssss~~ " + questionList.qb_s_num);
-                TmpAddList[questionList.wqh_s_num + i.qb_order] = false;
-                TmpAdd_elseList[questionList.wqh_s_num + i.qb_order] = false;
-                IsResetList[questionList.wqh_s_num + i.qb_order] = false;
+                
+
                 EntrytxtList[questionList.wqh_s_num + i.qb_order] = "";
-                IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "";
+                
                 EntryList[questionList.ClientName] = false;
-                TmpAnsList[questionList.ClientName + i.qb_order] = "";
-                qb03_list.Clear();
+                
+                //qb03_list.Clear();
                
                 //////Console.WriteLine("ques~~~" + questionList.qb_s_num);
                 //////Console.WriteLine("qhsnum~~~" + questionList.qh_s_num);
@@ -335,170 +689,7 @@ namespace PULI.Views
                 //////Console.WriteLine("wqh~~~ " + questionList.wqh_s_num);
                 //IsResetList[questionList.wqh_s_num + i.qb_order] = false;
                 //////Console.WriteLine("chooseDB~~ " + ChooseDB.GetAccountAsync2().Count());
-                if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
-                {
-                    ////////Console.WriteLine("IMMMM~~~~");
-                    ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                    for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
-                    {
-                        var a = ChooseDB.GetAccountAsync(b);
-
-
-                        foreach (var TempChooseList in a)
-                        {
-                            if(TempChooseList.ClientName == questionList.ClientName)
-                            {
-                                //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
-                                CheckboxList[questionList.ClientName] = true;
-                            }
-                            
-                        }
-                    }
-                }
-                ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
-                if(ResetDB.GetAccountAsync2().Count() > 0)
-                {
-                    for(int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
-                    {
-                        var d = ResetDB.GetAccountAsync(c);
-                        foreach(var TempResetList in d)
-                        {
-                            if (TempResetList.wqh_s_num == questionList.wqh_s_num)
-                            {
-                                if (TempResetList.qb_order == i.qb_order)
-                                {
-                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
-                                    isDB = true;
-                                    if(TempResetList.color == "Red")
-                                    {
-                                        //isRed = true;
-                                        //isGreen = false;
-                                        IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
-                                    }
-                                    else
-                                    {
-                                        //isGreen = true;
-                                        //isRed = false;
-                                        IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
-                                    }
-                                    //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
-                                    //Console.WriteLine("qborder~~ " + i.qb_order);
-                                    //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
-                                }
-                            }
-                        }
-                    }
-                }
-                ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
-                if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
-                {
-                    ////////Console.WriteLine("1111~~~~");
-                    ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                    for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
-                    {
-                        var a = MapView.AccDatabase.GetAccountAsync(b);
-
-                        //////Console.WriteLine("2222~~~~");
-                        foreach (var TempAnsList in a)
-                        {
-                            ////////Console.WriteLine("3333~~~~");
-                            string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
-                            //////////Console.WriteLine("WHO~~" + who);
-                            //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
-                            ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
-                            ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
-                            if (TempAnsList.wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
-                            {
-                                ////////Console.WriteLine("4444~~~~");
-                                if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
-                                {
-                                    ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
-                                    ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
-                                    ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
-                                    TmpAnsList[questionList.ClientName + i.qb_order] = TempAnsList.wqb01;
-                                    ////////Console.WriteLine("EEE~~~ " + TmpAnsList[questionList.ClientName + i.qb_order]);
-                                    //////////Console.WriteLine("number " + TempAnsList.qb_s_num);
-                                    //////////Console.WriteLine("who " + TempAnsList.qh_s_num);
-
-                                    for (int c = 0; c < checkList2.Count(); c++)
-                                    {
-                                        if (checkList2[c].wqh_s_num == questionList.wqh_s_num)
-                                        {
-                                            if (checkList2[c].qb_s_num == i.qb_s_num)
-                                            {
-                                                //checkList.RemoveAt(a);
-                                                checkList2.RemoveAt(c);
-                                            }
-                                        }
-
-
-                                    }
-
-                                }
-                            }
-
-
-                        }
-                    }
-
-
-
-                }
-                ////////Console.WriteLine("TempAdd~~~ " + TempAddDB.GetAccountAsync2().Count());
-                if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
-                {
-                    //////////Console.WriteLine("IMMMM~~~~");
-                    //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                    for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
-                    {
-                        var a = TempAddDB.GetAccountAsync(b);
-
-
-                        foreach (var AddList in a)
-                        {
-                            if (AddList.wqh_s_num == questionList.wqh_s_num)
-                            {
-                                if(AddList.qb_order == i.qb_order)
-                                {
-                                    TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
-                                    ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                                    ////////Console.WriteLine("qborder~~~ " + i.qb_order);
-                                    ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
-                                }
-                                ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
-                                
-                            }
-
-                        }
-                    }
-                }
-                if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
-                {
-                    //////////Console.WriteLine("IMMMM~~~~");
-                    //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                    for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
-                    {
-                        var a = TempAddDB_else.GetAccountAsync(b);
-
-
-                        foreach (var Add_elseList in a)
-                        {
-                            if (Add_elseList.wqh_s_num == questionList.wqh_s_num)
-                            {
-                                if (Add_elseList.qb_order == i.qb_order)
-                                {
-                                    TmpAdd_elseList[questionList.wqh_s_num + i.qb_order] = true;
-                                    ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                                    ////////Console.WriteLine("qborder~~~ " + i.qb_order);
-                                    ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
-                                }
-                                ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
-
-                            }
-
-                        }
-                    }
-                }
+                
                 //////////Console.WriteLine("qbsnum1~~" + questionList.qbs[1].qb_s_num);
                 //////////Console.WriteLine("qbsnum2~~" + questionList.qbs[2].qb_s_num);
                 //////////Console.WriteLine("qbsnum3~~" + questionList.qbs[3].qb_s_num);
@@ -11169,7 +11360,7 @@ namespace PULI.Views
                                 //////Console.WriteLine("i~~~" + i);
                                 //////Console.WriteLine("NAME~~~" + SQLlist[i].ClientName);
                                 //////Console.WriteLine("sq_s_num~~" + SQLlist[i].qb_s_num);
-                                //////Console.WriteLine("orser~~" + SQLlist[i].qb_order);
+                                //////Console.WriteLine("orser~~" + SQLlist[i].qb_order); 
                                 //////Console.WriteLine("wqb01~~~" + SQLlist[i].wqb01);
                                 //////Console.WriteLine("wqh~~ " + questionList.wqh_s_num);
                                 //////Console.WriteLine("qw~~ " + questionList.qh_s_num);
@@ -11190,7 +11381,7 @@ namespace PULI.Views
                                    Console.WriteLine("qqname~~ " + questionList.ClientName);
                                     
                                     string _qbsnum = SQLlist[k].qb_s_num;
-                                    if (tmp_num_list.Count() != 0)
+                                    if (tmp_num_list.Count() != 0) 
                                     {
                                         //////Console.WriteLine("SQList_qb~~~" + SQLlist[k].qb_s_num);
                                         //////Console.WriteLine("tmp_qb~~" + tmp_num_list[tmp_num_list.Count() - 1]);

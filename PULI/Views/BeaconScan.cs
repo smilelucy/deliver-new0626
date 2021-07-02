@@ -101,7 +101,7 @@ namespace PULI.Views
             {
                 try
                 {
-                    Console.WriteLine("BEACON~~~LA~~~");
+                    //Console.WriteLine("BEACON~~~LA~~~");
                     if (e.Name != null)
                     {
                         if (e.Name.Contains(substr))
