@@ -1150,8 +1150,8 @@ namespace PULI.Views
                                     ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
                                     ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                     ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
-                                    if (TmpAddList[questionList.wqh_s_num + i.qb_order] == false)
-                                    {
+                                    //if (TmpAddList[questionList.wqh_s_num + i.qb_order] == false)
+                                    //{
                                         checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == i.qb_order);
                                         var check3 = new checkInfo
                                         {
@@ -1167,7 +1167,7 @@ namespace PULI.Views
                                         AddSaveToDB(questionList.wqh_s_num, i.qb_order);
                                         TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                         ////////Console.WriteLine("checkList2Add2~~~ ");
-                                    }
+                                    //}
 
                                     // ////////Console.WriteLine("cc~~~ " + p);
                                     ////////Console.WriteLine("ANS2~~ " + ANS2);
@@ -4368,8 +4368,8 @@ namespace PULI.Views
                                     ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
                                     ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                     ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
-                                    if (TmpAddList[questionList.wqh_s_num + i.qb_order] == false)
-                                    {
+                                    //if (TmpAddList[questionList.wqh_s_num + i.qb_order] == false)
+                                    //{
                                         checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == i.qb_order);
                                         var check3 = new checkInfo
                                         {
@@ -4385,7 +4385,7 @@ namespace PULI.Views
                                         AddSaveToDB(questionList.wqh_s_num, i.qb_order);
                                         TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                         ////////Console.WriteLine("checkList2Add2~~~ ");
-                                    }
+                                    //}
 
                                     // ////////Console.WriteLine("cc~~~ " + p);
                                     ////////Console.WriteLine("ANS2~~ " + ANS2);

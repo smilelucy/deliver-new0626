@@ -185,12 +185,12 @@ namespace PULI.Views
 
                 //});
                 
-                //Console.WriteLine("shipment~~~");
+                Console.WriteLine("shipment~~~");
             }
             else if(MainPage.AUTH == "6" && MainPage.userList.daily_shipment_nums > 0) // 社工幫忙送餐(有打卡功能)
             {
                 Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick);
-                //Console.WriteLine("helpermixshipment~~~");
+                Console.WriteLine("helpermixshipment~~~");
             }
             else
             {
@@ -459,6 +459,8 @@ namespace PULI.Views
                                     if (setnum > totalList.daily_shipments.Count() || setnum == totalList.daily_shipments.Count())
                                     {
                                         //await DisplayAlert(param.SYSYTEM_MESSAGE, "今日送餐完畢", param.DIALOG_MESSAGE);
+                                        Console.WriteLine("setnumAAAA~~~ " + setnum);
+                                        Console.WriteLine("shipmentcount~~~~ " + totalList.daily_shipments.Count());
                                         DeliverEnd.IsVisible = true;
                                         Dist.IsVisible = false;
                                     }
@@ -1039,6 +1041,7 @@ namespace PULI.Views
                             position = await location.GetPositionAsync(TimeSpan.FromSeconds(5));
                             NowLon = position.Longitude;
                             NowLat = position.Latitude;
+
                             //Console.WriteLine("nowlat" + position.Latitude);
                             //Console.WriteLine("nowlot" + position.Longitude);
                             //Console.WriteLine("NoewLon~~~" + NowLon);
@@ -1245,7 +1248,7 @@ namespace PULI.Views
                             }
                             //if (setnum > 0 || setnum == 0)
                             //Console.WriteLine("who1~~~~" + setnum);
-                            if(setnum == 0 || total_need_to_serve > setnum )
+                            if(setnum == 0 || total_need_to_serve > setnum || total_need_to_serve == setnum)
                             {
                                 //Console.WriteLine("setnum~~in~~~");
                                 if (DeliverOver == false)
@@ -2065,6 +2068,8 @@ namespace PULI.Views
                             }
                             else
                             {
+                                Console.WriteLine("setnumBBB~~~ " + setnum);
+                                Console.WriteLine("totalneedtoserve~~~ " + total_need_to_serve);
                                 DeliverEnd.IsVisible = true;
                                 Dist.IsVisible = false;
                             }
