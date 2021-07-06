@@ -58,6 +58,22 @@
                      VerticalOptions="Center">
             <Label x:Name="distance" TextColor="Black" FontSize="18"></Label>
         </StackLayout>
+        <StackLayout x:Name="Lat" BackgroundColor="White"
+                      HorizontalOptions="Center"
+                     Orientation="Horizontal"
+                     HeightRequest="30"
+                     WidthRequest="500"
+                     VerticalOptions="Center">
+            <Label x:Name="Latitude" TextColor="Black" FontSize="18"></Label>
+        </StackLayout>
+        <StackLayout x:Name="Lot" BackgroundColor="White"
+                      HorizontalOptions="Center"
+                     Orientation="Horizontal"
+                     HeightRequest="30"
+                     WidthRequest="500"
+                     VerticalOptions="Center">
+            <Label x:Name="Longitude" TextColor="Black" FontSize="18"></Label>
+        </StackLayout>
         <!--<StackLayout x:Name="Lat" BackgroundColor="White"
                       HorizontalOptions="Center"
                      Orientation="Horizontal"

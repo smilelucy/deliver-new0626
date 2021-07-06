@@ -1273,6 +1273,8 @@ namespace PULI.Views
                                         string d2 = d.ToString();
                                         //Console.WriteLine("@@@@@" + d2);
                                         distance.Text = d2;
+                                        Latitude.Text = position.Latitude.ToString();
+                                        Longitude.Text = position.Longitude.ToString();
 
                                         //foreach (var a in punchList)
                                         //{

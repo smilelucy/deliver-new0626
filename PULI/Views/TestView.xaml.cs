@@ -31,8 +31,10 @@ namespace PULI.Views
         public static bool ischeck;
         public Dictionary<string, bool> TmpCheckList = new Dictionary<string, bool>();
         public Dictionary<string, string> TmpAnsList = new Dictionary<string, string>();
-        public Dictionary<string, bool> TmpAdd_elseList = new Dictionary<string, bool>();
-        public Dictionary<string, bool> TmpAddList = new Dictionary<string, bool>();
+        public static Dictionary<string, string> TmpAnsList_same = new Dictionary<string, string>();
+        public static Dictionary<string, string> TmpAnsList_same_wqh = new Dictionary<string, string>();
+        //public Dictionary<string, bool> TmpAdd_elseList = new Dictionary<string, bool>();
+        //public Dictionary<string, bool> TmpAddList = new Dictionary<string, bool>();
         public Dictionary<string, bool> CheckboxList = new Dictionary<string, bool>();
         public Dictionary<string, bool> IsResetList = new Dictionary<string, bool>();
         public Dictionary<string, int> RepeatOrNotList = new Dictionary<string, int>();
@@ -171,11 +173,13 @@ namespace PULI.Views
             {
                 foreach (var i in a.qbs)
                 {
-                    TmpAddList[a.wqh_s_num + i.qb_order] = false;
-                    TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
+                    //TmpAddList[a.wqh_s_num + i.qb_order] = false;
+                   // TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
                     IsResetList[a.wqh_s_num + i.qb_order] = false;
                     IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
-                    TmpAnsList[a.ClientName + i.qb_order] = "";
+                    TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+                    TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
+                    TmpAnsList_same[a.wqh_s_num  + i.qb_order] = "";
                     CheckboxList[a.ClientName] = false;
 
                     if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
@@ -258,8 +262,19 @@ namespace PULI.Views
                                         ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
                                         ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
                                         ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
-                                        TmpAnsList[a.ClientName + i.qb_order] = TempAnsList.wqb01;
-                                        ////////Console.WriteLine("EEE~~~ " + TmpAnsList[questionList.ClientName + i.qb_order]);
+                                        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
+                                        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
+                                        //TmpAnsList_same_wqh.Add(a.ClientName + i.qb_order, a.wqh_s_num);
+                                        TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01; // 給點擊同上判斷用
+                                        Console.WriteLine("CC_name~~ " + a.ClientName);
+                                        Console.WriteLine("CC_order~~ " + i.qb_order);
+                                        Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
+                                        Console.WriteLine("DD_wqh~~ " + a.wqh_s_num);
+                                        Console.WriteLine("DD_order~~ " + i.qb_order);
+                                        Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
+                                        Console.WriteLine("VVVVV~~ " + TmpAnsList_same_wqh["林十1"]);
+                                        //Console.WriteLine("EEE~~~ " + TmpAnsList[a.ClientName + i.qb_order]);
+                                        //Console.WriteLine("EEE~~~ " + TmpAnsList_same[a.ClientName + i.qb_order]);
                                         //////////Console.WriteLine("number " + TempAnsList.qb_s_num);
                                         //////////Console.WriteLine("who " + TempAnsList.qh_s_num);
 
@@ -288,60 +303,60 @@ namespace PULI.Views
 
                     }
                     ////////Console.WriteLine("TempAdd~~~ " + TempAddDB.GetAccountAsync2().Count());
-                    if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        //////////Console.WriteLine("IMMMM~~~~");
-                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
-                        {
-                            var e = TempAddDB.GetAccountAsync(b);
+                    //if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    //{
+                    //    //////////Console.WriteLine("IMMMM~~~~");
+                    //    //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                    //    for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
+                    //    {
+                    //        var e = TempAddDB.GetAccountAsync(b);
 
 
-                            foreach (var AddList in e)
-                            {
-                                if (AddList.wqh_s_num == a.wqh_s_num)
-                                {
-                                    if (AddList.qb_order == i.qb_order)
-                                    {
-                                        TmpAddList[a.wqh_s_num + i.qb_order] = true;
-                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
-                                        ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
-                                    }
-                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                    //        foreach (var AddList in e)
+                    //        {
+                    //            if (AddList.wqh_s_num == a.wqh_s_num)
+                    //            {
+                    //                if (AddList.qb_order == i.qb_order)
+                    //                {
+                    //                    TmpAddList[a.wqh_s_num + i.qb_order] = true;
+                    //                    ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                    //                    ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                    //                    ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
+                    //                }
+                    //                ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
 
-                                }
+                    //            }
 
-                            }
-                        }
-                    }
-                    if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        //////////Console.WriteLine("IMMMM~~~~");
-                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
-                        {
-                            var r = TempAddDB_else.GetAccountAsync(b);
+                    //        }
+                    //    }
+                    //}
+                    //if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    //{
+                    //    //////////Console.WriteLine("IMMMM~~~~");
+                    //    //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                    //    for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
+                    //    {
+                    //        var r = TempAddDB_else.GetAccountAsync(b);
 
 
-                            foreach (var Add_elseList in r)
-                            {
-                                if (Add_elseList.wqh_s_num == a.wqh_s_num)
-                                {
-                                    if (Add_elseList.qb_order == i.qb_order)
-                                    {
-                                        TmpAdd_elseList[a.wqh_s_num + i.qb_order] = true;
-                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
-                                        ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
-                                    }
-                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                    //        foreach (var Add_elseList in r)
+                    //        {
+                    //            if (Add_elseList.wqh_s_num == a.wqh_s_num)
+                    //            {
+                    //                if (Add_elseList.qb_order == i.qb_order)
+                    //                {
+                    //                    //TmpAdd_elseList[a.wqh_s_num + i.qb_order] = true;
+                    //                    ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                    //                    ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                    //                    ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
+                    //                }
+                    //                ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
 
-                                }
+                    //            }
 
-                            }
-                        }
-                    }
+                    //        }
+                    //    }
+                    //}
                 }
             }
 
@@ -434,11 +449,13 @@ namespace PULI.Views
             {
                 foreach (var i in a.qbs)
                 {
-                    TmpAddList[a.wqh_s_num + i.qb_order] = false;
-                    TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
+                    //TmpAddList[a.wqh_s_num + i.qb_order] = false;
+                    //TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
                     IsResetList[a.wqh_s_num + i.qb_order] = false;
                     IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
-                    TmpAnsList[a.ClientName + i.qb_order] = "";
+                    TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+                    TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
+                    TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
 
                     if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
                     {
@@ -520,7 +537,16 @@ namespace PULI.Views
                                         ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
                                         ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
                                         ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
-                                        TmpAnsList[a.ClientName + i.qb_order] = TempAnsList.wqb01;
+                                        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
+                                        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
+                                        TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01;
+                                        Console.WriteLine("AA_name~~ " + a.ClientName);
+                                        Console.WriteLine("AA_order~~ " + i.qb_order);
+                                        Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
+                                        Console.WriteLine("BB_wqh~~ " + a.wqh_s_num);
+                                        Console.WriteLine("BB_order~~ " + i.qb_order);
+                                        Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
+                                        //Console.WriteLine("EEE~~~ " + TmpAnsList_same[a.ClientName + i.qb_order]);
                                         ////////Console.WriteLine("EEE~~~ " + TmpAnsList[questionList.ClientName + i.qb_order]);
                                         //////////Console.WriteLine("number " + TempAnsList.qb_s_num);
                                         //////////Console.WriteLine("who " + TempAnsList.qh_s_num);
@@ -550,60 +576,60 @@ namespace PULI.Views
 
                     }
                     ////////Console.WriteLine("TempAdd~~~ " + TempAddDB.GetAccountAsync2().Count());
-                    if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        //////////Console.WriteLine("IMMMM~~~~");
-                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
-                        {
-                            var e = TempAddDB.GetAccountAsync(b);
+                    //if (TempAddDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    //{
+                    //    //////////Console.WriteLine("IMMMM~~~~");
+                    //    //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                    //    for (int b = 0; b < TempAddDB.GetAccountAsync2().Count(); b++)
+                    //    {
+                    //        var e = TempAddDB.GetAccountAsync(b);
 
 
-                            foreach (var AddList in e)
-                            {
-                                if (AddList.wqh_s_num == a.wqh_s_num)
-                                {
-                                    if (AddList.qb_order == i.qb_order)
-                                    {
-                                        TmpAddList[a.wqh_s_num + i.qb_order] = true;
-                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
-                                        ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
-                                    }
-                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                    //        foreach (var AddList in e)
+                    //        {
+                    //            if (AddList.wqh_s_num == a.wqh_s_num)
+                    //            {
+                    //                if (AddList.qb_order == i.qb_order)
+                    //                {
+                    //                    TmpAddList[a.wqh_s_num + i.qb_order] = true;
+                    //                    ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                    //                    ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                    //                    ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
+                    //                }
+                    //                ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
 
-                                }
+                    //            }
 
-                            }
-                        }
-                    }
-                    if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        //////////Console.WriteLine("IMMMM~~~~");
-                        //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
-                        {
-                            var r = TempAddDB_else.GetAccountAsync(b);
+                    //        }
+                    //    }
+                    //}
+                    //if (TempAddDB_else.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    //{
+                    //    //////////Console.WriteLine("IMMMM~~~~");
+                    //    //////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                    //    for (int b = 0; b < TempAddDB_else.GetAccountAsync2().Count(); b++)
+                    //    {
+                    //        var r = TempAddDB_else.GetAccountAsync(b);
 
 
-                            foreach (var Add_elseList in r)
-                            {
-                                if (Add_elseList.wqh_s_num == a.wqh_s_num)
-                                {
-                                    if (Add_elseList.qb_order == i.qb_order)
-                                    {
-                                        TmpAdd_elseList[a.wqh_s_num + i.qb_order] = true;
-                                        ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                                        ////////Console.WriteLine("qborder~~~ " + i.qb_order);
-                                        ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
-                                    }
-                                    ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                    //        foreach (var Add_elseList in r)
+                    //        {
+                    //            if (Add_elseList.wqh_s_num == a.wqh_s_num)
+                    //            {
+                    //                if (Add_elseList.qb_order == i.qb_order)
+                    //                {
+                    //                    TmpAdd_elseList[a.wqh_s_num + i.qb_order] = true;
+                    //                    ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                    //                    ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                    //                    ////////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
+                    //                }
+                    //                ////////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
 
-                                }
+                    //            }
 
-                            }
-                        }
-                    }
+                    //        }
+                    //    }
+                    //}
                 }
             }
 
@@ -630,8 +656,12 @@ namespace PULI.Views
             //};
             ////////Console.WriteLine("name~ " + questionList.ClientName);
             ////////Console.WriteLine("qb_s_num~~ " + questionList.qbs[0].qb_s_num);
-            
-            
+            Console.WriteLine("AAA~~ " + TmpAnsList_same_wqh["林十1"]);
+            string value;
+            bool hasValue = TmpAnsList_same_wqh.TryGetValue("林十1", out value);
+            Console.WriteLine("hasvalue~~ " + hasValue);
+            Console.WriteLine("value~~~ " + value);
+
             var label_name = new Label
             {
                 Text = questionList.ClientName,
@@ -1119,13 +1149,13 @@ namespace PULI.Views
                                 //var temp_value_map = "";
 
                                 // 跑選是的reset把checkList抓回來判斷
-                                if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                 {
                                     ////////Console.WriteLine("first~~ ");
                                     ////////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                     ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                     var _wqhsnum = questionList.wqh_s_num;
-                                    temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                    temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                     ////////Console.WriteLine("tempj~~ " + temp_j);
                                     for (int d = 0; d < i.qb03.Count(); d++)
                                     {
@@ -1165,7 +1195,7 @@ namespace PULI.Views
                                         ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                         checkList2.Add(check3); // for save
                                         AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                        TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                        //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                         ////////Console.WriteLine("checkList2Add2~~~ ");
                                     //}
 
@@ -1666,13 +1696,13 @@ namespace PULI.Views
                                     //var temp_j_map = "";
                                     //var temp_value_map = "";
                                     ////////Console.WriteLine("checklist2~count1~ " + checkList2.Count());
-                                    if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                    if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                     {
                                         ////////Console.WriteLine("first~~ ");
                                         ////////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                         ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                         var _wqhsnum = questionList.wqh_s_num;
-                                        temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                        temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                         ////////Console.WriteLine("tempj~~ " + temp_j);
                                         for (int d = 0; d < i.qb03.Count(); d++)
                                         {
@@ -1712,7 +1742,7 @@ namespace PULI.Views
                                             ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                             checkList2.Add(check3); // for save
                                             AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                            TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                            //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                             ////////Console.WriteLine("checkList2Add2~~~ ");
                                         //}
 
@@ -2344,13 +2374,13 @@ namespace PULI.Views
                                     //var temp_j_map = "";
                                     //var temp_value_map = "";
                                     ////////Console.WriteLine("checklist2~count1~ " + checkList2.Count());
-                                    if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                    if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                     {
                                         ////////Console.WriteLine("first~~ ");
                                         ////////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                         ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                         var _wqhsnum = questionList.wqh_s_num;
-                                        temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                        temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                         ////////Console.WriteLine("tempj~~ " + temp_j);
                                         for (int d = 0; d < i.qb03.Count(); d++)
                                         {
@@ -2390,7 +2420,7 @@ namespace PULI.Views
                                             ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                             checkList2.Add(check3); // for save
                                             AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                            TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                            //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                             ////////Console.WriteLine("checkList2Add2~~~ ");
                                         //}
 
@@ -3031,13 +3061,13 @@ namespace PULI.Views
                                         //var temp_value_map = "";
 
                                         // 跑選是的reset把checkList抓回來判斷
-                                        if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                        if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                         {
                                             //////Console.WriteLine("third~~ ");
                                             //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                             //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
-                                            temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                            temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                             //////Console.WriteLine("tempj~~ " + temp_j);
                                             for (int d = 0; d < i.qb03.Count(); d++)
                                             {
@@ -3644,13 +3674,13 @@ namespace PULI.Views
                                         //var temp_value_map = "";
 
                                         // 跑選是的reset把checkList抓回來判斷
-                                        if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                        if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                         {
                                             //////Console.WriteLine("third~~ ");
                                             //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                             //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
-                                            temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                            temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                             //////Console.WriteLine("tempj~~ " + temp_j);
                                             for (int d = 0; d < i.qb03.Count(); d++)
                                             {
@@ -4337,13 +4367,13 @@ namespace PULI.Views
                                 //var temp_value_map = "";
 
                                 // 跑選是的reset把checkList抓回來判斷
-                                if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                 {
                                     ////////Console.WriteLine("first~~ ");
                                     ////////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                     ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                     var _wqhsnum = questionList.wqh_s_num;
-                                    temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                    temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                     ////////Console.WriteLine("tempj~~ " + temp_j);
                                     for (int d = 0; d < i.qb03.Count(); d++)
                                     {
@@ -4383,7 +4413,7 @@ namespace PULI.Views
                                         ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                         checkList2.Add(check3); // for save
                                         AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                        TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                        //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                         ////////Console.WriteLine("checkList2Add2~~~ ");
                                     //}
 
@@ -4884,13 +4914,13 @@ namespace PULI.Views
                                     //var temp_j_map = "";
                                     //var temp_value_map = "";
                                     ////////Console.WriteLine("checklist2~count1~ " + checkList2.Count());
-                                    if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                    if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                     {
                                         ////////Console.WriteLine("first~~ ");
                                         ////////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                         ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                         var _wqhsnum = questionList.wqh_s_num;
-                                        temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                        temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                         ////////Console.WriteLine("tempj~~ " + temp_j);
                                         for (int d = 0; d < i.qb03.Count(); d++)
                                         {
@@ -4930,7 +4960,7 @@ namespace PULI.Views
                                             ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                             checkList2.Add(check3); // for save
                                             AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                            TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                            //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                             ////////Console.WriteLine("checkList2Add2~~~ ");
                                         //}
 
@@ -5562,13 +5592,13 @@ namespace PULI.Views
                                     //var temp_j_map = "";
                                     //var temp_value_map = "";
                                     ////////Console.WriteLine("checklist2~count1~ " + checkList2.Count());
-                                    if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                    if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                     {
                                         ////////Console.WriteLine("first~~ ");
                                         ////////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                         ////////Console.WriteLine("qborder~~~ " + i.qb_order);
                                         var _wqhsnum = questionList.wqh_s_num;
-                                        temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                        temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                         ////////Console.WriteLine("tempj~~ " + temp_j);
                                         for (int d = 0; d < i.qb03.Count(); d++)
                                         {
@@ -5608,7 +5638,7 @@ namespace PULI.Views
                                             ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                             checkList2.Add(check3); // for save
                                             AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                            TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                            //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                             ////////Console.WriteLine("checkList2Add2~~~ ");
                                         //}
 
@@ -6249,13 +6279,13 @@ namespace PULI.Views
                                         //var temp_value_map = "";
 
                                         // 跑選是的reset把checkList抓回來判斷
-                                        if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                        if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                         {
                                             //////Console.WriteLine("third~~ ");
                                             //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                             //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
-                                            temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                            temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                             //////Console.WriteLine("tempj~~ " + temp_j);
                                             for (int d = 0; d < i.qb03.Count(); d++)
                                             {
@@ -6862,13 +6892,13 @@ namespace PULI.Views
                                         //var temp_value_map = "";
 
                                         // 跑選是的reset把checkList抓回來判斷
-                                        if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                        if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                         {
                                             //////Console.WriteLine("third~~ ");
                                             //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                             //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
-                                            temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                            temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                             //////Console.WriteLine("tempj~~ " + temp_j);
                                             for (int d = 0; d < i.qb03.Count(); d++)
                                             {
@@ -10143,13 +10173,13 @@ namespace PULI.Views
                                     var temp_value = "";
                                     //var temp_j_map = "";
                                     //var temp_value_map = "";
-                                    if (TmpAnsList.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList[questionList.ClientName + i.qb_order] != "")
+                                    if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                     {
                                         //////Console.WriteLine("first~~ ");
                                         //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                                         //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                         var _wqhsnum = questionList.wqh_s_num;
-                                        temp_j = TmpAnsList[questionList.ClientName + i.qb_order];
+                                        temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                         //////Console.WriteLine("tempj~~ " + temp_j);
                                         for (int d = 0; d < i.qb03.Count(); d++)
                                         {
@@ -10190,7 +10220,7 @@ namespace PULI.Views
                                         ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                         checkList2.Add(check3); // for save
                                         AddSaveToDB(questionList.wqh_s_num, i.qb_order);
-                                        TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                                        //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
                                         //////Console.WriteLine("checkList2Add2~~~ ");
                                         //}
 
@@ -11301,7 +11331,7 @@ namespace PULI.Views
                 ////}
                 
             }
-            if (RepeatOrNotList[questionList.ClientName] == -1)
+            if (RepeatOrNotList[questionList.ClientName] == -1) // 處理同上自動填答案
             {
                 ////Console.WriteLine("reapetin~~~ ");
                 //Console.WriteLine("_QB_S_NUM@@@@222 " + questionList.qb_s_num);
@@ -11344,464 +11374,583 @@ namespace PULI.Views
                     // 把同名字問卷答案抓出來，填入這題，並存入資料庫
                     //////Console.WriteLine("Buttonname~~~" + questionList.ClientName);
                     ////////Console.WriteLine("namecount~~~" + MapView.AccDatabase.GetItemsName(questionList.ClientName).Count());
-                    if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    //reset();
+                    foreach (var i in questionList.qbs)
                     {
-
-                        for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+                        if (TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order))
                         {
-                            //int num = MapView.AccDatabase.GetAccountAsync2().Count();
-                            var a = MapView.AccDatabase.GetAccountAsync(b);
-                            //////Console.WriteLine("count~~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                            //////Console.WriteLine("b~~" + b);
-                            List<TempAccount> SQLlist = MapView.AccDatabase.GetAccountAsyncToList(b);
-                            //////Console.WriteLine("countSQL~~~" + SQLlist.Count());
-                            for (int i = 0; i < SQLlist.Count(); i++)
+                            Console.WriteLine("first~~ ");
+                            Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
+                            Console.WriteLine("qborder~~~ " + i.qb_order);
+                            var temp_j = "";
+                            //var wqh = "";
+                            //var _wqhsnum = questionList.wqh_s_num;
+                            //Console.WriteLine("AAA~~ " + TmpAnsList_same_wqh["林十1"]);
+                            Console.WriteLine("name~~ " + questionList.ClientName);
+                            Console.WriteLine("order~~ " + i.qb_order);
+                            Console.WriteLine("qqqqqwqh~~~ " + TmpAnsList_same_wqh[questionList.ClientName + i.qb_order]);
+                            //wqh = TmpAnsList_same_wqh[questionList.ClientName + i.qb_order]; // 題號
+                           
+                            Console.WriteLine("wqh~~~ " + TmpAnsList_same_wqh[questionList.ClientName + i.qb_order]);
+                            
+                            
+                            
+                            
+                            
+                            
+                            temp_j = TmpAnsList_same[TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] + i.qb_order];
+                            Console.WriteLine("tempj~~ " + temp_j);
+                            for (int d = 0; d < i.qb03.Count(); d++)
                             {
-                                //////Console.WriteLine("i~~~" + i);
-                                //////Console.WriteLine("NAME~~~" + SQLlist[i].ClientName);
-                                //////Console.WriteLine("sq_s_num~~" + SQLlist[i].qb_s_num);
-                                //////Console.WriteLine("orser~~" + SQLlist[i].qb_order); 
-                                //////Console.WriteLine("wqb01~~~" + SQLlist[i].wqb01);
-                                //////Console.WriteLine("wqh~~ " + questionList.wqh_s_num);
-                                //////Console.WriteLine("qw~~ " + questionList.qh_s_num);
-
-
-                            }
-                            for (int k = SQLlist.Count() - 1; k > 0; k = k - 1)
-                            {
-                                //////Console.WriteLine("IN~~~");
-                                var total = tmp_name_list.Count(s => s == SQLlist[k].ClientName);
-                                Console.WriteLine("total~~~" + total);
-                                Console.WriteLine("qbs~~~~" + questionList.qbs.Count());
-                                Console.WriteLine("listcount~~ " + tmp_num_list.Count());
-                                //if (!tmp_name_list.Contains(SQLlist[k].ClientName))
-                                //{
-                                if (SQLlist[k].ClientName == questionList.ClientName)
+                                //Console.WriteLine("j00~~ " + j);
+                                Console.WriteLine("w00~~~ " + i.qb03[d]);
+                                if (temp_j == i.qb03[d])
                                 {
-                                   Console.WriteLine("qqname~~ " + questionList.ClientName);
-                                    
-                                    string _qbsnum = SQLlist[k].qb_s_num;
-                                    if (tmp_num_list.Count() != 0) 
-                                    {
-                                        //////Console.WriteLine("SQList_qb~~~" + SQLlist[k].qb_s_num);
-                                        //////Console.WriteLine("tmp_qb~~" + tmp_num_list[tmp_num_list.Count() - 1]);
-                                        //////Console.WriteLine("equal~~" + SQLlist[k].qb_s_num.Equals(tmp_num_list[tmp_num_list.Count() - 1]));
-                                        Console.WriteLine("total222~~~" + total);
-                                        Console.WriteLine("qbs222~~~~" + questionList.qbs.Count());
-                                        if(total != questionList.qbs.Count())
-                                        {
-                                            if (SQLlist[k].qb_s_num.Equals(tmp_num_list[tmp_num_list.Count() - 1]) == false) ;
-                                            {
-                                                Console.WriteLine("IN~~~~LA~");
-                                                Console.WriteLine("Qname~~~" + questionList.ClientName);
-                                                Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                                                Console.WriteLine("qb_s_num~~ " + questionList.qb_s_num);
-                                                Console.WriteLine("qb_s_num~~2~" + SQLlist[k].qb_s_num);
-                                                Console.WriteLine("wqb01~~2~" + SQLlist[k].wqb01);
-                                                tmp_name_list.Add(SQLlist[k].ClientName);
-                                                tmp_num_list.Add(SQLlist[k].qb_s_num);
-                                                _sameans = SQLlist[k].wqb01;
-                                                _ans = SQLlist[k].qb_order;
-                                                //Console.WriteLine("listcount~~ " + tmp_num_list.Count());
-                                                //////Console.WriteLine("k~~~" + k);
-                                                //////Console.WriteLine("ClientName~~1~" + SQLlist[k].ClientName);
-                                                //////Console.WriteLine("qb_s_num~~1~" + SQLlist[k].qb_s_num);
-                                                //////Console.WriteLine("wqb01~~1~" + SQLlist[k].wqb01);
-                                                ////////Console.WriteLine("ClientName~~2~" + SQLlist[k-1].ClientName);
-                                                ////////Console.WriteLine("qb_s_num~~2~" + SQLlist[k-1].qb_s_num);
-                                                ////////Console.WriteLine("wqb01~~2~" + SQLlist[k-1].wqb01);
 
-                                                ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
-                                                //////Console.WriteLine("qh_s_num~~~" + SQLlist[k].qb_s_num);
-                                                //Console.WriteLine("sameans~~~" + _sameans);
-                                                //tmp_name_list.Add(SQLlist[k-1].ClientName);
-                                                //tmp_num_list.Add(SQLlist[k-1].qb_s_num);
-                                                //_sameans2 = SQLlist[k-1].wqb01;
-                                                //string _qbsnum2 = SQLlist[k-1].qb_s_num;
-
-                                                if(SQLlist[k].qb_order == "1")
-                                                {
-                                                    if (_sameans == "否")
-                                                    {
-                                                        color = "Red";
-                                                    }
-                                                    else
-                                                    {
-                                                        color = "Green";
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (_sameans == "是" || _sameans == "未發")
-                                                    {
-                                                        color = "Red";
-                                                    }
-                                                    else
-                                                    {
-                                                        color = "Green";
-                                                    }
-                                                }
-                                                
-                                                ResetSaveToDB(questionList.wqh_s_num, SQLlist[k].qb_order, color);
-
-                                                QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName, _ans);
-                                                //QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum2, _sameans2, questionList.ClientName);
-
-                                                ////////Console.WriteLine("count~~~" + count);
-                                                if (_sameans == "是")
-                                                {
-                                                    ANS = 0;
-                                                    ANS2 = Convert.ToString(ANS);
-                                                }
-                                                else
-                                                {
-                                                    ANS = 1;
-                                                    ANS2 = Convert.ToString(ANS);
-                                                }
-                                                //if(_sameans2 == "是")
-                                                //{
-                                                //    ANS = 0;
-                                                //    ANS3 = Convert.ToString(ANS);
-                                                //}
-                                                //else
-                                                //{
-                                                //    ANS = 1;
-                                                //    ANS3 = Convert.ToString(ANS);
-                                                //}
-                                                var check = new checkInfo
-                                                {
-                                                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                    qb_s_num = _qbsnum, // 問題編號(第幾題)
-
-                                                    wqb01 = _sameans // 答案
-
-                                                };
-                                                //var check2 = new checkInfo
-                                                //{
-                                                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
-                                                //    wqb01 = _sameans2 // 答案
-
-                                                //};
-                                                var check3 = new checkInfo
-                                                {
-                                                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                    qb_s_num = _qbsnum, // 問題編號(第幾題)
-                                                    qb_order = _ans,
-                                                    wqb01 = ANS2 // 答案
-
-                                                };
-                                                //var check4 = new checkInfo
-                                                //{
-                                                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
-                                                //    wqb01 = ANS3 // 答案
-
-                                                //};
-                                                ////////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                                                ////////Console.WriteLine("qh~~~" + questionList.qh_s_num);
-                                                ////////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
-                                                //
-                                                //////Console.WriteLine("wqb01~~~" + ANS2);
-
-                                                ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
-                                                checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == _ans);
-                                                checkList.Add(check); // for check
-                                                                      //checkList.Add(check2); // for check
-                                                checkList2.Add(check3); // for save
-                                                                        //checkList2.Add(check4); // for save
-                                                isReset = true;
-                                                reset();
-                                            }
-                                        }
-                                        
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("IN~~~~BB~");
-                                        Console.WriteLine("Qname~~~" + questionList.ClientName);
-                                        Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                                        Console.WriteLine("qb_s_num~~ " + questionList.qb_s_num);
-                                        foreach (var j in questionList.qbs)
-                                        {
-                                            if (SQLlist[k].qb_s_num == j.qb_s_num)
-                                            {
-                                                Console.WriteLine("qb_s_num~~0~" + j.qb_s_num);
-                                                Console.WriteLine("wqb01~~0~" + SQLlist[k].wqb01);
-                                                tmp_name_list.Add(SQLlist[k].ClientName);
-                                                tmp_num_list.Add(SQLlist[k].qb_s_num);
-                                                _sameans = SQLlist[k].wqb01;
-
-                                                //////Console.WriteLine("k~~~" + k);
-                                                //////Console.WriteLine("ClientName~~1~" + SQLlist[k].ClientName);
-                                                Console.WriteLine("qb_s_num~~1~" + SQLlist[k].qb_s_num);
-                                                Console.WriteLine("wqb01~~1~" + SQLlist[k].wqb01);
-                                                ////////Console.WriteLine("ClientName~~2~" + SQLlist[k-1].ClientName);
-                                                ////////Console.WriteLine("qb_s_num~~2~" + SQLlist[k-1].qb_s_num);
-                                                ////////Console.WriteLine("wqb01~~2~" + SQLlist[k-1].wqb01);
-
-                                                ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
-                                                //////Console.WriteLine("qb_s_num~~~" + SQLlist[k].qb_s_num);
-                                                ////////Console.WriteLine("sameans~~~" + _sameans);
-                                                //tmp_name_list.Add(SQLlist[k-1].ClientName);
-                                                //tmp_num_list.Add(SQLlist[k-1].qb_s_num);
-                                                //_sameans2 = SQLlist[k-1].wqb01;
-                                                //string _qbsnum2 = SQLlist[k-1].qb_s_num;
-
-                                                if (SQLlist[k].qb_order == "1")
-                                                {
-                                                    if (_sameans == "否")
-                                                    {
-                                                        color = "Red";
-                                                    }
-                                                    else
-                                                    {
-                                                        color = "Green";
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (_sameans == "是" || _sameans == "未發")
-                                                    {
-                                                        color = "Red";
-                                                    }
-                                                    else
-                                                    {
-                                                        color = "Green";
-                                                    }
-                                                }
-
-                                                ResetSaveToDB(questionList.wqh_s_num, SQLlist[k].qb_order, color);
-
-                                                QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName, _ans);
-                                                //QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum2, _sameans2, questionList.ClientName);
-
-                                                ////////Console.WriteLine("count~~~" + count);
-                                                if (_sameans == "是")
-                                                {
-                                                    ANS = 0;
-                                                    ANS2 = Convert.ToString(ANS);
-                                                }
-                                                else
-                                                {
-                                                    ANS = 1;
-                                                    ANS2 = Convert.ToString(ANS);
-                                                }
-                                                //if(_sameans2 == "是")
-                                                //{
-                                                //    ANS = 0;
-                                                //    ANS3 = Convert.ToString(ANS);
-                                                //}
-                                                //else
-                                                //{
-                                                //    ANS = 1;
-                                                //    ANS3 = Convert.ToString(ANS);
-                                                //}
-                                                var check = new checkInfo
-                                                {
-                                                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                    qb_s_num = _qbsnum, // 問題編號(第幾題)
-                                                    wqb01 = _sameans // 答案
-
-                                                };
-                                                //var check2 = new checkInfo
-                                                //{
-                                                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
-                                                //    wqb01 = _sameans2 // 答案
-
-                                                //};
-                                                var check3 = new checkInfo
-                                                {
-                                                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                    qb_s_num = _qbsnum, // 問題編號(第幾題)
-                                                    qb_order = _ans,
-                                                    wqb01 = ANS2 // 答案
-
-                                                };
-                                                //var check4 = new checkInfo
-                                                //{
-                                                //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                                                //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                                                //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
-                                                //    wqb01 = ANS3 // 答案
-
-                                                //};
-                                                ////////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                                                ////////Console.WriteLine("qh~~~" + questionList.qh_s_num);
-                                                ////////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
-                                                //
-                                                //////Console.WriteLine("wqb01~~~" + ANS2);
-
-                                                ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
-                                                checkList.Add(check); // for check
-                                                                      //checkList.Add(check2); // for check
-                                                checkList2.Add(check3); // for save
-                                                                        //checkList2.Add(check4); // for save
-                                                isReset = true;
-                                                reset();
-                                            }
-                                        }
-                                        
-                                    }
-
-
-                                    //}
+                                    Console.WriteLine("w~~~ " + i.qb03[d]);
+                                    //Console.WriteLine("check~~ " + checkList2[a].wqb01);
+                                    Console.WriteLine("qb0311~~ " + qb03_count);
+                                   // Console.WriteLine("j~~ " + j);
+                                    Console.WriteLine("w~~~ " + i.qb03[d]);
+                                    //ANS2 = Convert.ToString(qb03_count);
+                                    ANS2 = d.ToString();
+                                    Console.WriteLine("jj~~ " + temp_j);
+                                    Console.WriteLine("ANS2_2~~ " + ANS2);
                                 }
 
+                                ////////Console.WriteLine("qb0322~~ " + qb03_count);
                             }
-                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
-                            //foreach (var TempNameList in a)
+                            ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                            ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                            ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
+                            //if (TmpAddList[questionList.wqh_s_num + i.qb_order] == false)
                             //{
-                            //    var total = tmp_name_list.Count(s => s == TempNameList.ClientName);
-                            //    //////Console.WriteLine("total~~~" + total);
-                            //    //////Console.WriteLine("qbs~~~~" + questionList.qbs.Count());
-                            //    if (!tmp_name_list.Contains(TempNameList.ClientName) || total != 2)
-                            //    {
-                            //        if (TempNameList.ClientName == questionList.ClientName)
-                            //        {
+                            checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == i.qb_order);
+                            var check3 = new checkInfo
+                            {
+                                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                                qb_s_num = i.qb_s_num, // 問題編號(第幾題)
+                                qb_order = i.qb_order,
+                                wqb01 = ANS2 // 答案
 
-                            //            //////Console.WriteLine("IN~~~~LA~");
-                            //            //////Console.WriteLine("Qname~~~" + questionList.ClientName);
-                            //            //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                            //            tmp_name_list.Add(TempNameList.ClientName);
-                            //            tmp_num_list.Add(TempNameList.qb_s_num);
-                            //            _sameans = TempNameList.wqb01;
-                            //            string _qbsnum = TempNameList.qb_s_num;
-                            //            //////Console.WriteLine("qbsum~~~" + _qbsnum);
-                            //            //////Console.WriteLine("ClientName~~~" + TempNameList.ClientName);
-
-                            //            ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
-                            //            //////Console.WriteLine("qb_s_num~~~" + TempNameList.qb_s_num);
-                            //            ////////Console.WriteLine("sameans~~~" + _sameans);
-
-
-                            //            QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName);
-
-                            //            ////////Console.WriteLine("count~~~" + count);
-                            //            if (_sameans == "是")
-                            //            {
-                            //                ANS = 0;
-                            //                ANS2 = Convert.ToString(ANS);
-                            //            }
-                            //            else
-                            //            {
-                            //                ANS = 1;
-                            //                ANS2 = Convert.ToString(ANS);
-                            //            }
-                            //            var check = new checkInfo
-                            //            {
-                            //                wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                            //                qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                            //                qb_s_num = _qbsnum, // 問題編號(第幾題)
-                            //                wqb01 = _sameans // 答案
-
-                            //            };
-                            //            var check3 = new checkInfo
-                            //            {
-                            //                wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                            //                qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                            //                qb_s_num = _qbsnum, // 問題編號(第幾題)
-                            //                qb_order = i.qb_order,
-                            //                wqb01 = ANS2 // 答案
-
-                            //            };
-                            //            //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                            //            //////Console.WriteLine("qh~~~" + questionList.qh_s_num);
-                            //            //////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
-                            //            //////Console.WriteLine("wqb01~~~" + ANS2);
-
-                            //            ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
-                            //            checkList.Add(check); // for check
-                            //            checkList2.Add(check3); // for save
-                            //            reset();
-
-                            //        }
-                            //    }
-
+                            };
+                            ////////Console.WriteLine("count1~~ " + checkList2.Count());
+                            checkList2.Add(check3); // for save
+                            AddSaveToDB(questionList.wqh_s_num, i.qb_order);
+                            //TmpAddList[questionList.wqh_s_num + i.qb_order] = true;
+                            ////////Console.WriteLine("checkList2Add2~~~ ");
                             //}
-                            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                            //var TempNameList = MapView.AccDatabase.GetAccountAsync(b).Last();
-                            //var total = tmp_name_list.Count(s => s == TempNameList.ClientName);
-                            ////////Console.WriteLine("total~~~" + total);
-                            ////////Console.WriteLine("qbs~~~~" + questionList.qbs.Count());
-                            //if (!tmp_name_list.Contains(TempNameList.ClientName) || total != 2)
+
+                            // ////////Console.WriteLine("cc~~~ " + p);
+                            ////////Console.WriteLine("ANS2~~ " + ANS2);
+                            //var ques = questionList.wqh_s_num + i.qb_order;
+                            //////////Console.WriteLine("ques!!! " + ques);
+                            //for(int e = 0; e < checkList2.Count(); e++)
                             //{
-                            //    if (TempNameList.ClientName == questionList.ClientName)
+                            //    var check = checkList2[e].wqh_s_num + checkList2[e].qb_order;
+                            //    ////////Console.WriteLine("check!!! " + check);
+                            //    if (check != ques)
                             //    {
-
-                            //        //////Console.WriteLine("IN~~~~LA~");
-                            //        //////Console.WriteLine("Qname~~~" + questionList.ClientName);
-                            //        //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                            //        tmp_name_list.Add(TempNameList.ClientName);
-                            //        tmp_num_list.Add(TempNameList.qb_s_num);
-                            //        _sameans = TempNameList.wqb01;
-                            //        string _qbsnum = TempNameList.qb_s_num;
-                            //        //////Console.WriteLine("qbsum~~~" + _qbsnum);
-                            //        //////Console.WriteLine("ClientName~~~" + TempNameList.ClientName);
-
-                            //        ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
-                            //        //////Console.WriteLine("qb_s_num~~~" + TempNameList.qb_s_num);
-                            //        ////////Console.WriteLine("sameans~~~" + _sameans);
-
-
-                            //        QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName);
-
-                            //        ////////Console.WriteLine("count~~~" + count);
-                            //        if (_sameans == "是")
-                            //        {
-                            //            ANS = 0;
-                            //            ANS2 = Convert.ToString(ANS);
-                            //        }
-                            //        else
-                            //        {
-                            //            ANS = 1;
-                            //            ANS2 = Convert.ToString(ANS);
-                            //        }
-                            //        var check = new checkInfo
-                            //        {
-                            //            wqh_s_num = questionList.wqh_s_num, // 問卷編號
-                            //            qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                            //            qb_s_num = _qbsnum, // 問題編號(第幾題)
-                            //            wqb01 = _sameans // 答案
-
-                            //        };
+                            //        ////////Console.WriteLine("checkin!!! " + check);
+                            //        ////////Console.WriteLine("quesin!!! " + ques);
                             //        var check3 = new checkInfo
                             //        {
                             //            wqh_s_num = questionList.wqh_s_num, // 問卷編號
                             //            qh_s_num = questionList.qh_s_num, // 工作問卷編號
-                            //            qb_s_num = _qbsnum, // 問題編號(第幾題)
+                            //            qb_s_num = i.qb_s_num, // 問題編號(第幾題)
                             //            qb_order = i.qb_order,
                             //            wqb01 = ANS2 // 答案
 
                             //        };
-                            //        //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
-                            //        //////Console.WriteLine("qh~~~" + questionList.qh_s_num);
-                            //        //////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
-                            //        //////Console.WriteLine("wqb01~~~" + ANS2);
-
-                            //        ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
-                            //        checkList.Add(check); // for check
+                            //        ////////Console.WriteLine("count1~~ " + checkList2.Count());
                             //        checkList2.Add(check3); // for save
-
-                            //        reset();
-
+                            //        ////////Console.WriteLine("checkList2Add2~~~ ");
                             //    }
                             //}
+                            ////////Console.WriteLine("checklist2~count2~ " + checkList2.Count());
+                            //qb03_count = 0;
+                            //foreach (var y in i.qb03)
+                            //{
+                            //    ////////Console.WriteLine("yAA~~~ " + y);
+                            //    if (temp_j == y)
+                            //    {
+                            //        ////////Console.WriteLine("temp_j~~ " + temp_j);
+                            //        ////////Console.WriteLine("qb03_count~~ " + qb03_count);
+                            //        p = Convert.ToString(qb03_count);
+                            //    }
+                            //    qb03_count = qb03_count + 1;
+
+                            //}
+                            //////////Console.WriteLine("cc~~~ " + p);
+                            ////temp_value = TempAnsList.wqb99; // 之前的entry
+                            //var check2 = new checkInfo
+                            //{
+                            //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                            //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                            //    qb_s_num = i.qb_s_num, // 問題編號(第幾題)
+                            //    wqb01 = p,// 答案
+                            //              //wqb99 = TempAnsList.wqb99
+
+                            //};
                         }
                     }
-                    ////////Console.WriteLine("questionList.wqh_s_num~~" + questionList.wqh_s_num);
-                    ////////Console.WriteLine("questionList.qh_s_num~~" + questionList.qh_s_num);
-                    ////////Console.WriteLine("i.qb_s_num~~" + _QB_S_NUM);
-                    ////////Console.WriteLine("wqb01~~" + _sameans);
-                    ////////Console.WriteLine("name~~~" + questionList.ClientName);
+                    
+
+                    //if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    //{
+
+                    //    for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+                    //    {
+                    //        //int num = MapView.AccDatabase.GetAccountAsync2().Count();
+                    //        var a = MapView.AccDatabase.GetAccountAsync(b);
+                    //        //////Console.WriteLine("count~~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                    //        //////Console.WriteLine("b~~" + b);
+                    //        List<TempAccount> SQLlist = MapView.AccDatabase.GetAccountAsyncToList(b);
+                    //        //////Console.WriteLine("countSQL~~~" + SQLlist.Count());
+                    //        //for (int i = 0; i < SQLlist.Count(); i++)
+                    //        //{
+                    //        //////Console.WriteLine("i~~~" + i);
+                    //        //////Console.WriteLine("NAME~~~" + SQLlist[i].ClientName);
+                    //        //////Console.WriteLine("sq_s_num~~" + SQLlist[i].qb_s_num);
+                    //        //////Console.WriteLine("orser~~" + SQLlist[i].qb_order); 
+                    //        //////Console.WriteLine("wqb01~~~" + SQLlist[i].wqb01);
+                    //        //////Console.WriteLine("wqh~~ " + questionList.wqh_s_num);
+                    //        //////Console.WriteLine("qw~~ " + questionList.qh_s_num);
+
+
+                    //        //}
+                    //        for (int k = SQLlist.Count() - 1; k > 0; k = k - 1)
+                    //        {
+                    //            //////Console.WriteLine("IN~~~");
+                    //            var total = tmp_name_list.Count(s => s == SQLlist[k].ClientName);
+                    //            Console.WriteLine("total~~~" + total);
+                    //            Console.WriteLine("qbs~~~~" + questionList.qbs.Count());
+                    //            Console.WriteLine("listcount~~ " + tmp_num_list.Count());
+                    //            //if (!tmp_name_list.Contains(SQLlist[k].ClientName))
+                    //            //{
+                    //            if (SQLlist[k].ClientName == questionList.ClientName)
+                    //            {
+                    //                Console.WriteLine("qqname~~ " + questionList.ClientName);
+
+                    //                string _qbsnum = SQLlist[k].qb_s_num;
+                    //                if (tmp_num_list.Count() != 0)
+                    //                {
+                    //                    //////Console.WriteLine("SQList_qb~~~" + SQLlist[k].qb_s_num);
+                    //                    //////Console.WriteLine("tmp_qb~~" + tmp_num_list[tmp_num_list.Count() - 1]);
+                    //                    //////Console.WriteLine("equal~~" + SQLlist[k].qb_s_num.Equals(tmp_num_list[tmp_num_list.Count() - 1]));
+                    //                    Console.WriteLine("total222~~~" + total);
+                    //                    Console.WriteLine("qbs222~~~~" + questionList.qbs.Count());
+                    //                    if (total != questionList.qbs.Count())
+                    //                    {
+                    //                        if (SQLlist[k].qb_s_num.Equals(tmp_num_list[tmp_num_list.Count() - 1]) == false) ;
+                    //                        {
+                    //                            Console.WriteLine("IN~~~~LA~");
+                    //                            Console.WriteLine("Qname~~~" + questionList.ClientName);
+                    //                            Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //                            Console.WriteLine("qb_s_num~~ " + questionList.qb_s_num);
+                    //                            Console.WriteLine("qb_s_num~~2~" + SQLlist[k].qb_s_num);
+                    //                            Console.WriteLine("wqb01~~2~" + SQLlist[k].wqb01);
+                    //                            tmp_name_list.Add(SQLlist[k].ClientName);
+                    //                            tmp_num_list.Add(SQLlist[k].qb_s_num);
+                    //                            _sameans = SQLlist[k].wqb01;
+                    //                            _ans = SQLlist[k].qb_order;
+                    //                            //Console.WriteLine("listcount~~ " + tmp_num_list.Count());
+                    //                            //////Console.WriteLine("k~~~" + k);
+                    //                            //////Console.WriteLine("ClientName~~1~" + SQLlist[k].ClientName);
+                    //                            //////Console.WriteLine("qb_s_num~~1~" + SQLlist[k].qb_s_num);
+                    //                            //////Console.WriteLine("wqb01~~1~" + SQLlist[k].wqb01);
+                    //                            ////////Console.WriteLine("ClientName~~2~" + SQLlist[k-1].ClientName);
+                    //                            ////////Console.WriteLine("qb_s_num~~2~" + SQLlist[k-1].qb_s_num);
+                    //                            ////////Console.WriteLine("wqb01~~2~" + SQLlist[k-1].wqb01);
+
+                    //                            ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
+                    //                            //////Console.WriteLine("qh_s_num~~~" + SQLlist[k].qb_s_num);
+                    //                            //Console.WriteLine("sameans~~~" + _sameans);
+                    //                            //tmp_name_list.Add(SQLlist[k-1].ClientName);
+                    //                            //tmp_num_list.Add(SQLlist[k-1].qb_s_num);
+                    //                            //_sameans2 = SQLlist[k-1].wqb01;
+                    //                            //string _qbsnum2 = SQLlist[k-1].qb_s_num;
+
+                    //                            if (SQLlist[k].qb_order == "1")
+                    //                            {
+                    //                                if (_sameans == "否")
+                    //                                {
+                    //                                    color = "Red";
+                    //                                }
+                    //                                else
+                    //                                {
+                    //                                    color = "Green";
+                    //                                }
+                    //                            }
+                    //                            else
+                    //                            {
+                    //                                if (_sameans == "是" || _sameans == "未發")
+                    //                                {
+                    //                                    color = "Red";
+                    //                                }
+                    //                                else
+                    //                                {
+                    //                                    color = "Green";
+                    //                                }
+                    //                            }
+
+                    //                            ResetSaveToDB(questionList.wqh_s_num, SQLlist[k].qb_order, color);
+
+                    //                            QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName, _ans);
+                    //                            //QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum2, _sameans2, questionList.ClientName);
+
+                    //                            ////////Console.WriteLine("count~~~" + count);
+                    //                            if (_sameans == "是")
+                    //                            {
+                    //                                ANS = 0;
+                    //                                ANS2 = Convert.ToString(ANS);
+                    //                            }
+                    //                            else
+                    //                            {
+                    //                                ANS = 1;
+                    //                                ANS2 = Convert.ToString(ANS);
+                    //                            }
+                    //                            //if(_sameans2 == "是")
+                    //                            //{
+                    //                            //    ANS = 0;
+                    //                            //    ANS3 = Convert.ToString(ANS);
+                    //                            //}
+                    //                            //else
+                    //                            //{
+                    //                            //    ANS = 1;
+                    //                            //    ANS3 = Convert.ToString(ANS);
+                    //                            //}
+                    //                            var check = new checkInfo
+                    //                            {
+                    //                                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                                qb_s_num = _qbsnum, // 問題編號(第幾題)
+
+                    //                                wqb01 = _sameans // 答案
+
+                    //                            };
+                    //                            //var check2 = new checkInfo
+                    //                            //{
+                    //                            //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                            //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                            //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
+                    //                            //    wqb01 = _sameans2 // 答案
+
+                    //                            //};
+                    //                            var check3 = new checkInfo
+                    //                            {
+                    //                                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                                qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //                                qb_order = _ans,
+                    //                                wqb01 = ANS2 // 答案
+
+                    //                            };
+                    //                            //var check4 = new checkInfo
+                    //                            //{
+                    //                            //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                            //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                            //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
+                    //                            //    wqb01 = ANS3 // 答案
+
+                    //                            //};
+                    //                            ////////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //                            ////////Console.WriteLine("qh~~~" + questionList.qh_s_num);
+                    //                            ////////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
+                    //                            //
+                    //                            //////Console.WriteLine("wqb01~~~" + ANS2);
+
+                    //                            ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
+                    //                            checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == _ans);
+                    //                            checkList.Add(check); // for check
+                    //                                                  //checkList.Add(check2); // for check
+                    //                            checkList2.Add(check3); // for save
+                    //                                                    //checkList2.Add(check4); // for save
+                    //                            isReset = true;
+                    //                            reset();
+                    //                        }
+                    //                    }
+
+                    //                }
+                    //                else
+                    //                {
+                    //                    Console.WriteLine("IN~~~~BB~");
+                    //                    Console.WriteLine("Qname~~~" + questionList.ClientName);
+                    //                    Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //                    Console.WriteLine("qb_s_num~~ " + questionList.qb_s_num);
+                    //                    foreach (var j in questionList.qbs)
+                    //                    {
+                    //                        if (SQLlist[k].qb_s_num == j.qb_s_num)
+                    //                        {
+                    //                            Console.WriteLine("qb_s_num~~0~" + j.qb_s_num);
+                    //                            Console.WriteLine("wqb01~~0~" + SQLlist[k].wqb01);
+                    //                            tmp_name_list.Add(SQLlist[k].ClientName);
+                    //                            tmp_num_list.Add(SQLlist[k].qb_s_num);
+                    //                            _sameans = SQLlist[k].wqb01;
+
+                    //                            //////Console.WriteLine("k~~~" + k);
+                    //                            //////Console.WriteLine("ClientName~~1~" + SQLlist[k].ClientName);
+                    //                            Console.WriteLine("qb_s_num~~1~" + SQLlist[k].qb_s_num);
+                    //                            Console.WriteLine("wqb01~~1~" + SQLlist[k].wqb01);
+                    //                            ////////Console.WriteLine("ClientName~~2~" + SQLlist[k-1].ClientName);
+                    //                            ////////Console.WriteLine("qb_s_num~~2~" + SQLlist[k-1].qb_s_num);
+                    //                            ////////Console.WriteLine("wqb01~~2~" + SQLlist[k-1].wqb01);
+
+                    //                            ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
+                    //                            //////Console.WriteLine("qb_s_num~~~" + SQLlist[k].qb_s_num);
+                    //                            ////////Console.WriteLine("sameans~~~" + _sameans);
+                    //                            //tmp_name_list.Add(SQLlist[k-1].ClientName);
+                    //                            //tmp_num_list.Add(SQLlist[k-1].qb_s_num);
+                    //                            //_sameans2 = SQLlist[k-1].wqb01;
+                    //                            //string _qbsnum2 = SQLlist[k-1].qb_s_num;
+
+                    //                            if (SQLlist[k].qb_order == "1")
+                    //                            {
+                    //                                if (_sameans == "否")
+                    //                                {
+                    //                                    color = "Red";
+                    //                                }
+                    //                                else
+                    //                                {
+                    //                                    color = "Green";
+                    //                                }
+                    //                            }
+                    //                            else
+                    //                            {
+                    //                                if (_sameans == "是" || _sameans == "未發")
+                    //                                {
+                    //                                    color = "Red";
+                    //                                }
+                    //                                else
+                    //                                {
+                    //                                    color = "Green";
+                    //                                }
+                    //                            }
+
+                    //                            ResetSaveToDB(questionList.wqh_s_num, SQLlist[k].qb_order, color);
+
+                    //                            QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName, _ans);
+                    //                            //QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum2, _sameans2, questionList.ClientName);
+
+                    //                            ////////Console.WriteLine("count~~~" + count);
+                    //                            if (_sameans == "是")
+                    //                            {
+                    //                                ANS = 0;
+                    //                                ANS2 = Convert.ToString(ANS);
+                    //                            }
+                    //                            else
+                    //                            {
+                    //                                ANS = 1;
+                    //                                ANS2 = Convert.ToString(ANS);
+                    //                            }
+                    //                            //if(_sameans2 == "是")
+                    //                            //{
+                    //                            //    ANS = 0;
+                    //                            //    ANS3 = Convert.ToString(ANS);
+                    //                            //}
+                    //                            //else
+                    //                            //{
+                    //                            //    ANS = 1;
+                    //                            //    ANS3 = Convert.ToString(ANS);
+                    //                            //}
+                    //                            var check = new checkInfo
+                    //                            {
+                    //                                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                                qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //                                wqb01 = _sameans // 答案
+
+                    //                            };
+                    //                            //var check2 = new checkInfo
+                    //                            //{
+                    //                            //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                            //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                            //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
+                    //                            //    wqb01 = _sameans2 // 答案
+
+                    //                            //};
+                    //                            var check3 = new checkInfo
+                    //                            {
+                    //                                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                                qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //                                qb_order = _ans,
+                    //                                wqb01 = ANS2 // 答案
+
+                    //                            };
+                    //                            //var check4 = new checkInfo
+                    //                            //{
+                    //                            //    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //                            //    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //                            //    qb_s_num = _qbsnum2, // 問題編號(第幾題)
+                    //                            //    wqb01 = ANS3 // 答案
+
+                    //                            //};
+                    //                            ////////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //                            ////////Console.WriteLine("qh~~~" + questionList.qh_s_num);
+                    //                            ////////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
+                    //                            //
+                    //                            //////Console.WriteLine("wqb01~~~" + ANS2);
+
+                    //                            ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
+                    //                            checkList.Add(check); // for check
+                    //                                                  //checkList.Add(check2); // for check
+                    //                            checkList2.Add(check3); // for save
+                    //                                                    //checkList2.Add(check4); // for save
+                    //                            isReset = true;
+                    //                            reset();
+                    //                        }
+                    //                    }
+
+                    //                }
+
+
+                    //                //}
+                    //            }
+
+                    //        }
+                    //        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+                    //        //foreach (var TempNameList in a)
+                    //        //{
+                    //        //    var total = tmp_name_list.Count(s => s == TempNameList.ClientName);
+                    //        //    //////Console.WriteLine("total~~~" + total);
+                    //        //    //////Console.WriteLine("qbs~~~~" + questionList.qbs.Count());
+                    //        //    if (!tmp_name_list.Contains(TempNameList.ClientName) || total != 2)
+                    //        //    {
+                    //        //        if (TempNameList.ClientName == questionList.ClientName)
+                    //        //        {
+
+                    //        //            //////Console.WriteLine("IN~~~~LA~");
+                    //        //            //////Console.WriteLine("Qname~~~" + questionList.ClientName);
+                    //        //            //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //        //            tmp_name_list.Add(TempNameList.ClientName);
+                    //        //            tmp_num_list.Add(TempNameList.qb_s_num);
+                    //        //            _sameans = TempNameList.wqb01;
+                    //        //            string _qbsnum = TempNameList.qb_s_num;
+                    //        //            //////Console.WriteLine("qbsum~~~" + _qbsnum);
+                    //        //            //////Console.WriteLine("ClientName~~~" + TempNameList.ClientName);
+
+                    //        //            ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
+                    //        //            //////Console.WriteLine("qb_s_num~~~" + TempNameList.qb_s_num);
+                    //        //            ////////Console.WriteLine("sameans~~~" + _sameans);
+
+
+                    //        //            QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName);
+
+                    //        //            ////////Console.WriteLine("count~~~" + count);
+                    //        //            if (_sameans == "是")
+                    //        //            {
+                    //        //                ANS = 0;
+                    //        //                ANS2 = Convert.ToString(ANS);
+                    //        //            }
+                    //        //            else
+                    //        //            {
+                    //        //                ANS = 1;
+                    //        //                ANS2 = Convert.ToString(ANS);
+                    //        //            }
+                    //        //            var check = new checkInfo
+                    //        //            {
+                    //        //                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //        //                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //        //                qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //        //                wqb01 = _sameans // 答案
+
+                    //        //            };
+                    //        //            var check3 = new checkInfo
+                    //        //            {
+                    //        //                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //        //                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //        //                qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //        //                qb_order = i.qb_order,
+                    //        //                wqb01 = ANS2 // 答案
+
+                    //        //            };
+                    //        //            //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //        //            //////Console.WriteLine("qh~~~" + questionList.qh_s_num);
+                    //        //            //////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
+                    //        //            //////Console.WriteLine("wqb01~~~" + ANS2);
+
+                    //        //            ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
+                    //        //            checkList.Add(check); // for check
+                    //        //            checkList2.Add(check3); // for save
+                    //        //            reset();
+
+                    //        //        }
+                    //        //    }
+
+                    //        //}
+                    //        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    //        //var TempNameList = MapView.AccDatabase.GetAccountAsync(b).Last();
+                    //        //var total = tmp_name_list.Count(s => s == TempNameList.ClientName);
+                    //        ////////Console.WriteLine("total~~~" + total);
+                    //        ////////Console.WriteLine("qbs~~~~" + questionList.qbs.Count());
+                    //        //if (!tmp_name_list.Contains(TempNameList.ClientName) || total != 2)
+                    //        //{
+                    //        //    if (TempNameList.ClientName == questionList.ClientName)
+                    //        //    {
+
+                    //        //        //////Console.WriteLine("IN~~~~LA~");
+                    //        //        //////Console.WriteLine("Qname~~~" + questionList.ClientName);
+                    //        //        //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //        //        tmp_name_list.Add(TempNameList.ClientName);
+                    //        //        tmp_num_list.Add(TempNameList.qb_s_num);
+                    //        //        _sameans = TempNameList.wqb01;
+                    //        //        string _qbsnum = TempNameList.qb_s_num;
+                    //        //        //////Console.WriteLine("qbsum~~~" + _qbsnum);
+                    //        //        //////Console.WriteLine("ClientName~~~" + TempNameList.ClientName);
+
+                    //        //        ////////Console.WriteLine("wqh_s_num~~~" + TempNameList.wqh_s_num);
+                    //        //        //////Console.WriteLine("qb_s_num~~~" + TempNameList.qb_s_num);
+                    //        //        ////////Console.WriteLine("sameans~~~" + _sameans);
+
+
+                    //        //        QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, _qbsnum, _sameans, questionList.ClientName);
+
+                    //        //        ////////Console.WriteLine("count~~~" + count);
+                    //        //        if (_sameans == "是")
+                    //        //        {
+                    //        //            ANS = 0;
+                    //        //            ANS2 = Convert.ToString(ANS);
+                    //        //        }
+                    //        //        else
+                    //        //        {
+                    //        //            ANS = 1;
+                    //        //            ANS2 = Convert.ToString(ANS);
+                    //        //        }
+                    //        //        var check = new checkInfo
+                    //        //        {
+                    //        //            wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //        //            qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //        //            qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //        //            wqb01 = _sameans // 答案
+
+                    //        //        };
+                    //        //        var check3 = new checkInfo
+                    //        //        {
+                    //        //            wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                    //        //            qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                    //        //            qb_s_num = _qbsnum, // 問題編號(第幾題)
+                    //        //            qb_order = i.qb_order,
+                    //        //            wqb01 = ANS2 // 答案
+
+                    //        //        };
+                    //        //        //////Console.WriteLine("wqh~~~" + questionList.wqh_s_num);
+                    //        //        //////Console.WriteLine("qh~~~" + questionList.qh_s_num);
+                    //        //        //////Console.WriteLine("_QB_S_NUM~~~~" + _QB_S_NUM);
+                    //        //        //////Console.WriteLine("wqb01~~~" + ANS2);
+
+                    //        //        ////////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
+                    //        //        checkList.Add(check); // for check
+                    //        //        checkList2.Add(check3); // for save
+
+                    //        //        reset();
+
+                    //        //    }
+                    //        //}
+                    //    }
+                    //}
+
                 };
                 quesStack.Children.Add(button_stack);
                 return null;

@@ -182,7 +182,7 @@ namespace PULI
                             //}
                             Console.WriteLine("auth" + AUTH + "auth");
                             Console.WriteLine("AUTH~~~" + AUTH);
-
+                            //DisplayAlert("提示", "[弗傳慈心基金會] 會收集位置資料，以便在應用程式關閉或未使用時，也可支援紀錄外送員gps位置以判斷打卡。", "ok");
 
                             if (AUTH == "6")
                             {
@@ -494,6 +494,7 @@ namespace PULI
                         AUTH = userList.acc_auth;
                         NAME = userList.acc_name;
                         BeaconScan scan = new BeaconScan();
+                       
                         //if (BeaconScan.BleStatus == 0)
                         //{
                         //    //await DisplayAlert("提示", "藍芽未開啟", "ok");

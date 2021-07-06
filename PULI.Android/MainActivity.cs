@@ -32,8 +32,12 @@ namespace PULI.Droid
             CheckboxRenderer.Init();
             global::Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
-            ActivityCompat.RequestPermissions(this,
+            //DisplayAlert("提示", "[弗傳慈心基金會] 會收集位置資料，以便在應用程式關閉或未使用時，也可支援紀錄外送員gps位置以判斷打卡。", "ok");
+            AlertDialog ad = new AlertDialog.Builder(this).Create();
+            ad.SetMessage("[弗傳慈心基金會] 會收集位置資料，以便在應用程式關閉或未使用時，也可支援紀錄外送員gps位置以判斷打卡。");
+            ad.SetButton2("好", delegate
+            {
+                ActivityCompat.RequestPermissions(this,
                new String[]{
 
                         Manifest.Permission.AccessFineLocation,
@@ -50,6 +54,10 @@ namespace PULI.Droid
                         Manifest.Permission.AccessLocationExtraCommands
                },
                100);
+            });
+            ad.Show();
+            LoadApplication(new App());
+            
 
             Intent startIntent = new Intent(this, typeof(ForService));
             if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)   // if API >= 26
