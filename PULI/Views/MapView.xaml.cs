@@ -104,32 +104,37 @@ namespace PULI.Views
         public static PunchDataBaseTmp PunchTmp;  // 紀錄無網路環境下，後來自動簽到成功的
         public static PunchDataBaseTmp2 PunchTmp2; // 紀錄無網路環境下，後來自動簽退成功的
         public static PunchYesOrNo PunchYN; // 紀錄是否進入判斷打卡(無論打卡成功與否)
-        public static string entrytxt;
-        public static int number;
+       // public static string entrytxt;
+        //public static int number;
         public static bool isSet = false;
-        public static int TmpID;
-        public static string TmpNum;
-        Dictionary<string, int> Temp = new Dictionary<string, int>();
-        public static int id;
-        public static bool ispress = false;
-        public static string homenum;
-        public static string homename;
+        //public static int TmpID;
+        //public static string TmpNum;
+        //Dictionary<string, int> Temp = new Dictionary<string, int>();
+        //public static int id;
+        //public static bool ispress = false;
+        //public static string homenum;
+        //public static string homename;
+        private double px;
+        private double py;
+        private double dx;
+        private double dy;
+        private double d;
         public static int num = 0;
         public static int setnum;
         public static double NowLon;
         public static double NowLat;
-        public static string inorout;
-        public static string gendertxt;
+        public static string inorout; // 判斷SQLite為簽到還是簽退
+        public static string gendertxt; // for社工地圖?!
         public static List<string> name_list_in = new List<string>(); // 紀錄處理無網路簽到成功
-        public static List<TmpPunchList> name_list_in2 = new List<TmpPunchList>();
+        //public static List<TmpPunchList> name_list_in2 = new List<TmpPunchList>();
         public static List<string> name_list_out = new List<string>(); // 記錄處理無網路簽退成功
-        public static List<TmpPunchList> name_list_out2 = new List<TmpPunchList>();
-        public static List<int> trylist2;
+        //public static List<TmpPunchList> name_list_out2 = new List<TmpPunchList>();
+        //public static List<int> trylist2;
         //public static bool TmpPunch;
         public string btnGPS;
         public static int total_need_to_serve;
         public static List<string> total_reserve_name = new List<string>();
-        public static bool DeliverOver = false;
+        public static bool DeliverOver = false; // for判斷是否顯示送餐完畢
 
         public MapView()
         {
@@ -143,7 +148,7 @@ namespace PULI.Views
             PunchTmp = new PunchDataBaseTmp();
             PunchTmp2 = new PunchDataBaseTmp2();
             PunchYN = new PunchYesOrNo();
-            trylist2 = new List<int>();
+            //trylist2 = new List<int>();
             //AccDatabase.DeleteAll();
             MapUiSetting();
             //setView(); 
@@ -168,33 +173,17 @@ namespace PULI.Views
             if(MainPage.AUTH == "4") // 外送員(有打卡功能)
             {
                 Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick);
-                //MessagingCenter.Subscribe<MainPage, bool>(this, "NewDayDelete", (sender, arg) =>
-                //{
-                //    if (arg)
-                //    {
-                //        //Console.WriteLine("newdayrecieve~~Mapview~");
-                //        AccDatabase.DeleteAll();
-                //        PunchDatabase.DeleteAll();
-                //        PunchDatabase2.DeleteAll();
-                //        PunchTmp.DeleteAll();
-                //        PunchTmp2.DeleteAll();
-                //        PunchYN.DeleteAll();
-                //        name_list_in.Clear();
-                //        name_list_out.Clear();
-                //    }
-
-                //});
-                
+              
                 Console.WriteLine("shipment~~~");
             }
-            else if(MainPage.AUTH == "6" && MainPage.userList.daily_shipment_nums > 0) // 社工幫忙送餐(有打卡功能)
-            {
-                Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick);
-                Console.WriteLine("helpermixshipment~~~");
-            }
+            //else if(MainPage.AUTH == "6" && MainPage.userList.daily_shipment_nums > 0) // 社工幫忙送餐(有打卡功能)
+            //{
+            //    Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick);
+            //    Console.WriteLine("helpermixshipment~~~");
+            //}
             else
             {
-                Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick2); // 只有postgps
+                Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick2); // 只有postgps(單純社工，無打卡功能)
             }
             //else // 單純社工(無打卡功能)
             //{
@@ -202,17 +191,7 @@ namespace PULI.Views
             //    //Console.WriteLine("helper");
             //}
             
-            //if(MainPage.AUTH == "4")
-            //{
-            //    Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick);
-            //}
-            //else
-            //{
-            //    if(MainPage.userList.daily_shipment_nums > 0)
-            //    {
-            //        Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick2);
-            //    }
-            //}
+          
         }
 
         private async void setView()
@@ -251,7 +230,7 @@ namespace PULI.Views
                         //Console.WriteLine("DATA2~" + clientList.Count());
                         
                         var data = await web.Get_Client2(MainPage.token); // 拿案主資料
-                        //Console.WriteLine("DATA~" + data.Count());
+                        Console.WriteLine("DATA~" + data.Count());
                         for (int i = 0; i < data.Count; i++)
                         {
 
@@ -270,7 +249,8 @@ namespace PULI.Views
 
 
                         }
-                        total_need_to_serve = total_reserve_name.Count();
+                        Console.WriteLine("cList222222~~~ " + cList2.Count());
+                        total_need_to_serve = total_reserve_name.Count(); // 過濾完兩筆訂單的名單後，所有要送餐案主家的數量
                         //Console.WriteLine("total_need_to_serve~~ " + total_reserve_name.Count());
                         //cList2.Reverse();
                         //for (int s = 0; s < cList2.Count(); s++)
@@ -323,16 +303,21 @@ namespace PULI.Views
                                 //Console.WriteLine("Auto~~~");
                                 if (MainPage.dateDatabase.GetAccountAsync2().Count() != 0) // 如果紀錄登入日期的SQLite裡面有資料，先比對
                                 {
-                                    
+                                    Console.WriteLine("old~~ " + MainPage.oldday2);
+                                    Console.WriteLine("new~~~ " + MainPage._login_time);
                                     // 判斷上次登入日期跟這次登入日期
                                     // 若不同則刪除SQLite裡面的資料
                                     if (MainPage._login_time != MainPage.oldday2)
                                     {
 
-                                        //Console.WriteLine("newdayrecieve~~Mapview~~22~");
+                                        Console.WriteLine("newdayrecieve~~Mapview~~22~");
                                         AccDatabase.DeleteAll();  // 紀錄問卷的
                                         PunchDatabase.DeleteAll(); // 記錄無網路環境打卡的
                                         PunchDatabase2.DeleteAll(); // 紀錄案主家打卡進度的(setnum)
+                                        if(PunchDatabase2.GetAccountAsync2().Count() == 0)
+                                        {
+                                            Console.WriteLine("new_day~~no_setnum ");
+                                        }
                                         PunchTmp.DeleteAll(); // 紀錄無網路環境下，後來自動簽到成功的
                                         PunchTmp2.DeleteAll(); // 紀錄無網路環境下，後來自動簽退成功的
                                         PunchYN.DeleteAll(); // 紀錄是否進入判斷打卡(無論打卡成功與否)
@@ -444,8 +429,8 @@ namespace PULI.Views
                                 {
                                     // 如果紀錄送餐進度的SQLite裡面有資料(有送餐進度)
                                     setnum = PunchDatabase2.GetAccountAsync2().Last().setnum + 1;
-                                    //Console.WriteLine("GG~~~~");
-                                    //Console.WriteLine("GGsetnum~~~ " + setnum);
+                                    Console.WriteLine("GG~~~~");
+                                    Console.WriteLine("GGsetnum~~~ " + setnum);
                                     //if(setnum < 0)
                                     //{
                                     //    //await DisplayAlert(param.SYSYTEM_MESSAGE, "今日送餐完畢", param.DIALOG_MESSAGE);
@@ -456,7 +441,7 @@ namespace PULI.Views
                                     //{
                                     //    SetIcon(setnum);
                                     //}
-                                    if (setnum > totalList.daily_shipments.Count() || setnum == totalList.daily_shipments.Count())
+                                    if (setnum > totalList.daily_shipments.Count() || setnum == totalList.daily_shipments.Count()) // 判斷是否送餐完畢
                                     {
                                         //await DisplayAlert(param.SYSYTEM_MESSAGE, "今日送餐完畢", param.DIALOG_MESSAGE);
                                         Console.WriteLine("setnumAAAA~~~ " + setnum);
@@ -887,11 +872,11 @@ namespace PULI.Views
 
             //Console.WriteLine("count" + totalList.daily_shipments.Count);
             //Console.WriteLine("SETNUM~~~~" + setnum);
-            double lat = double.Parse(totalList.daily_shipments[setnum].ct16);
+            double lat = double.Parse(totalList.daily_shipments[setnum].ct16); // 案主家經緯度
             //Console.WriteLine("LAT" + lat);
-            double lot = double.Parse(totalList.daily_shipments[setnum].ct17);
+            double lot = double.Parse(totalList.daily_shipments[setnum].ct17); // 案主家經緯度
             //Console.WriteLine("LOT" + lot);
-            home = totalList.daily_shipments[setnum].ct_name + " 的家";
+            home = totalList.daily_shipments[setnum].ct_name + " 的家"; // 要出現的字
             //Console.WriteLine("HOME" + home);
             gps = lat + "," + lot;
             //Console.WriteLine("GPS" + gps);
@@ -1030,11 +1015,13 @@ namespace PULI.Views
                 //{
 
                 //}
-                if (!isSetView) // 還沒setview
-                {
+                //if (!isSetView) // 還沒setview
+                //{
                     location = CrossGeolocator.Current;
+                Console.WriteLine("location~~ " + location);
                     if (location != null)
                     {
+                    Console.WriteLine("location_in~~~ ");
                         try
                         {
                             location.DesiredAccuracy = location_DesiredAccuracy;
@@ -1247,35 +1234,43 @@ namespace PULI.Views
                                
                             }
                             //if (setnum > 0 || setnum == 0)
-                            //Console.WriteLine("who1~~~~" + setnum);
+                            Console.WriteLine("setnum~~~~" + setnum);
+                        Console.WriteLine("totoal_need_to_serve~~~ " + total_need_to_serve);
                             if(setnum == 0 || total_need_to_serve > setnum || total_need_to_serve == setnum)
                             {
-                                //Console.WriteLine("setnum~~in~~~");
+                                Console.WriteLine("setnum~~in~~~");
+                            Console.WriteLine("deliver_over~~ " + DeliverOver);
                                 if (DeliverOver == false)
                                 {
+                                Console.WriteLine("deliver_in~~~ ");
+                                Console.WriteLine("cList2~~~ " + cList2.Count());
                                     for (int i = 0; i < cList2.Count(); i++)
                                     {
                                         //if (homename == cList2[i].ct_name)
                                         //{
 
                                         int which = 0;
-
-                                        ////Console.WriteLine("who1" + cList[i].ct_name);
+                                        
+                                        Console.WriteLine("who1" + cList2[i].ct_name);
                                         ////Console.WriteLine("punch1" + punchList[cList[i].ct_name]);
                                         //Console.WriteLine("whoami~~~" + setnum);
                                         // 算目前使用者位置跟案主家的距離
-                                        var px = double.Parse(totalList.daily_shipments[setnum].ct16);
-                                        var py = double.Parse(totalList.daily_shipments[setnum].ct17);
-                                        var dx = position.Latitude - px > 0 ? position.Latitude - px : px - position.Latitude;
-                                        var dy = position.Longitude - py > 0 ? position.Longitude - py : py - position.Longitude;
-                                        var d = Math.Sqrt(dx * 110000 * dx * 110000 + dy * 100000 * dy * 100000);
+                                        /*
+                                         
+                                         */
+                                        px = double.Parse(totalList.daily_shipments[setnum].ct16);
+                                        py = double.Parse(totalList.daily_shipments[setnum].ct17);
+                                        dx = position.Latitude - px > 0 ? position.Latitude - px : px - position.Latitude;
+                                        dy = position.Longitude - py > 0 ? position.Longitude - py : py - position.Longitude;
+                                        d = Math.Sqrt(dx * 110000 * dx * 110000 + dy * 100000 * dy * 100000);
                                         //Console.WriteLine("d2" + d);
                                         string d2 = d.ToString();
-                                        //Console.WriteLine("@@@@@" + d2);
+                                        Console.WriteLine("@@@@@   " + d2);
                                         distance.Text = d2;
                                         Latitude.Text = position.Latitude.ToString();
                                         Longitude.Text = position.Longitude.ToString();
-
+                                    Console.WriteLine("lat~~ " + position.Latitude.ToString());
+                                    Console.WriteLine("lot~~~ " + position.Longitude.ToString());
                                         //foreach (var a in punchList)
                                         //{
                                         //    //Console.WriteLine("*****" + a);
@@ -1320,17 +1315,17 @@ namespace PULI.Views
                                                 //Console.WriteLine("punch3" + punchList[totalList.daily_shipments[setnum].ct_name]);
 
                                                 //Console.WriteLine("~~~~~~~" + which);
-                                                for (int a = 0; a < cList2.Count(); a++)
-                                                {
+                                                //for (int a = 0; a < cList2.Count(); a++)
+                                                //{
                                                     //Console.WriteLine("in~~~");
                                                     //Console.WriteLine("cListname~~" + cList2[a].ct_name);
                                                     ////Console.WriteLine("totalname~~" + totalList.daily_shipments[setnum].ct_name);
-                                                    if (cList2[a].ct_name == totalList.daily_shipments[setnum].ct_name)
+                                                    if (cList2[i].ct_name == totalList.daily_shipments[setnum].ct_name)
                                                     {
-                                                        which = a;
+                                                        which = i;
                                                         //setName = cList[i].ct_name;
                                                         // 抓取案主資料
-                                                        setname.Text = cList2[a].ct_name;
+                                                        setname.Text = cList2[i].ct_name;
                                                         setname3.Text = totalList.daily_shipments[setnum].ct_name;
                                                         dys05_type.Text = totalList.daily_shipments[setnum].dys05_type;
                                                         //Console.WriteLine("dys05~~~ " + dys05_type.Text);
@@ -1339,12 +1334,12 @@ namespace PULI.Views
                                                         dys03.Text = totalList.daily_shipments[setnum].dys03;
                                                         dys02.Text = totalList.daily_shipments[setnum].dys02;
                                                         //Console.WriteLine("name1~~" + setname.Text);
-                                                        Clname = cList2[a].ct_name;
+                                                        Clname = cList2[i].ct_name;
                                                         //Console.WriteLine("name1~~~" + Clname);
                                                         ////Console.WriteLine("HOME5" + cList[5].ct_name);
                                                         //string both = questionnaireslist[i].both;
                                                         //string both2 = questionnaireslist[i].both2;
-                                                        setname2.Text = cList2[a].ct_name;
+                                                        setname2.Text = cList2[i].ct_name;
                                                         //Console.WriteLine("name2" + setname2.Text);
                                                         ////Console.WriteLine("setName" + Clname);
                                                         //setBirthday = totalList.daily_shipments[i].ClientBirthday;
@@ -1352,16 +1347,16 @@ namespace PULI.Views
                                                         //setAddress = totalList.daily_shipments[i].ClientAddress;
                                                         //setMealName = totalList.daily_shipments[i].MealName;
                                                         //setclnt_s_num = cList[i].clnt_s_num;
-                                                        ct_s_num = cList2[a].ct_s_num;
+                                                        ct_s_num = cList2[i].ct_s_num;
                                                         //Console.WriteLine("setclnt_s_num>>>>" + ct_s_num);
                                                         //setsrvc_s_num = cList[i].srvc_s_num;
-                                                        sec_s_num = cList2[a].sec_s_num;
+                                                        sec_s_num = cList2[i].sec_s_num;
                                                         //Console.WriteLine("setsrvc_s_num" + sec_s_num);
                                                         //setmealo_s_num = cList[i].mealo_s_num;
-                                                        mlo_s_num = cList2[a].mlo_s_num;  // 訂單s_num(
+                                                        mlo_s_num = cList2[i].mlo_s_num;  // 訂單s_num(
                                                         //Console.WriteLine("setmealo_s_num" + mlo_s_num);
                                                         //setbeacon_s_num = cList[i].beacon_s_num;
-                                                        bn_s_num = cList2[a].bn_s_num; //  打卡鄰近的beancon_s_num(beacon id)
+                                                        bn_s_num = cList2[i].bn_s_num; //  打卡鄰近的beancon_s_num(beacon id)
                                                         //Console.WriteLine("setbeacon_s_num" + setbeacon_s_num);
                                                         //Console.WriteLine("Lat" + position.Latitude);
                                                         //Console.WriteLine("Lot" + position.Longitude);
@@ -1421,7 +1416,7 @@ namespace PULI.Views
                                                             });
                                                         }
                                                     }
-                                                }
+                                                //}
                                             }
                                             //-------------<<<<<beacon punchin dont delete------>>>>>>>
                                             ////if (BeaconScan.letpunchin == true && punch_in[totalList.daily_shipments[setnum].ct_name] == false)
@@ -1647,7 +1642,7 @@ namespace PULI.Views
                                                         time = DateTime.Now.ToShortTimeString() // 時間
                                                     });
                                                     PunchSavesetnumToSQLite(setnum); // 紀錄送餐進度
-                                                    trylist2.Add(setnum);
+                                                    //trylist2.Add(setnum);
                                                     //Console.WriteLine("setnumadd22~~~" + setnum + "count " + trylist2.Count());
                                                     //if (setnum != 0)
                                                     //{
@@ -1927,7 +1922,7 @@ namespace PULI.Views
                                                     {
                                                         PunchSavesetnumToSQLite(setnum);
                                                         //Console.WriteLine("setnum~~1~~ " + setnum);
-                                                        trylist2.Add(setnum);
+                                                        //trylist2.Add(setnum);
                                                         //Console.WriteLine("setnumadd333~~~" + setnum + "count " + trylist2.Count());
                                                         //if (setnum != 0)
                                                         //{
@@ -1989,7 +1984,7 @@ namespace PULI.Views
                                                     if (d > 2 && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false) 
                                                     {
                                                         PunchSavesetnumToSQLite(setnum);
-                                                        trylist2.Add(setnum);
+                                                        //trylist2.Add(setnum);
                                                         //Console.WriteLine("setnumadd444~~~" + setnum + "count " + trylist2.Count());
                                                         //if (setnum != 0)
                                                         //{
@@ -2092,7 +2087,7 @@ namespace PULI.Views
                     {
                         //Console.WriteLine("Location null~~");
                     }
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -3134,12 +3129,12 @@ namespace PULI.Views
         {
             //setView();
             base.OnAppearing();
-            clientList = null;
+            //clientList = null;
             //cList = new List<ClientInfo>();
-            cList2 = new List<ClientInfo>();
-            totalList = new TotalList();
+            //cList2 = new List<ClientInfo>();
+            //totalList = new TotalList();
             //shipList = new daily_shipment();
-            allclientList = new List<AllClientInfo>();
+            //allclientList = new List<AllClientInfo>();
         }
 
         //lock the previous page
