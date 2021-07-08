@@ -359,151 +359,146 @@ namespace PULI.Views
 
         private void reset()
         {
-            ////////Console.WriteLine("RRRR~~~");
-            ////////Console.WriteLine("COUNT222~~~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-            ////////Console.WriteLine("chooseDB~~ " + ChooseDB.GetAccountAsync2().Count());
-            ////////Console.WriteLine("resetDB~~ " + ResetDB.GetAccountAsync2().Count());
-            ////////Console.WriteLine("entryDB~~ " + EntryDB.GetAccountAsync2().Count());
-            ///
-            foreach (var a in questionnaireslist)
-            {
-                foreach (var i in a.qbs)
-                {
-                    IsResetList[a.wqh_s_num + i.qb_order] = false;
-                    IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
-                    TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
-                    TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
-                    TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
-                    CheckboxList[a.ClientName] = false;
-                }
-            }
             
-            foreach (var a in questionnaireslist)
-            {
-                foreach (var i in a.qbs)
-                {
-                    //TmpAddList[a.wqh_s_num + i.qb_order] = false;
-                    //TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
+            //foreach (var a in questionnaireslist)
+            //{
+            //    foreach (var i in a.qbs)
+            //    {
+            //        IsResetList[a.wqh_s_num + i.qb_order] = false;
+            //        IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+            //        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+            //        TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
+            //        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
+            //        CheckboxList[a.ClientName] = false;
+            //    }
+            //}
+            
+            //foreach (var a in questionnaireslist)
+            //{
+            //    foreach (var i in a.qbs)
+            //    {
+            //        //TmpAddList[a.wqh_s_num + i.qb_order] = false;
+            //        //TmpAdd_elseList[a.wqh_s_num + i.qb_order] = false;
                    
 
-                    if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        ////////Console.WriteLine("IMMMM~~~~");
-                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
-                        {
-                            var q = ChooseDB.GetAccountAsync(b);
+            //        if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+            //        {
+            //            ////////Console.WriteLine("IMMMM~~~~");
+            //            ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+            //            for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
+            //            {
+            //                var q = ChooseDB.GetAccountAsync(b);
 
 
-                            foreach (var TempChooseList in q)
-                            {
-                                if (TempChooseList.ClientName == a.ClientName)
-                                {
-                                    //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
-                                    CheckboxList[a.ClientName] = true;
-                                }
+            //                foreach (var TempChooseList in q)
+            //                {
+            //                    if (TempChooseList.ClientName == a.ClientName)
+            //                    {
+            //                        //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+            //                        CheckboxList[a.ClientName] = true;
+            //                    }
 
-                            }
-                        }
-                    }
-                    ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
-                    if (ResetDB.GetAccountAsync2().Count() > 0)
-                    {
-                        for (int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
-                        {
-                            var d = ResetDB.GetAccountAsync(c);
-                            foreach (var TempResetList in d)
-                            {
-                                if (TempResetList.wqh_s_num == a.wqh_s_num)
-                                {
-                                    if (TempResetList.qb_order == i.qb_order)
-                                    {
-                                        IsResetList[a.wqh_s_num + i.qb_order] = true;
-                                        isDB = true;
-                                        if (TempResetList.color == "Red")
-                                        {
-                                            ////isRed = true;
-                                            ////isGreen = false;
-                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Red";
-                                        }
-                                        else
-                                        {
-                                            ////isGreen = true;
-                                            ////isRed = false;
-                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Green";
-                                        }
-                                        //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
-                                        //Console.WriteLine("qborder~~ " + i.qb_order);
-                                        //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
-                    if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        ////////Console.WriteLine("1111~~~~");
-                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
-                        {
-                            var w = MapView.AccDatabase.GetAccountAsync(b);
+            //                }
+            //            }
+            //        }
+            //        ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
+            //        if (ResetDB.GetAccountAsync2().Count() > 0)
+            //        {
+            //            for (int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
+            //            {
+            //                var d = ResetDB.GetAccountAsync(c);
+            //                foreach (var TempResetList in d)
+            //                {
+            //                    if (TempResetList.wqh_s_num == a.wqh_s_num)
+            //                    {
+            //                        if (TempResetList.qb_order == i.qb_order)
+            //                        {
+            //                            IsResetList[a.wqh_s_num + i.qb_order] = true;
+            //                            isDB = true;
+            //                            if (TempResetList.color == "Red")
+            //                            {
+            //                                ////isRed = true;
+            //                                ////isGreen = false;
+            //                                IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Red";
+            //                            }
+            //                            else
+            //                            {
+            //                                ////isGreen = true;
+            //                                ////isRed = false;
+            //                                IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Green";
+            //                            }
+            //                            //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
+            //                            //Console.WriteLine("qborder~~ " + i.qb_order);
+            //                            //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
+            //        if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
+            //        {
+            //            ////////Console.WriteLine("1111~~~~");
+            //            ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+            //            for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+            //            {
+            //                var w = MapView.AccDatabase.GetAccountAsync(b);
 
-                            //////Console.WriteLine("2222~~~~");
-                            foreach (var TempAnsList in w)
-                            {
-                                ////////Console.WriteLine("3333~~~~");
-                                string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
-                                //////////Console.WriteLine("WHO~~" + who);
-                                //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
-                                ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
-                                ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
-                                if (TempAnsList.wqh_s_num == a.wqh_s_num) // 判斷問卷編號
-                                {
-                                    ////////Console.WriteLine("4444~~~~");
-                                    if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
-                                    {
-                                        ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
-                                        ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
-                                        ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
-                                        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
-                                        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
-                                        TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01;
-                                        //Console.WriteLine("AA_name~~ " + a.ClientName);
-                                        //Console.WriteLine("AA_order~~ " + i.qb_order);
-                                        //Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
-                                        //Console.WriteLine("BB_wqh~~ " + a.wqh_s_num);
-                                        //Console.WriteLine("BB_order~~ " + i.qb_order);
-                                        //Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
+            //                //////Console.WriteLine("2222~~~~");
+            //                foreach (var TempAnsList in w)
+            //                {
+            //                    ////////Console.WriteLine("3333~~~~");
+            //                    string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
+            //                    //////////Console.WriteLine("WHO~~" + who);
+            //                    //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
+            //                    ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
+            //                    ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
+            //                    if (TempAnsList.wqh_s_num == a.wqh_s_num) // 判斷問卷編號
+            //                    {
+            //                        ////////Console.WriteLine("4444~~~~");
+            //                        if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
+            //                        {
+            //                            ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
+            //                            ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
+            //                            ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
+            //                            TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
+            //                            TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
+            //                            TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01;
+            //                            //Console.WriteLine("AA_name~~ " + a.ClientName);
+            //                            //Console.WriteLine("AA_order~~ " + i.qb_order);
+            //                            //Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
+            //                            //Console.WriteLine("BB_wqh~~ " + a.wqh_s_num);
+            //                            //Console.WriteLine("BB_order~~ " + i.qb_order);
+            //                            //Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
                                        
 
-                                        for (int c = 0; c < checkList2.Count(); c++)
-                                        {
-                                            if (checkList2[c].wqh_s_num == a.wqh_s_num)
-                                            {
-                                                if (checkList2[c].qb_s_num == i.qb_s_num)
-                                                {
-                                                    //checkList.RemoveAt(a);
-                                                    checkList2.RemoveAt(c);
-                                                }
-                                            }
+            //                            for (int c = 0; c < checkList2.Count(); c++)
+            //                            {
+            //                                if (checkList2[c].wqh_s_num == a.wqh_s_num)
+            //                                {
+            //                                    if (checkList2[c].qb_s_num == i.qb_s_num)
+            //                                    {
+            //                                        //checkList.RemoveAt(a);
+            //                                        checkList2.RemoveAt(c);
+            //                                    }
+            //                                }
 
 
-                                        }
+            //                            }
 
-                                    }
-                                }
-
-
-                            }
-                        }
+            //                        }
+            //                    }
 
 
+            //                }
+            //            }
 
-                    }
+
+
+            //        }
                     
-                }
-            }
+            //    }
+            //}
 
             TFcount = 0;
             quesStack.Children.Clear();
@@ -821,12 +816,19 @@ namespace PULI.Views
                                         if (j == "是" || j == "已發")
                                         {
                                             color = "Red";
+                                            IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                            IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                         }
                                         else
                                         {
                                             color = "Green";
+                                            IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                            IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                         }
                                         //////Console.WriteLine("color~~~ " + color);
+                                        TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                        TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                        TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
                                         QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                         ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                         var check = new checkInfo
@@ -876,8 +878,8 @@ namespace PULI.Views
                                     
                                 };
 
-                                if (isReset == true || isDB == true)
-                                {
+                                //if (isReset == true || isDB == true)
+                                //{
                                     if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                     {
                                         //////Console.WriteLine("JKL1~~~ " + j);
@@ -917,16 +919,16 @@ namespace PULI.Views
                                             FontSize = 20
                                         };
                                     }
-                                }
-                                else
-                                {
-                                    label_check = new Label // 選項
-                                    {
-                                        Text = j,
-                                        TextColor = Color.Black,
-                                        FontSize = 20
-                                    };
-                                }
+                                //}
+                                //else
+                                //{
+                                //    label_check = new Label // 選項
+                                //    {
+                                //        Text = j,
+                                //        TextColor = Color.Black,
+                                //        FontSize = 20
+                                //    };
+                                //}
 
                                 var stack_check = new StackLayout // checkbox跟選項
                                 {
@@ -1146,14 +1148,21 @@ namespace PULI.Views
                                             if (j == "是" || j == "未發")
                                             {
                                                 color = "Red";
+                                                IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                             }
                                             else
                                             {
                                                 color = "Green";
+                                                IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                             }
                                             ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                             ////////Console.WriteLine("color~~~ " + color);
                                             ////////Console.WriteLine("wqh~~~ " + questionList.wqh_s_num);
+                                            TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                            TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                            TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
                                             QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                             
                                             ////////Console.WriteLine("j_HERE~~~ " + j);
@@ -1223,8 +1232,8 @@ namespace PULI.Views
                                     };
                                     ////Console.WriteLine("isreset~~~ ");
                                     ////Console.WriteLine("isRest~~ " + isReset);
-                                    if (isReset == true || isDB == true)
-                                    {
+                                    //if (isReset == true || isDB == true)
+                                    //{
                                         if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                         {
                                             ////Console.WriteLine("A~~~ " + j);
@@ -1290,17 +1299,17 @@ namespace PULI.Views
                                             };
 
                                         }
-                                    }
-                                    else
-                                    {
-                                        ////Console.WriteLine("D~~~ ");
-                                        label_check = new Label // 選項
-                                        {
-                                            Text = j,
-                                            TextColor = Color.Black,
-                                            FontSize = 20
-                                        };
-                                    }
+                                    //}
+                                    //else
+                                    //{
+                                    //    ////Console.WriteLine("D~~~ ");
+                                    //    label_check = new Label // 選項
+                                    //    {
+                                    //        Text = j,
+                                    //        TextColor = Color.Black,
+                                    //        FontSize = 20
+                                    //    };
+                                    //}
 
 
                                     var stack_check = new StackLayout // checkbox跟選項
@@ -1509,14 +1518,21 @@ namespace PULI.Views
                                             if (j == "是" || j == "未發")
                                             {
                                                 color = "Red";
+                                                IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                             }
                                             else
                                             {
                                                 color = "Green";
+                                                IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                             }
                                             ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                             //Console.WriteLine("color~~~ " + color);
                                             //Console.WriteLine("wqh~~~ " + questionList.wqh_s_num);
+                                            TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                            TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                            TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
                                             QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
 
                                             //Console.WriteLine("j_HERE~~~ " + j);
@@ -1589,8 +1605,8 @@ namespace PULI.Views
                                     //Console.WriteLine("bingoname22~~~ " + questionList.wqh_s_num);
                                     //Console.WriteLine("qborder22~~ " + i.qb_order);
                                     //Console.WriteLine("color22~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
-                                    if (isReset == true || isDB == true)
-                                    {
+                                    //if (isReset == true || isDB == true)
+                                    //{
                                         if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                         {
                                             //Console.WriteLine("A~~~ " + j);
@@ -1656,17 +1672,17 @@ namespace PULI.Views
                                             };
 
                                         }
-                                    }
-                                    else
-                                    {
-                                        ////Console.WriteLine("D~~~ ");
-                                        label_check = new Label // 選項
-                                        {
-                                            Text = j,
-                                            TextColor = Color.Black,
-                                            FontSize = 20
-                                        };
-                                    }
+                                    //}
+                                    //else
+                                    //{
+                                    //    ////Console.WriteLine("D~~~ ");
+                                    //    label_check = new Label // 選項
+                                    //    {
+                                    //        Text = j,
+                                    //        TextColor = Color.Black,
+                                    //        FontSize = 20
+                                    //    };
+                                    //}
 
 
                                     var stack_check = new StackLayout // checkbox跟選項
@@ -1889,13 +1905,20 @@ namespace PULI.Views
                                                 {
                                                     //Console.WriteLine("G_in~~~ ");
                                                     color = "Green";
+                                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                                 }
                                                 else
                                                 {
                                                     //Console.WriteLine("R_in~~~ ");
                                                     color = "Red";
+                                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                                 }
                                                 //////Console.WriteLine("color~~~ " + color);
+                                                TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                                TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                                TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
                                                 QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                                 ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                                 var check = new checkInfo
@@ -1963,8 +1986,8 @@ namespace PULI.Views
                                         //////Console.WriteLine("WWWRRR3~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
                                         //////Console.WriteLine("WWWRRR_j~~~ " + j);
                                         ////////Console.WriteLine("WWW~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
-                                        if (isReset == true || isDB == true)
-                                        {
+                                        //if (isReset == true || isDB == true)
+                                        //{
                                             if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Green" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                             {
                                                 //Console.WriteLine("JKL1~~~ " + j);
@@ -2029,16 +2052,16 @@ namespace PULI.Views
                                                     FontSize = 20
                                                 };
                                             }
-                                        }
-                                        else
-                                        {
-                                            label_check = new Label // 選項
-                                            {
-                                                Text = j,
-                                                TextColor = Color.Black,
-                                                FontSize = 20
-                                            };
-                                        }
+                                        //}
+                                        //else
+                                        //{
+                                            //label_check = new Label // 選項
+                                            //{
+                                                //Text = j,
+                                                //TextColor = Color.Black,
+                                                //FontSize = 20
+                                            //};
+                                        //}
 
 
                                         var stack_check = new StackLayout // checkbox跟選項
@@ -2050,6 +2073,379 @@ namespace PULI.Views
                                       
                                         stack_ques.Children.Add(stack_check);
                                        
+                                    }
+                                    else if(i.qb_order == "2")
+                                    {
+                                        //Console.WriteLine("qborder_2_in~~~ ");
+                                        //Console.WriteLine("qborder~~~ " + i.qb_order);
+                                        //Console.WriteLine("wqh~~ " + questionList.wqh_s_num);
+                                        //Console.WriteLine("name~~ " + questionList.ClientName);
+                                        //////Console.WriteLine("CVB~~~~");
+                                        //foreach (var j in i.qb03) // 跑選項的for迴圈(for產生幾個checkbox) // j => checkbox的選項 
+                                        //{
+                                        //count = 0;
+                                        ////Console.WriteLine("nameCC~~~ " + questionList.ClientName);
+                                        ////Console.WriteLine("countCC~~~ " + questionList.qbs.Count());
+                                        ////Console.WriteLine("order~~~ " + i.qb_order);
+                                        ////Console.WriteLine("result_num~~~ " + result_num);
+                                        TFcount = TFcount + 1;
+                                        var temp_j = "";
+                                        var temp_value = "";
+                                        //var temp_j_map = "";
+                                        //var temp_value_map = "";
+
+                                        // 跑選是的reset把checkList抓回來判斷
+                                        if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
+                                        {
+                                            //////Console.WriteLine("third~~ ");
+                                            //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
+                                            //////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                            var _wqhsnum = questionList.wqh_s_num;
+                                            temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
+                                            //////Console.WriteLine("tempj~~ " + temp_j);
+                                            for (int d = 0; d < i.qb03.Count(); d++)
+                                            {
+                                                //////Console.WriteLine("j00~~ " + j);
+                                                //////Console.WriteLine("w00~~~ " + i.qb03[d]);
+                                                if (temp_j == i.qb03[d])
+                                                {
+
+                                                    //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                    ////////Console.WriteLine("check~~ " + checkList2[a].wqb01);
+                                                    //////Console.WriteLine("qb0311~~ " + qb03_count);
+                                                    //////Console.WriteLine("j~~ " + j);
+                                                    //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                    //ANS2 = Convert.ToString(qb03_count);
+                                                    ANS2 = d.ToString();
+                                                    //////Console.WriteLine("jj~~ " + temp_j);
+                                                    //////Console.WriteLine("ANS2_2~~ " + ANS2);
+                                                }
+
+                                                //////Console.WriteLine("qb0322~~ " + qb03_count);
+                                            }
+                                            //////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                                            //////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                            //////Console.WriteLine("why~~ " + TmpAdd_elseList[questionList.wqh_s_num + i.qb_order]);
+                                            checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == i.qb_order);
+                                            var check3 = new checkInfo
+                                            {
+                                                wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                                                qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                                                qb_s_num = i.qb_s_num, // 問題編號(第幾題)
+                                                qb_order = i.qb_order,
+                                                wqb01 = ANS2 // 答案
+
+                                            };
+                                            ////////Console.WriteLine("count1~~ " + checkList2.Count());
+                                            checkList2.Add(check3); // for save
+
+                                        }
+                                        // 跑選是的reset把checkList抓回來判斷
+                                        //////Console.WriteLine("checklist2~count3~ " + checkList2.Count());
+                                        for (int a = 0; a < checkList.Count(); a++)
+                                        {
+                                            //////Console.WriteLine("check11~~ " + checkList[a].wqh_s_num);
+                                            //////Console.WriteLine("ques11~~~ " + questionList.wqh_s_num);
+                                            ////////Console.WriteLine("COUNT222~~~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                                            if (checkList[a].wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
+                                            {
+                                                ////////Console.WriteLine("IMMMM222~~~~");
+                                                //////Console.WriteLine("AAQ~~~ " + questionList.wqh_s_num);
+                                                if (checkList[a].qb_s_num == i.qb_s_num) // 判斷哪一題
+                                                {
+                                                    //////Console.WriteLine("BBQ~~~~ " + i.qb_s_num);
+
+                                                    //foreach (var w in i.qb03)
+                                                    for (int d = 0; d < i.qb03.Count(); d++)
+                                                    {
+                                                        //////Console.WriteLine("check00~~ " + checkList[a].wqb01);
+                                                        //////Console.WriteLine("w00~~~ " + d.ToString());
+                                                        if (checkList[a].wqb01 == d.ToString())
+                                                        {
+
+                                                            //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                            //////Console.WriteLine("check~~ " + checkList[a].wqb01);
+                                                            //////Console.WriteLine("qb0311~~ " + qb03_count);
+                                                            //////Console.WriteLine("j~~ " + j);
+                                                            //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                            //ANS2 = Convert.ToString(qb03_count);
+                                                            temp_j = i.qb03[d]; // 答案
+                                                                                //////Console.WriteLine("jj~~ " + temp_j);
+                                                        }
+
+                                                        //////Console.WriteLine("qb0322~~ " + qb03_count);
+                                                    }
+                                                    // //////Console.WriteLine("cc~~~ " + p);
+                                                    //////Console.WriteLine("ANS2~~ " + ANS2);
+
+                                                    //temp_value = checkList[a].wqb99; // entry
+                                                }
+                                            }
+                                        }
+
+
+
+                                        bool ischeck = (temp_j == j) ? true : false; // 再把剛剛的答案抓回來判斷(如果是就把他勾起來)
+                                                                                     //bool isMoreCheckbox = (temp_j == "未發") ? true : false; // 如果答案是 未發 -> 第四題顯示
+
+                                        //////Console.WriteLine("j3~~~ " + j);
+                                        //////Console.WriteLine("isckeck3~~~~ " + ischeck);
+                                        //////Console.WriteLine("isRed3~~~ " + //isRed);
+                                        //////Console.WriteLine("isGreen3~~~ " + //isGreen);
+
+                                        //////Console.WriteLine("TFcount~~~" + TFcount);
+                                        if (TFcount == 1)
+                                        {
+                                            check_box = new CheckBox // 產生checkbox
+                                            {
+
+                                                IsChecked = ischeck,
+                                                Margin = new Thickness(-5, 0, 0, 0),
+                                                //Color = Color.FromHex("264653")
+                                                Color = Color.Red,
+
+                                            };
+                                        }
+                                        else
+                                        {
+                                            check_box = new CheckBox // 產生checkbox
+                                            {
+
+                                                IsChecked = ischeck,
+                                                Margin = new Thickness(-5, 0, 0, 0),
+                                                //Color = Color.FromHex("264653")
+                                                Color = Color.Green
+                                            };
+                                        }
+                                        check_box.CheckedChanged += async (s, e) =>
+                                        {
+                                            //////Console.WriteLine("checkboxin3~~~");
+                                            if (e.Value) // 如果選是，要跳出entry所以需要reset
+                                            {
+                                                ////////Console.WriteLine("IN~~~");
+                                                //ischeck = true;
+                                                //IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+
+                                                for (int a = 0; a < checkList.Count(); a++)
+                                                {
+                                                    if (checkList[a].wqh_s_num == questionList.wqh_s_num)
+                                                    {
+                                                        if (checkList[a].qb_s_num == i.qb_s_num)
+                                                        {
+                                                            checkList.RemoveAt(a);
+                                                            //checkList2.RemoveAt(a);
+                                                        }
+                                                    }
+
+                                                }
+
+                                                //////Console.WriteLine("jjj~~~ " + j);
+                                                if (j == "未發")
+                                                {
+                                                    //IsChoose = true;
+                                                    CheckboxList[questionList.ClientName] = true;
+                                                    ChooseSaveToDB(questionList.ClientName, true);
+                                                    //////Console.WriteLine("LLL~~~ " + IsChoose);
+                                                }
+                                                //if (j == "是" || j == "已發")
+                                                //{
+                                                //    ANS = 0;
+                                                //    ANS2 = Convert.ToString(ANS);
+
+
+                                                //}
+                                                //else
+                                                //{
+                                                //    ANS = 1;
+                                                //    ANS2 = Convert.ToString(ANS);
+
+                                                //}
+                                                for (int d = 0; d < i.qb03.Count(); d++)
+                                                {
+                                                    //////Console.WriteLine("j00~~ " + j);
+                                                    //////Console.WriteLine("w00~~~ " + i.qb03[d]);
+                                                    if (j == i.qb03[d])
+                                                    {
+
+                                                        //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                        ////////Console.WriteLine("check~~ " + checkList2[a].wqb01);
+                                                        //////Console.WriteLine("qb0311~~ " + qb03_count);
+                                                        //////Console.WriteLine("j~~ " + j);
+                                                        //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                        //ANS2 = Convert.ToString(qb03_count);
+                                                        ANS2 = d.ToString();
+                                                        //////Console.WriteLine("jj~~ " + temp_j);
+                                                        //////Console.WriteLine("ANS2_2~~ " + ANS2);
+                                                    }
+
+                                                    //////Console.WriteLine("qb0322~~ " + qb03_count);
+                                                }
+                                                // //////Console.WriteLine("cc~~~ " + p);
+                                                //////Console.WriteLine("ANS2~~ " + ANS2);
+                                                //////Console.WriteLine("cc~~~ " + p);
+                                                //////Console.WriteLine("ANS21~~~ " + ANS2);
+                                                // 把問題選項存進資料庫
+                                                ////////Console.WriteLine("questionList.wqh_s_num~~" + questionList.wqh_s_num);
+                                                //////Console.WriteLine("qh~s~num~~~ " + questionList.qh_s_num);
+                                                //////Console.WriteLine("questionList.qh_s_num~~!!  " + questionList.qh_s_num);
+                                                ////////Console.WriteLine("i.qb_s_num~~" + i.qb_s_num);
+                                                ////////Console.WriteLine("j~~" + j);
+                                                if (j == "是" || j == "已發")
+                                                {
+                                                    color = "Red";
+                                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
+                                                }
+                                                else
+                                                {
+                                                    color = "Green";
+                                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
+                                                }
+                                                //////Console.WriteLine("color~~~ " + color);
+                                                TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                                TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                                TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
+                                                QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
+                                                ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
+                                                var check = new checkInfo
+                                                {
+                                                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                                                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                                                    qb_s_num = i.qb_s_num, // 問題編號(第幾題)
+                                                    wqb01 = ANS2 // 答案
+
+                                                };
+                                                checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == i.qb_order);
+                                                var check3 = new checkInfo
+                                                {
+                                                    wqh_s_num = questionList.wqh_s_num, // 問卷編號
+                                                    qh_s_num = questionList.qh_s_num, // 工作問卷編號
+                                                    qb_s_num = i.qb_s_num, // 問題編號(第幾題)
+                                                    qb_order = i.qb_order,
+                                                    wqb01 = ANS2 // 答案
+
+                                                };
+                                                ////////Console.WriteLine("count1~~ " + checkList2.Count());
+                                                checkList2.Add(check3); // for save
+                                                                        //////Console.WriteLine("i.qb_s_num####~~" + i.qb_s_num);
+                                                checkList.Add(check); // for check
+                                                                      //checkList2.Add(check3); // for save
+                                                                      ////////Console.WriteLine("CHECK" + checkList[0]);
+                                                ///
+                                                reset();
+
+
+
+                                            }
+                                            else // 選否則不用reset
+                                            {
+                                                //ischeck = false;
+                                                //////Console.WriteLine("remove~~~~~");
+                                                for (int a = 0; a < checkList.Count(); a++)
+                                                {
+                                                    if (checkList[a].qb_s_num == i.qb_s_num)
+                                                    {
+                                                        checkList.RemoveAt(a);
+                                                    }
+                                                }
+                                            }
+
+
+                                        };
+                                        //////Console.WriteLine("isReset~~~~ " + isReset);
+                                        //////Console.WriteLine("AAA3~~~ " + questionList.wqh_s_num);
+                                        //////Console.WriteLine("BBB3~~~ " + i.qb_order);
+                                        //////Console.WriteLine("WWWRRR3~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
+                                        //////Console.WriteLine("WWWRRR_j~~~ " + j);
+                                        ////////Console.WriteLine("WWW~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
+                                        //if (isReset == true || isDB == true)
+                                        //{
+                                            if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
+                                            {
+                                                //////Console.WriteLine("JKL1~~~ " + j);
+                                                if (j == "是" || j == "已發")
+                                                {
+                                                    label_check = new Label // 選項
+                                                    {
+                                                        Text = j,
+                                                        TextColor = Color.Red,
+                                                        //Margin = new Thickness(-10,0,0,0),
+                                                        FontSize = 20
+                                                    };
+                                                    ////isRed = false;
+                                                    //isReset = false;
+                                                }
+                                                else
+                                                {
+                                                    //////Console.WriteLine("JKL1-1~~~ " + j);
+                                                    label_check = new Label // 選項
+                                                    {
+                                                        Text = j,
+                                                        TextColor = Color.Black,
+                                                        FontSize = 20
+                                                    };
+                                                }
+
+                                            }
+                                            else if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Green" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
+                                            {
+                                                //////Console.WriteLine("JKL2~~~ " + j);
+                                                if (j == "未發" || j == "否")
+                                                {
+                                                    label_check = new Label // 選項
+                                                    {
+                                                        Text = j,
+                                                        TextColor = Color.Green,
+                                                        //Margin = new Thickness(-10, 0, 0, 0),
+                                                        FontSize = 20
+                                                    };
+                                                    //isGreen = false;
+                                                    //isReset = false;
+                                                }
+                                                else
+                                                {
+                                                    //////Console.WriteLine("JKL2-1~~~ " + j);
+                                                    label_check = new Label // 選項
+                                                    {
+                                                        Text = j,
+                                                        TextColor = Color.Black,
+                                                        FontSize = 20
+                                                    };
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                //////Console.WriteLine("JKL3~~~ " + j);
+                                                label_check = new Label // 選項
+                                                {
+                                                    Text = j,
+                                                    TextColor = Color.Black,
+                                                    FontSize = 20
+                                                };
+                                            }
+                                        //}
+                                        //else
+                                        //{
+                                        //    label_check = new Label // 選項
+                                        //    {
+                                        //        Text = j,
+                                        //        TextColor = Color.Black,
+                                        //        FontSize = 20
+                                        //    };
+                                        //}
+
+
+                                        var stack_check = new StackLayout // checkbox跟選項
+                                        {
+                                            Orientation = StackOrientation.Horizontal,
+                                            Children = { check_box, label_check }
+                                        };
+
+
+                                        stack_ques.Children.Add(stack_check);
+
                                     }
                                     else 
                                     {
@@ -2270,12 +2666,19 @@ namespace PULI.Views
                                                 if (j == "是" || j == "已發")
                                                 {
                                                     color = "Red";
+                                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                                 }
                                                 else
                                                 {
                                                     color = "Green";
+                                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                                 }
                                                 //////Console.WriteLine("color~~~ " + color);
+                                                TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                                TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                                TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
                                                 QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                                 ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                                 var check = new checkInfo
@@ -2329,8 +2732,8 @@ namespace PULI.Views
                                         //////Console.WriteLine("WWWRRR3~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
                                         //////Console.WriteLine("WWWRRR_j~~~ " + j);
                                         ////////Console.WriteLine("WWW~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
-                                        if (isReset == true || isDB == true)
-                                        {
+                                        //if (isReset == true || isDB == true)
+                                        //{
                                             if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                             {
                                                 //////Console.WriteLine("JKL1~~~ " + j);
@@ -2395,16 +2798,16 @@ namespace PULI.Views
                                                     FontSize = 20
                                                 };
                                             }
-                                        }
-                                        else
-                                        {
-                                            label_check = new Label // 選項
-                                            {
-                                                Text = j,
-                                                TextColor = Color.Black,
-                                                FontSize = 20
-                                            };
-                                        }
+                                        //}
+                                        //else
+                                        //{
+                                        //    label_check = new Label // 選項
+                                        //    {
+                                        //        Text = j,
+                                        //        TextColor = Color.Black,
+                                        //        FontSize = 20
+                                        //    };
+                                        //}
 
 
                                         var stack_check = new StackLayout // checkbox跟選項
@@ -2677,13 +3080,20 @@ namespace PULI.Views
                                         if (j == "是" || j == "未發")
                                         {
                                             color = "Red";
+                                            IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                            IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                         }
                                         else
                                         {
                                             color = "Green";
+                                            IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                            IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                         }
                                         //////Console.WriteLine("name~~~ " + questionList.ClientName);
                                         //////Console.WriteLine("color~~~ " + color);
+                                        TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
+                                        TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                                        TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
                                         QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                         ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                         var check = new checkInfo
@@ -2737,8 +3147,8 @@ namespace PULI.Views
                                    
                                 };
 
-                                if (isReset == true || isDB == true)
-                                {
+                                //if (isReset == true || isDB == true)
+                                //{
                                     if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                     {
                                         //////Console.WriteLine("JKL1~~~ " + j);
@@ -2798,16 +3208,16 @@ namespace PULI.Views
                                             FontSize = 20
                                         };
                                     }
-                                }
-                                else
-                                {
-                                    label_check = new Label // 選項
-                                    {
-                                        Text = j,
-                                        TextColor = Color.Black,
-                                        FontSize = 20
-                                    };
-                                }
+                                //}
+                                //else
+                                //{
+                                //    label_check = new Label // 選項
+                                //    {
+                                //        Text = j,
+                                //        TextColor = Color.Black,
+                                //        FontSize = 20
+                                //    };
+                                //}
                                 var stack_check = new StackLayout // checkbox跟選項
                                 {
                                     Orientation = StackOrientation.Horizontal,
@@ -3525,10 +3935,14 @@ namespace PULI.Views
                                 if (temp_j == "否")
                                 {
                                     color = "Red";
+                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                 }
                                 else
                                 {
                                     color = "Green";
+                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                 }
                             }
                             else
@@ -3536,15 +3950,21 @@ namespace PULI.Views
                                 if (temp_j == "是" || temp_j == "未發")
                                 {
                                     color = "Red";
+                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Red";
                                 }
                                 else
                                 {
                                     color = "Green";
+                                    IsResetList[questionList.wqh_s_num + i.qb_order] = true;
+                                    IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                 }
                             }
 
                             ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
-
+                            TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = temp_j;
+                            TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
+                            TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = temp_j;
                             QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, questionList.qb_s_num, temp_j, questionList.ClientName, i.qb_order);
                           
                             reset();
@@ -3770,16 +4190,28 @@ namespace PULI.Views
                     EntrytxtDB.DeleteAll();
                     //if (EntrytxtDB.GetAccountAsync2().Count() == 0)
                     //{
-                        //////Console.WriteLine("entrytxtSUCESS");
+                    //////Console.WriteLine("entrytxtSUCESS");
                     //}
                     //else
                     //{
-                        //////Console.WriteLine("entrytxtFAIL");
-                        //fooDoggyDatabase.DeleteAll();
-                        //////Console.WriteLine("failQAQ~~~" + EntrytxtDB.GetAccountAsync2().Count());
+                    //////Console.WriteLine("entrytxtFAIL");
+                    //fooDoggyDatabase.DeleteAll();
+                    //////Console.WriteLine("failQAQ~~~" + EntrytxtDB.GetAccountAsync2().Count());
                     //}
                     //TempAddDB.DeleteAll();
                     //TempAddDB_else.DeleteAll();
+                    foreach (var a in questionnaireslist)
+                    {
+                        foreach (var i in a.qbs)
+                        {
+                            IsResetList[a.wqh_s_num + i.qb_order] = false;
+                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+                            TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+                            TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
+                            TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
+                            CheckboxList[a.ClientName] = false;
+                        }
+                    }
                     reset();
                     //////Console.WriteLine("testviewaccdatabasedeletesuccess~~");
                     //await Navigation.PopAsync();
