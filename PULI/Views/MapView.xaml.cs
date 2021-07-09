@@ -1384,10 +1384,10 @@ namespace PULI.Views
                                                                 await Task.Delay(10000); // 等待30秒
                                                                 Messager2(); // 訊息消失(自動關閉)
 
-                                                                //punchinmsg = "SUCESS簽到成功in" + setName + "的家";
+                                                                punchinmsg = "SUCESS簽到成功in" + setName + "的家";
                                                                 ////Console.WriteLine("punchinmsg" + punchinmsg);
-                                                                //Thread.Sleep(5000); // 等待五秒之後
-                                                                //fadeformin(); // 簽到成功訊息自動消失
+                                                                Thread.Sleep(5000); // 等待五秒之後
+                                                                fadeformin(); // 簽到成功訊息自動消失
                                                             }
                                                             else
                                                             {
@@ -1397,18 +1397,11 @@ namespace PULI.Views
                                                         }
                                                         else // 無網路環境下，先將要打卡資料存進SQLite
                                                         {
-                                                            //Console.WriteLine("nowifiadd_in~~~~");
-                                                            //Console.WriteLine("token~~" + MainPage.token);
-                                                            //Console.WriteLine("name~" + Clname);
-                                                            //Console.WriteLine("ct_s_num~~" + ct_s_num);
-                                                            //Console.WriteLine("sec_s_num~~" + sec_s_num);
-                                                            //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
-                                                            //Console.WriteLine("bn_s_num~~" + bn_s_num);
-                                                            //Console.WriteLine("lat~~" + position.Latitude);
-                                                            //Console.WriteLine("lon~~" + position.Longitude);
+                                                           
                                                             inorout = "in"; // 簽到
-                                                            ////Console.WriteLine("");
-                                                            // 將簽到資訊存進SQLite
+                                                                            ////Console.WriteLine("");
+                                                                            // 將簽到資訊存進SQLite
+                                                            //bool web_res = await web.Save_Punch_In(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
                                                             PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
                                                             punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
                                                             PunchTmp.SaveAccountAsync(new PunchTmp // 存進無網路簽到成功的SQLite
