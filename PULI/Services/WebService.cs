@@ -429,10 +429,12 @@ namespace Deliver.Services
             var uri = new Uri(string.Format(host + "/lt_care/api/dp/get_work_q"));
             var response = await _client.PostAsync(uri, null);
             //var content2 = await response.Content.ReadAsStringAsync();
-            //Console.WriteLine("RES" + response);
+            Console.WriteLine("RES" + response);
+           
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("con~~~ " + content.ToString());
                 var list = JsonConvert.DeserializeObject<List<questionnaire>>(content);
                 return list;
                 Console.WriteLine("GETQOOO");

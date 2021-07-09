@@ -26,16 +26,16 @@ namespace PULI.Views
         string ans;
         public static bool ischeck;
         //public Dictionary<string, bool> TmpCheckList = new Dictionary<string, bool>();
-        public Dictionary<string, string> TmpAnsList = new Dictionary<string, string>(); // for 一般情況判斷SQLite裡面的答案
+        public static Dictionary<string, string> TmpAnsList = new Dictionary<string, string>(); // for 一般情況判斷SQLite裡面的答案
         public static Dictionary<string, string> TmpAnsList_same = new Dictionary<string, string>(); // for同上情況，判斷SQLite裡面的答案
         public static Dictionary<string, string> TmpAnsList_same_wqh = new Dictionary<string, string>(); // for同上情況，判斷問卷編號
         //public Dictionary<string, bool> TmpAdd_elseList = new Dictionary<string, bool>();
         //public Dictionary<string, bool> TmpAddList = new Dictionary<string, bool>();
         public Dictionary<string, bool> CheckboxList = new Dictionary<string, bool>(); // for判斷有沒有點未發(觸發第四題題目)
-        public Dictionary<string, bool> IsResetList = new Dictionary<string, bool>(); // 點選checkbox後判斷label顏色
+        public static Dictionary<string, bool> IsResetList = new Dictionary<string, bool>(); // 點選checkbox後判斷label顏色
         public Dictionary<string, int> RepeatOrNotList = new Dictionary<string, int>(); // for判斷是否有兩筆訂單的情況(觸發同上按鈕)
         public Dictionary<string, bool> EntryList = new Dictionary<string, bool>(); // for判斷觸發問答題(第五題)
-        public Dictionary<string, string> IsGreenOrRed = new Dictionary<string, string>(); // 點選checkbox後判斷label顏色
+        public static Dictionary<string, string> IsGreenOrRed = new Dictionary<string, string>(); // 點選checkbox後判斷label顏色
         public Dictionary<string, string> EntrytxtList = new Dictionary<string, string>(); // for存SQLite裡面抓出來的entry text
         //public Dictionary<string, bool> IsResetList = new Dictionary<string, bool>();
         public static int[] ansList;
