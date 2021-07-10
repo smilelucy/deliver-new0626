@@ -2102,6 +2102,7 @@ namespace PULI.Views
             ////Console.WriteLine("C1 :" + questionnaireslist.Count);
             ////Console.WriteLine("BBBBB" + totalList.daily_shipments[which].ClientName);
             ////Console.WriteLine("C2 :" + totalList.daily_shipments.Count);
+            quesStack.Children.Clear();
             FINAL = 0;
             for (int i = 0; i < questionnaireslist.Count; i++)
             {
