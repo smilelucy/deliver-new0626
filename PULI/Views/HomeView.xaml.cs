@@ -23,53 +23,41 @@ namespace PULI.Views
         {
             MessagingCenter.Send(this, "BEACON_SCAN", true);
             Console.WriteLine("BEACONSCAN");
-            if (MainPage.AUTH == "4")
+           
+
+            // run 社工地圖
+            if(MainPage.AUTH == "6")
             {
-                if (MainPage.totalList.daily_shipments.Count != 0)
+                try
                 {
-                    MessagingCenter.Send(this, "SET_MAP", true); 
-                    Console.WriteLine("SETMAP_4");
+                    if (MainPage.allclientList != null)
+                    {
+                        MessagingCenter.Send(this, "SET_MAP", true);
+                        Console.WriteLine("SETMAP_6");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DisplayAlert("系統訊息", "Error : helper_homeview_allclientList_SET_MAP", "ok");
                 }
             }
-            else
-            {
-                if (MainPage.allclientList.Count() != 0)
-                {
-                    MessagingCenter.Send(this, "SET_MAP", true); // 傳送"UPDATE_BONUS"的指令給訂閱者(Subscribe)
-                    Console.WriteLine("SETMAP_6");
-                }
-            }
+            
+
+
             //if (MainPage.AUTH == "4")
             //{
             //    if (MainPage.totalList.daily_shipments.Count != 0)
             //    {
-            //        MessagingCenter.Send(this, "SET_FORM", true);
-            //        Console.WriteLine("SETFORM");
+            //        MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
+            //        Console.WriteLine("SETSHIPMENT");
             //    }
-            //}
-            //else
-            //{
-            //    if(MainPage.userList.daily_shipment_nums > 0)
+            //    else
             //    {
-            //        MessagingCenter.Send(this, "SET_FORM", true);
-            //        Console.WriteLine("SETFORM"); // for外送員的回饋單
+            //        //DisplayAlert("系統訊息", "後臺尚未產生資料或資料接收不齊全", "ok");
+            //        Console.WriteLine("no shipment_homeview~~");
+            //        Console.WriteLine("homecount~~ " + MainPage.totalList.daily_shipments.Count);
             //    }
             //}
-
-            if (MainPage.AUTH == "4")
-            {
-                if (MainPage.totalList.daily_shipments.Count != 0)
-                {
-                    MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
-                    Console.WriteLine("SETSHIPMENT");
-                }
-                else
-                {
-                    //DisplayAlert("系統訊息", "後臺尚未產生資料或資料接收不齊全", "ok");
-                    Console.WriteLine("no shipment_homeview~~");
-                    Console.WriteLine("homecount~~ " + MainPage.totalList.daily_shipments.Count);
-                }
-            }
             //else
             //{
             //    if(MainPage.userList.daily_shipment_nums > 0)
@@ -79,22 +67,7 @@ namespace PULI.Views
             //    }
             //}
 
-            if (MainPage.AUTH == "4")
-            {
-                if (MainPage.totalList.abnormals.Count != 0)
-                {
-                    MessagingCenter.Send(this, "SET_CHANGE_FORM", true);
-                    Console.WriteLine("CHANGE");
-                }
-            }
-            //else
-            //{
-            //    if(MainPage.userList.daily_shipment_nums > 0)
-            //    {
-            //        MessagingCenter.Send(this, "SET_CHANGE_FORM", true);
-            //        Console.WriteLine("CHANGE_6"); // for社工的異動表
-            //    }
-            //}
+           
             if(MainPage.AUTH == "6")
             {
                 MessagingCenter.Send(this, "SET_AddCln_FORM", true);

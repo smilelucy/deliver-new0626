@@ -1384,7 +1384,7 @@ namespace PULI.Views
                                                                 await Task.Delay(10000); // 等待30秒
                                                                 Messager2(); // 訊息消失(自動關閉)
 
-                                                                punchinmsg = "SUCESS簽到成功in" + setName + "的家";
+                                                                punchinmsg = "簽到成功" + setName + "的家";
                                                                 ////Console.WriteLine("punchinmsg" + punchinmsg);
                                                                 Thread.Sleep(5000); // 等待五秒之後
                                                                 fadeformin(); // 簽到成功訊息自動消失

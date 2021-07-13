@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="PULI.MainPage">
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true" IsEnabled="True" x:Name="Login">
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true" IsEnabled="True" x:Name="Login" Padding="0,100,0,0">
             <Label Text="請輸入帳號密碼來登入" FontSize="30" 
                        HorizontalOptions="Center"
                        VerticalOptions="Center"  />
@@ -59,6 +59,12 @@
                         CornerRadius="20"
                         FontSize="20"
                         BackgroundColor="DarkKhaki" Clicked="login_Clicked"/>
+            <Label  FontSize="Small"
+                               HorizontalTextAlignment="End"
+                    VerticalTextAlignment="End"
+                    Padding="0,100,0,0"
+                                           TextColor="Black"
+                                           Text="Ver_1.2" />
         </StackLayout>
         <StackLayout VerticalOptions="Center"
                              HorizontalOptions="Center"

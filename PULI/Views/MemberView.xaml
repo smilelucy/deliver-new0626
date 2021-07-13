@@ -103,66 +103,70 @@
                          VerticalOptions="StartAndExpand"
                          x:Name="memberView">
             <Frame BackgroundColor="#fae1dd" Margin="10,10,10,0" VerticalOptions="Start" HasShadow="False" CornerRadius="20"  x:Name="UserInfo">
-                <StackLayout Orientation="Horizontal"
-                                 Padding="10,0,10,0"
+               
+                    <StackLayout Orientation="Horizontal"
+                                     Padding="10,0,10,0"
                             
-                                 HorizontalOptions="CenterAndExpand"
-                                 VerticalOptions="StartAndExpand"  >
+                                     HorizontalOptions="CenterAndExpand"
+                                     VerticalOptions="StartAndExpand"  >
 
-                    <yummy:PancakeView HeightRequest="100"
-                                           WidthRequest="100"
-                                       Padding="0,15,0,0"
-                                       BackgroundColor="#f8edeb"
-                                           CornerRadius="50">
+                        <yummy:PancakeView HeightRequest="100"
+                                               WidthRequest="100"
+                                           Padding="0,15,0,0"
+                                           BackgroundColor="#f8edeb"
+                                               CornerRadius="50">
 
-                        <Image Source="user2.png"
-                                HeightRequest="150"
+                            <Image Source="user2.png"
+                                    HeightRequest="150"
                           
-                                   Aspect="AspectFit" />
+                                       Aspect="AspectFit" />
 
-                    </yummy:PancakeView>
+                        </yummy:PancakeView>
 
-                    <BoxView Color="Black"
-                                 WidthRequest="1"
-                                 HeightRequest="75"
-                                 VerticalOptions="Center"
-                                 Margin="20,5,10,0"/>
+                        <BoxView Color="Black"
+                                     WidthRequest="1"
+                                     HeightRequest="75"
+                                     VerticalOptions="Center"
+                                     Margin="20,5,10,0"/>
 
-                    <StackLayout Padding="10,0,0,0"
-                                 VerticalOptions="Center"
-                                     Orientation="Vertical">
+                        <StackLayout Padding="10,0,0,0"
+                                     VerticalOptions="Center"
+                                         Orientation="Vertical">
 
-                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal">
 
-                            <Label Text="使用者 : "
-                                       TextColor="Black"
-                                       FontSize="Medium" />
+                                <Label Text="使用者 : "
+                                           TextColor="Black"
+                                           FontSize="Medium" />
 
-                            <Label x:Name="usrname"
-                                       FontSize="Medium"
-                                       TextColor="Black"
-                                       Text="" />
+                                <Label x:Name="usrname"
+                                           FontSize="Medium"
+                                           TextColor="Black"
+                                           Text="" />
+
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+
+                                <Label Text="身分 : "
+                                           TextColor="Black"
+                                           FontSize="Medium" />
+
+                                <Label x:Name="auth"
+                                           FontSize="Medium"
+                                           TextColor="Red"
+                                           Text="" />
+
+                            </StackLayout>
+
+                        
+
 
                         </StackLayout>
-
-                        <StackLayout Orientation="Horizontal">
-
-                            <Label Text="身分 : "
-                                       TextColor="Black"
-                                       FontSize="Medium" />
-
-                            <Label x:Name="auth"
-                                       FontSize="Medium"
-                                       TextColor="Red"
-                                       Text="" />
-
-                        </StackLayout>
-
-
-
+                    
                     </StackLayout>
-
-                </StackLayout>
+                    
+             
             </Frame>
             <StackLayout Orientation="Horizontal" 
                              HorizontalOptions="CenterAndExpand" x:Name="UsrInfobtn">

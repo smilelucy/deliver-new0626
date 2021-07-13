@@ -45,7 +45,7 @@ namespace PULI.Views
         public static string ANS2;
         public static string ANS3;
         public static string Qtype;
-       
+        private static int same_ans_coount; // 看同上的那筆問卷題目有幾筆
 
         //public static string anslist;
         //public static string p;
@@ -89,194 +89,203 @@ namespace PULI.Views
             //tmp_name_list.Clear();
             //tmp_num_list.Clear();
             questionnaireslist = await web.Get_Questionaire(MainPage.token);
-            //foreach (var value in questionnaireslist)
-            //{
-                //Console.WriteLine("value~~ " + value.ClientName);
-                //Console.WriteLine("wqh~~ " + value.wqh_s_num);
-                //Console.WriteLine("qh~~ " + value.qh_s_num);
-                //Console.WriteLine("qb~~ " + value.qb_s_num);
-                //Console.WriteLine("qb03~~ " + value.qbs.Count());
-            //}
-
-            DateTime today = DateTime.Now;
-            string[] Day = new string[] { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
-            //////Console.WriteLine("星期幾~~~ " + today.DayOfWeek);
-            if (today.DayOfWeek == DayOfWeek.Monday)
+            if(questionnaireslist == null)
             {
-                result = "星期一";
+                Console.WriteLine("qlistnull~~ ");
             }
-            else if (today.DayOfWeek == DayOfWeek.Tuesday)
+            else
             {
-                result = "星期二";
-            }
-            else if (today.DayOfWeek == DayOfWeek.Wednesday)
-            {
-                result = "星期三";
-            }
-            else if (today.DayOfWeek == DayOfWeek.Thursday)
-            {
-                result = "星期四";
-            }
-            else if (today.DayOfWeek == DayOfWeek.Friday)
-            {
-                result = "星期五";
-            }
-            else if (today.DayOfWeek == DayOfWeek.Saturday)
-            {
-                result = "星期六";
-            }
-            else if (today.DayOfWeek == DayOfWeek.Sunday)
-            {
-                result = "星期日";
-            }
-            //////Console.WriteLine("result~~~ " + result);
-            for(int e = 0; e < Day.Count(); e++)
-            {
-                if(result == Day[e])
+                DateTime today = DateTime.Now;
+                string[] Day = new string[] { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
+                //////Console.WriteLine("星期幾~~~ " + today.DayOfWeek);
+                if (today.DayOfWeek == DayOfWeek.Monday)
                 {
-                    result_num = e;
+                    result = "星期一";
                 }
-            }
-            ////Console.WriteLine("result_num~~~ " + result_num);
-            ////Console.WriteLine("result~~ " + result);
-            //Console.WriteLine("COUNT~~~" + questionnaireslist.Count());
-            foreach (var a in questionnaireslist)
-            {
-                foreach (var i in a.qbs)
+                else if (today.DayOfWeek == DayOfWeek.Tuesday)
                 {
-                    IsResetList[a.wqh_s_num + i.qb_order] = false;
-                    IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
-                    TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
-                    TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
-                    TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
-                    CheckboxList[a.ClientName] = false;
+                    result = "星期二";
                 }
-            }
-
-            foreach (var a in questionnaireslist)
-            {
-                foreach (var i in a.qbs)
+                else if (today.DayOfWeek == DayOfWeek.Wednesday)
                 {
-                   
-
-                    if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
+                    result = "星期三";
+                }
+                else if (today.DayOfWeek == DayOfWeek.Thursday)
+                {
+                    result = "星期四";
+                }
+                else if (today.DayOfWeek == DayOfWeek.Friday)
+                {
+                    result = "星期五";
+                }
+                else if (today.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    result = "星期六";
+                }
+                else if (today.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    result = "星期日";
+                }
+                //////Console.WriteLine("result~~~ " + result);
+                for (int e = 0; e < Day.Count(); e++)
+                {
+                    if (result == Day[e])
                     {
-                        ////////Console.WriteLine("IMMMM~~~~");
-                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
+                        result_num = e;
+                    }
+                }
+                ////Console.WriteLine("result_num~~~ " + result_num);
+                ////Console.WriteLine("result~~ " + result);
+                Console.WriteLine("COUNT~~~" + questionnaireslist.Count());
+                foreach (var a in questionnaireslist)
+                {
+                    foreach (var i in a.qbs)
+                    {
+                        IsResetList[a.wqh_s_num + i.qb_order] = false;
+                        IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+                        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+                        TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
+                        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
+                        CheckboxList[a.ClientName] = false;
+                    }
+                }
+
+                foreach (var a in questionnaireslist)
+                {
+                    foreach (var i in a.qbs)
+                    {
+
+
+                        if (ChooseDB.GetAccountAsync2().Count() > 0) // database裡面有資料
                         {
-                            var q = ChooseDB.GetAccountAsync(b);
-
-
-                            foreach (var TempChooseList in q)
+                            ////////Console.WriteLine("IMMMM~~~~");
+                            ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                            for (int b = 0; b < ChooseDB.GetAccountAsync2().Count(); b++)
                             {
-                                if (TempChooseList.ClientName == a.ClientName)
-                                {
-                                    //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
-                                    CheckboxList[a.ClientName] = true;
-                                }
+                                var q = ChooseDB.GetAccountAsync(b);
 
+
+                                foreach (var TempChooseList in q)
+                                {
+                                    if (TempChooseList.ClientName == a.ClientName)
+                                    {
+                                        //////Console.WriteLine("choose_wqh~~ " + questionList.wqh_s_num);
+                                        CheckboxList[a.ClientName] = true;
+                                    }
+
+                                }
                             }
                         }
-                    }
-                    ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
-                    if (ResetDB.GetAccountAsync2().Count() > 0)
-                    {
-                        for (int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
+                        ////////Console.WriteLine("ResetDB~~ " + ResetDB.GetAccountAsync2().Count());
+                        if (ResetDB.GetAccountAsync2().Count() > 0)
                         {
-                            var d = ResetDB.GetAccountAsync(c);
-                            foreach (var TempResetList in d)
+                            for (int c = 0; c < ResetDB.GetAccountAsync2().Count(); c++)
                             {
-                                if (TempResetList.wqh_s_num == a.wqh_s_num)
+                                var d = ResetDB.GetAccountAsync(c);
+                                foreach (var TempResetList in d)
                                 {
-                                    if (TempResetList.qb_order == i.qb_order)
+                                    if (TempResetList.wqh_s_num == a.wqh_s_num)
                                     {
-                                        IsResetList[a.wqh_s_num + i.qb_order] = true;
-                                        isDB = true;
-                                        if (TempResetList.color == "Red")
+                                        if (TempResetList.qb_order == i.qb_order)
                                         {
-                                            ////isRed = true;
-                                            ////isGreen = false;
-                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Red";
+                                            IsResetList[a.wqh_s_num + i.qb_order] = true;
+                                            isDB = true;
+                                            if (TempResetList.color == "Red")
+                                            {
+                                                ////isRed = true;
+                                                ////isGreen = false;
+                                                IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Red";
+                                            }
+                                            else
+                                            {
+                                                ////isGreen = true;
+                                                ////isRed = false;
+                                                IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Green";
+                                            }
+                                            //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
+                                            //Console.WriteLine("qborder~~ " + i.qb_order);
+                                            //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
                                         }
-                                        else
-                                        {
-                                            ////isGreen = true;
-                                            ////isRed = false;
-                                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "Green";
-                                        }
-                                        //Console.WriteLine("bingoname~~~ " + TempResetList.wqh_s_num);
-                                        //Console.WriteLine("qborder~~ " + i.qb_order);
-                                        //Console.WriteLine("color~~~ " + IsGreenOrRed[questionList.wqh_s_num + i.qb_order]);
                                     }
                                 }
                             }
                         }
-                    }
-                    ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
-                    if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
-                    {
-                        ////////Console.WriteLine("1111~~~~");
-                        ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
-                        for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
+                        ////////Console.WriteLine("EntryDB~~ " + EntryDB.GetAccountAsync2().Count());
+                        if (MapView.AccDatabase.GetAccountAsync2().Count() > 0) // database裡面有資料
                         {
-                            var w = MapView.AccDatabase.GetAccountAsync(b);
-
-                            //////Console.WriteLine("2222~~~~");
-                            foreach (var TempAnsList in w)
+                            ////////Console.WriteLine("1111~~~~");
+                            ////////Console.WriteLine("pp~~" + MapView.AccDatabase.GetAccountAsync2().Count());
+                            for (int b = 0; b < MapView.AccDatabase.GetAccountAsync2().Count(); b++)
                             {
-                                ////////Console.WriteLine("3333~~~~");
-                                string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
-                                //////////Console.WriteLine("WHO~~" + who);
-                                //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
-                                ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
-                                ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
-                                if (TempAnsList.wqh_s_num == a.wqh_s_num) // 判斷問卷編號
-                                {
-                                    ////////Console.WriteLine("4444~~~~");
-                                    if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
-                                    {
-                                        ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
-                                        ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
-                                        ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
-                                        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
-                                        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
-                                        //TmpAnsList_same_wqh.Add(a.ClientName + i.qb_order, a.wqh_s_num);
-                                        TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01; // 給點擊同上判斷用
-                                        //Console.WriteLine("CC_name~~ " + a.ClientName);
-                                        //Console.WriteLine("CC_order~~ " + i.qb_order);
-                                        //Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
-                                        //Console.WriteLine("DD_wqh~~ " + a.wqh_s_num);
-                                        //Console.WriteLine("DD_order~~ " + i.qb_order);
-                                        //Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
-                                       
+                                var w = MapView.AccDatabase.GetAccountAsync(b);
 
-                                        for (int c = 0; c < checkList2.Count(); c++)
+                                //////Console.WriteLine("2222~~~~");
+                                foreach (var TempAnsList in w)
+                                {
+                                    ////////Console.WriteLine("3333~~~~");
+                                    string who = TempAnsList.wqh_s_num + TempAnsList.qb_s_num;
+                                    //////////Console.WriteLine("WHO~~" + who);
+                                    //////////Console.WriteLine("WHOTF~~" + TmpCheckList[who]);
+                                    ////////Console.WriteLine("temp000~~~ " + TempAnsList.wqh_s_num);
+                                    ////////Console.WriteLine("ques~~~ " + questionList.wqh_s_num);
+                                    if (TempAnsList.wqh_s_num == a.wqh_s_num) // 判斷問卷編號
+                                    {
+                                        ////////Console.WriteLine("4444~~~~");
+                                        if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
                                         {
-                                            if (checkList2[c].wqh_s_num == a.wqh_s_num)
+                                            ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
+                                            ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
+                                            ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
+                                            TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
+                                            TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
+                                            //TmpAnsList_same_wqh.Add(a.ClientName + i.qb_order, a.wqh_s_num);
+                                            TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01; // 給點擊同上判斷用
+                                                                                                           //Console.WriteLine("CC_name~~ " + a.ClientName);
+                                                                                                           //Console.WriteLine("CC_order~~ " + i.qb_order);
+                                                                                                           //Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
+                                                                                                           //Console.WriteLine("DD_wqh~~ " + a.wqh_s_num);
+                                                                                                           //Console.WriteLine("DD_order~~ " + i.qb_order);
+                                                                                                           //Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
+
+
+                                            for (int c = 0; c < checkList2.Count(); c++)
                                             {
-                                                if (checkList2[c].qb_s_num == i.qb_s_num)
+                                                if (checkList2[c].wqh_s_num == a.wqh_s_num)
                                                 {
-                                                    //checkList.RemoveAt(a);
-                                                    checkList2.RemoveAt(c);
+                                                    if (checkList2[c].qb_s_num == i.qb_s_num)
+                                                    {
+                                                        //checkList.RemoveAt(a);
+                                                        checkList2.RemoveAt(c);
+                                                    }
                                                 }
+
+
                                             }
 
-
                                         }
-
                                     }
+
+
                                 }
-
-
                             }
+
+
+
                         }
 
-
-
                     }
-                  
                 }
+            //Console.WriteLine("counttttt~~ " + questionnaireslist.Count());
+            //foreach (var value in questionnaireslist)
+            //{
+            //    Console.WriteLine("value~~ " + value.ClientName);
+            //    Console.WriteLine("wqh~~ " + value.wqh_s_num);
+            //    Console.WriteLine("qh~~ " + value.qh_s_num);
+            //    Console.WriteLine("qb~~ " + value.qb_s_num);
+            //    Console.WriteLine("qb03~~ " + value.qbs.Count());
+            //}
+
+            
             }
 
 
@@ -550,9 +559,10 @@ namespace PULI.Views
                 Orientation = StackOrientation.Horizontal,
                 Margin = new Thickness(5, 0, 5, 0),
                 // BackgroundColor = Color.FromHex("eddcd2"),
+
                 Children = { label_name, label_wqh, label_qh } // 標題(人名 + 問卷編號 +)
             };
-
+            
            
 
 
@@ -3867,6 +3877,10 @@ namespace PULI.Views
                     {
                         if (TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] != "")
                         {
+                            //same_ans_coount = TmpAnsList_same_wqh.Sum(s => s == questionList.ClientName);
+                            //same_ans_coount = TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order);
+                            //var total = tmp_name_list.Count(s => s == SQLlist[k].ClientName);
+                            //checkList2.RemoveAll(x => x.wqh_s_num == questionList.wqh_s_num && x.qb_order == i.qb_order);
                             //Console.WriteLine("first~~ ");
                             //Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
                             //Console.WriteLine("qborder~~~ " + i.qb_order);
@@ -4200,18 +4214,18 @@ namespace PULI.Views
                     //}
                     //TempAddDB.DeleteAll();
                     //TempAddDB_else.DeleteAll();
-                    foreach (var a in questionnaireslist)
-                    {
-                        foreach (var i in a.qbs)
-                        {
-                            IsResetList[a.wqh_s_num + i.qb_order] = false;
-                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
-                            TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
-                            TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
-                            TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
-                            CheckboxList[a.ClientName] = false;
-                        }
-                    }
+                    //foreach (var a in questionnaireslist)
+                    //{
+                    //    foreach (var i in a.qbs)
+                    //    {
+                    //        IsResetList[a.wqh_s_num + i.qb_order] = false;
+                    //        IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+                    //        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+                    //        TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
+                    //        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
+                    //        CheckboxList[a.ClientName] = false;
+                    //    }
+                    //}
                     reset();
                     //////Console.WriteLine("testviewaccdatabasedeletesuccess~~");
                     //await Navigation.PopAsync();

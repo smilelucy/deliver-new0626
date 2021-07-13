@@ -39,102 +39,77 @@ namespace PULI.Views
                 }
 
             });
-            if (MainPage.AUTH == "4")
+            if (MainPage.AUTH == "4") 
             {
-                MessagingCenter.Send(this, "SET_MAP", true); // 傳送"UPDATE_BONUS"的指令給訂閱者(Subscribe)
-                Console.WriteLine("SETMAP_4");
-                //if (MainPage.totalList.daily_shipments.Count != 0)
-                //{
-                //    MessagingCenter.Send(this, "SET_MAP", true); // 傳送"UPDATE_BONUS"的指令給訂閱者(Subscribe)
-                //    Console.WriteLine("SETMAP_4");
-                //}
-                //else
-                //{
-                //    Console.WriteLine("SETMAP_4_NOdata");
-                //}
-            }
-            else
-            {
-                if (MainPage.allclientList.Count() != 0)
+                // run 地圖
+                try
                 {
-                    MessagingCenter.Send(this, "SET_MAP", true); // 傳送"UPDATE_BONUS"的指令給訂閱者(Subscribe)
-                    Console.WriteLine("SETMAP_6");
+                    if(MainPage.totalList.daily_shipments != null)
+                    {
+                        MessagingCenter.Send(this, "SET_MAP", true);
+                        Console.WriteLine("SETMAP_4");
+                    }
                 }
-            }
-            if (MainPage.AUTH == "4")
-            {
-                MessagingCenter.Send(this, "SET_FORM", true);
-                Console.WriteLine("SETFORM");
-                //if (MainPage.totalList.daily_shipments.Count != 0)
-                //{
-                //    MessagingCenter.Send(this, "SET_FORM", true);
-                //    Console.WriteLine("SETFORM");
-                //}
-            }
-            else
-            {
-                if (MainPage.userList.daily_shipment_nums > 0)
+                catch(Exception ex)
                 {
-                    MessagingCenter.Send(this, "SET_FORM", true);
-                    Console.WriteLine("SETFORM"); // for外送員的回饋單
+                    DisplayAlert("系統訊息", "Error : deliver_homeview2_totalList_daily_shipment_SET_MAP", "ok");
                 }
-            }
 
-            if (MainPage.AUTH == "4")
-            {
-                //MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
-                //Console.WriteLine("SETSHIPMENT");
-                if (MainPage.totalList.daily_shipments.Count != 0)
+                // run問卷
+                try
                 {
-                    MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
-                    Console.WriteLine("SETSHIPMENT");
+                    if (MainPage.totalList.daily_shipments != null)
+                    {
+                        MessagingCenter.Send(this, "SET_FORM", true);
+                        Console.WriteLine("SETFORM");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    //DisplayAlert("系統訊息", "後臺尚未產生資料或資料接收不齊全", "ok");
-                    Console.WriteLine("no shipment_homeview~~");
-                    Console.WriteLine("homecount~~ " + MainPage.totalList.daily_shipments.Count);
+                    DisplayAlert("系統訊息", "Error : deliver_homeview2_totalList_daily_shipment_SET_FORM", "ok");
                 }
+
+                // run總表
+                try
+                {
+                    if (MainPage.totalList.daily_shipments != null)
+                    {
+                        MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true);
+                        Console.WriteLine("SET_SHIPMENT_FORM");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DisplayAlert("系統訊息", "Error : deliver_homeview2_totalList_daily_shipment_SET_SHIPMENT_FORM", "ok");
+                }
+
             }
             //else
             //{
-            //    if (MainPage.userList.daily_shipment_nums > 0)
+            //    // run 社工地圖
+            //    try
             //    {
-            //        MessagingCenter.Send(this, "SET_SHIPMENT_FORM", true); // for社工總表
-            //        Console.WriteLine("SETSHIPMENT_6");
+            //        if(MainPage.allclientList != null)
+            //        {
+            //            MessagingCenter.Send(this, "SET_MAP", true); 
+            //            Console.WriteLine("SETMAP_6");
+            //        }
             //    }
+            //    catch(Exception ex)
+            //    {
+            //        DisplayAlert("系統訊息", "Error : helper_homeview2_totalList_daily_shipment_SET_MAP", "ok");
+            //    }
+
+            //    MessagingCenter.Send(this, "SET_AddCln_FORM", true);
+            //    //MessagingCenter.Send(this, "SET_AddCln_FORM", true);
+            //    Console.WriteLine("AddCln");
             //}
 
-            if (MainPage.AUTH == "4")
-            {
-                if(MainPage.totalList.abnormals != null)
-                {
-                    if (MainPage.totalList.abnormals.Count != 0)
-                    {
-                        MessagingCenter.Send(this, "SET_CHANGE_FORM", true);
-                        Console.WriteLine("CHANGE");
-                    }
-                    else
-                    {
-                        Console.WriteLine("CHANGE_NO");
-                    }
-                }
-                
-            }
-            //else
-            //{
-            //    if (MainPage.userList.daily_shipment_nums > 0)
-            //    {
-            //        MessagingCenter.Send(this, "SET_CHANGE_FORM", true);
-            //        Console.WriteLine("CHANGE_6"); // for社工的異動表
-            //    }
-            //}
-            if (MainPage.AUTH == "6")
-            {
-                MessagingCenter.Send(this, "SET_AddCln_FORM", true);
-                //MessagingCenter.Send(this, "SET_AddCln_FORM", true);
-                Console.WriteLine("AddCln");
-            }
+
+           
+            
+
+           
             MessagingCenter.Subscribe<MainPage, bool>(this, "Deletesetnum", (sender, arg) =>
             {
                 // do something when the msg "UPDATE_BONUS" is recieved

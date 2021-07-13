@@ -98,7 +98,7 @@
                          HeightRequest="30"
                          WidthRequest="500"
                          VerticalOptions="Center">
-                <Label Text="SUCESS簽到成功in" TextColor="Black" FontSize="18"></Label>
+                <Label Text="簽到成功" TextColor="Black" FontSize="18"></Label>
                 <Label x:Name="setname" TextColor="Black" FontSize="18"></Label>
                 <Label Text="的家" TextColor="Black" FontSize="18"></Label>
             </StackLayout>
@@ -141,7 +141,7 @@
                      HeightRequest="30"
                      WidthRequest="500"
                      VerticalOptions="Center">
-            <Label Text="SUCESS簽退成功in" TextColor="Black" FontSize="18"></Label>
+            <Label Text="簽退成功" TextColor="Black" FontSize="18"></Label>
             <Label x:Name="setname2" TextColor="Black" FontSize="18"></Label>
             <Label Text="的家" TextColor="Black" FontSize="18"></Label>
         </StackLayout>

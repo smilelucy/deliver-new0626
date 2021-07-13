@@ -27,11 +27,12 @@ namespace Deliver.Services
             var uri = new Uri(string.Format(host + "/lt_care/api/account/login"));
 
             var response = await _client.PostAsync(uri, formData);
-
-
+            Console.WriteLine("res~~ " + response.ToString());
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("content11111" + content);
             if (response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
+                
                 var list = JsonConvert.DeserializeObject<LoginInfo>(content);
                 return list;
 
@@ -50,9 +51,12 @@ namespace Deliver.Services
             var uri = new Uri(string.Format(host + "/lt_care/api/dp/get_daily_shipment"));
             //Console.WriteLine("heeeeeeeder : " + _client.DefaultRequestHeaders);
             var response = await _client.PostAsync(uri, formData);
+            Console.WriteLine("SSS~~ " + response.ToString());
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("QQQ~~ " + content.ToString());
             if (response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
+                
                 var list = JsonConvert.DeserializeObject<TotalList>(content);
                 Console.WriteLine("GDSEUCESS");
                 //Console.WriteLine(list.daily_shipments);
@@ -429,7 +433,7 @@ namespace Deliver.Services
             var uri = new Uri(string.Format(host + "/lt_care/api/dp/get_work_q"));
             var response = await _client.PostAsync(uri, null);
             //var content2 = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("RES" + response);
+            Console.WriteLine("RES~~ " + response.ToString());
            
             if (response.IsSuccessStatusCode)
             {
