@@ -63,6 +63,7 @@ namespace PULI.Views
                         MessagingCenter.Send(this, "SET_FORM", true);
                         Console.WriteLine("SETFORM");
                     }
+
                 }
                 catch (Exception ex)
                 {
