@@ -246,19 +246,19 @@ namespace PULI.Views
                                                                                                                //Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
 
 
-                                                for (int c = 0; c < checkList2.Count(); c++)
-                                                {
-                                                    if (checkList2[c].wqh_s_num == a.wqh_s_num)
-                                                    {
-                                                        if (checkList2[c].qb_s_num == i.qb_s_num)
-                                                        {
-                                                            //checkList.RemoveAt(a);
-                                                            checkList2.RemoveAt(c);
-                                                        }
-                                                    }
+                                                //for (int c = 0; c < checkList2.Count(); c++)
+                                                //{
+                                                //    if (checkList2[c].wqh_s_num == a.wqh_s_num)
+                                                //    {
+                                                //        if (checkList2[c].qb_s_num == i.qb_s_num)
+                                                //        {
+                                                //            //checkList.RemoveAt(a);
+                                                //            checkList2.RemoveAt(c);
+                                                //        }
+                                                //    }
 
 
-                                                }
+                                                //}
 
                                             }
                                         }
@@ -1811,7 +1811,7 @@ namespace PULI.Views
                                                             //////Console.WriteLine("w~~~ " + i.qb03[d]);
                                                             //////Console.WriteLine("check~~ " + checkList[a].wqb01);
                                                             //////Console.WriteLine("qb0311~~ " + qb03_count);
-                                                            //////Console.WriteLine("j~~ " + j);
+                                                            Console.WriteLine("AAAA_j~~ " + j);
                                                             //////Console.WriteLine("w~~~ " + i.qb03[d]);
                                                             //ANS2 = Convert.ToString(qb03_count);
                                                             temp_j = i.qb03[d]; // 答案
@@ -1828,8 +1828,8 @@ namespace PULI.Views
                                             }
                                         }
 
-
-
+                                        Console.WriteLine("AAAA_j~~ " + j);
+                                        Console.WriteLine("YYYYYY_jj~~ " + temp_j);
                                         bool ischeck = (temp_j == j) ? true : false; // 再把剛剛的答案抓回來判斷(如果是就把他勾起來)
                                                                                      //bool isMoreCheckbox = (temp_j == "未發") ? true : false; // 如果答案是 未發 -> 第四題顯示
                                         
@@ -2124,7 +2124,7 @@ namespace PULI.Views
                                             //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
                                             temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
-                                            //////Console.WriteLine("tempj~~ " + temp_j);
+                                            Console.WriteLine("tempjjjjjjjj~~ " + temp_j);
                                             for (int d = 0; d < i.qb03.Count(); d++)
                                             {
                                                 //////Console.WriteLine("j00~~ " + j);
@@ -2204,7 +2204,8 @@ namespace PULI.Views
                                                 }
                                             }
                                         }
-
+                                        Console.WriteLine("temp_j~~~ " + questionList.wqh_s_num + temp_j);
+                                        Console.WriteLine("j~~~ " + questionList.wqh_s_num + j);
 
 
                                         bool ischeck = (temp_j == j) ? true : false; // 再把剛剛的答案抓回來判斷(如果是就把他勾起來)
@@ -2328,6 +2329,7 @@ namespace PULI.Views
                                                 TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
                                                 TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
                                                 TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
+                                                Console.WriteLine("ASD~~~~ " + j);
                                                 QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                                 ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                                 var check = new checkInfo
@@ -2412,7 +2414,7 @@ namespace PULI.Views
                                             }
                                             else if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Green" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
                                             {
-                                                //////Console.WriteLine("JKL2~~~ " + j);
+                                                Console.WriteLine("JKL2~~~ " + j);
                                                 if (j == "未發" || j == "否")
                                                 {
                                                     label_check = new Label // 選項
@@ -2497,7 +2499,7 @@ namespace PULI.Views
                                             //////Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
                                             temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
-                                            //////Console.WriteLine("tempj~~ " + temp_j);
+                                            Console.WriteLine("tempjTTTTTT~~ " + temp_j);
                                             for (int d = 0; d < i.qb03.Count(); d++)
                                             {
                                                 //////Console.WriteLine("j00~~ " + j);
@@ -2701,6 +2703,7 @@ namespace PULI.Views
                                                 TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = j;
                                                 TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
                                                 TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = j;
+                                                
                                                 QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
                                                 ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                                                 var check = new checkInfo
@@ -2986,11 +2989,11 @@ namespace PULI.Views
                                                     //////Console.WriteLine("w~~~ " + i.qb03[d]);
                                                     //////Console.WriteLine("check~~ " + checkList[a].wqb01);
                                                     //////Console.WriteLine("qb0311~~ " + qb03_count);
-                                                    //////Console.WriteLine("j~~ " + j);
+                                                    Console.WriteLine("j~~ " + j);
                                                     //////Console.WriteLine("w~~~ " + i.qb03[d]);
                                                     //ANS2 = Convert.ToString(qb03_count);
                                                     temp_j = i.qb03[d]; // 答案
-                                                                        //////Console.WriteLine("jj~~ " + temp_j);
+                                                    Console.WriteLine("jj~~ " + temp_j);
                                                 }
 
                                                 //////Console.WriteLine("qb0322~~ " + qb03_count);
@@ -3889,6 +3892,14 @@ namespace PULI.Views
                     {
                         if (TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] != "")
                         {
+                            foreach (string key in TmpAnsList_same_wqh.Keys)
+                            {
+                                if (key == questionList.ClientName + i .qb_order)
+                                {
+                                    same_ans_coount++;
+                                }
+                            }
+                            Console.WriteLine("same_ans_coount~~~ " + same_ans_coount);
                             //same_ans_coount = TmpAnsList_same_wqh.Sum(s => s == questionList.ClientName);
                             //same_ans_coount = TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order);
                             //var total = tmp_name_list.Count(s => s == SQLlist[k].ClientName);
@@ -3924,13 +3935,13 @@ namespace PULI.Views
                                     //ANS2 = Convert.ToString(qb03_count);
                                     ANS2 = d.ToString();
                                     //Console.WriteLine("jj~~ " + temp_j);
-                                    //Console.WriteLine("ANS2_2~~ " + ANS2);
+                                    Console.WriteLine("ANS2_2~~ " + ANS2);
                                 }
 
                                 ////////Console.WriteLine("qb0322~~ " + qb03_count);
                             }
-                            ////////Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
-                            ////////Console.WriteLine("qborder~~~ " + i.qb_order);
+                            Console.WriteLine("wqh3333~~ " + questionList.wqh_s_num);
+                            Console.WriteLine("qborder~~~ " + i.qb_order);
                             ////////Console.WriteLine("why~~ " + TmpAddList[questionList.wqh_s_num + i.qb_order]);
                             //if (TmpAddList[questionList.wqh_s_num + i.qb_order] == false)
                             //{
@@ -3986,7 +3997,7 @@ namespace PULI.Views
                                     IsGreenOrRed[questionList.wqh_s_num + i.qb_order] = "Green";
                                 }
                             }
-
+                            Console.WriteLine("lasttemp_j~~~ " + temp_j);
                             ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
                             TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = temp_j;
                             TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
@@ -4226,18 +4237,21 @@ namespace PULI.Views
                     //}
                     //TempAddDB.DeleteAll();
                     //TempAddDB_else.DeleteAll();
-                    //foreach (var a in questionnaireslist)
-                    //{
-                    //    foreach (var i in a.qbs)
-                    //    {
-                    //        IsResetList[a.wqh_s_num + i.qb_order] = false;
-                    //        IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
-                    //        TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
-                    //        TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
-                    //        TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
-                    //        CheckboxList[a.ClientName] = false;
-                    //    }
-                    //}
+                    
+
+                    // 把dictionary清空
+                    foreach (var a in questionnaireslist)
+                    {
+                        foreach (var i in a.qbs)
+                        {
+                            IsResetList[a.wqh_s_num + i.qb_order] = false;
+                            IsGreenOrRed[a.wqh_s_num + i.qb_order] = "";
+                            TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = "";
+                            TmpAnsList_same[a.wqh_s_num + i.qb_order] = "";
+                            TmpAnsList_same_wqh[a.ClientName + i.qb_order] = "";
+                            CheckboxList[a.ClientName] = false;
+                        }
+                    }
                     reset();
                     //////Console.WriteLine("testviewaccdatabasedeletesuccess~~");
                     //await Navigation.PopAsync();

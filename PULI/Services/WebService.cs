@@ -51,9 +51,9 @@ namespace Deliver.Services
             var uri = new Uri(string.Format(host + "/lt_care/api/dp/get_daily_shipment"));
             //Console.WriteLine("heeeeeeeder : " + _client.DefaultRequestHeaders);
             var response = await _client.PostAsync(uri, formData);
-            Console.WriteLine("SSS~~ " + response.ToString());
+            //Console.WriteLine("SSS~~ " + response.ToString());
             var content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("QQQ~~ " + content.ToString());
+            //Console.WriteLine("QQQ~~ " + content.ToString());
             if (response.IsSuccessStatusCode)
             {
                 
