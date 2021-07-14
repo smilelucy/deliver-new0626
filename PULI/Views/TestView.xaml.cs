@@ -2014,63 +2014,33 @@ namespace PULI.Views
                                         ////////Console.WriteLine("WWW~~~ " + IsResetList[questionList.wqh_s_num + i.qb_order]);
                                         //if (isReset == true || isDB == true)
                                         //{
-                                            if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Green" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
+                                        //label_check = new Label // 選項
+                                        //{
+                                        //    Text = j,
+                                        //    //TextColor = Color.Green,
+                                        //    //Margin = new Thickness(-10,0,0,0),
+                                        //    FontSize = 20
+                                        //};
+                                        //label_check.BindingContext = check_box;
+                                        //label_check.SetBinding(Label.TextColorProperty, "Color");
+                                        if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Green" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
+                                        {
+                                            //Console.WriteLine("JKL1~~~ " + j);
+                                            if (j == "是")
                                             {
-                                                //Console.WriteLine("JKL1~~~ " + j);
-                                                if (j == "是")
+                                                label_check = new Label // 選項
                                                 {
-                                                    label_check = new Label // 選項
-                                                    {
-                                                        Text = j,
-                                                        TextColor = Color.Green,
-                                                        //Margin = new Thickness(-10,0,0,0),
-                                                        FontSize = 20
-                                                    };
-                                                    ////isRed = false;
-                                                    //isReset = false;
-                                                }
-                                                else
-                                                {
-                                                    //////Console.WriteLine("JKL1-1~~~ " + j);
-                                                    label_check = new Label // 選項
-                                                    {
-                                                        Text = j,
-                                                        TextColor = Color.Black,
-                                                        FontSize = 20
-                                                    };
-                                                }
-
-                                            }
-                                            else if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
-                                            {
-                                                //////Console.WriteLine("JKL2~~~ " + j);
-                                                if (j == "否")
-                                                {
-                                                    label_check = new Label // 選項
-                                                    {
-                                                        Text = j,
-                                                        TextColor = Color.Red,
-                                                        //Margin = new Thickness(-10, 0, 0, 0),
-                                                        FontSize = 20
-                                                    };
-                                                    //isGreen = false;
-                                                    //isReset = false;
-                                                }
-                                                else
-                                                {
-                                                    //////Console.WriteLine("JKL2-1~~~ " + j);
-                                                    label_check = new Label // 選項
-                                                    {
-                                                        Text = j,
-                                                        TextColor = Color.Black,
-                                                        FontSize = 20
-                                                    };
-                                                }
-
+                                                    Text = j,
+                                                    TextColor = Color.Green,
+                                                    //Margin = new Thickness(-10,0,0,0),
+                                                    FontSize = 20
+                                                };
+                                                ////isRed = false;
+                                                //isReset = false;
                                             }
                                             else
                                             {
-                                                //////Console.WriteLine("JKL3~~~ " + j);
+                                                //////Console.WriteLine("JKL1-1~~~ " + j);
                                                 label_check = new Label // 選項
                                                 {
                                                     Text = j,
@@ -2078,16 +2048,47 @@ namespace PULI.Views
                                                     FontSize = 20
                                                 };
                                             }
-                                        //}
-                                        //else
-                                        //{
-                                            //label_check = new Label // 選項
-                                            //{
-                                                //Text = j,
-                                                //TextColor = Color.Black,
-                                                //FontSize = 20
-                                            //};
-                                        //}
+
+                                        }
+                                        else if (IsGreenOrRed[questionList.wqh_s_num + i.qb_order] == "Red" && IsResetList[questionList.wqh_s_num + i.qb_order] == true)
+                                        {
+                                            //////Console.WriteLine("JKL2~~~ " + j);
+                                            if (j == "否")
+                                            {
+                                                label_check = new Label // 選項
+                                                {
+                                                    Text = j,
+                                                    TextColor = Color.Red,
+                                                    //Margin = new Thickness(-10, 0, 0, 0),
+                                                    FontSize = 20
+                                                };
+                                                //isGreen = false;
+                                                //isReset = false;
+                                            }
+                                            else
+                                            {
+                                                //////Console.WriteLine("JKL2-1~~~ " + j);
+                                                label_check = new Label // 選項
+                                                {
+                                                    Text = j,
+                                                    TextColor = Color.Black,
+                                                    FontSize = 20
+                                                };
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            //////Console.WriteLine("JKL3~~~ " + j);
+                                            label_check = new Label // 選項
+                                            {
+                                                Text = j,
+                                                TextColor = Color.Black,
+                                                FontSize = 20
+                                            };
+                                        }
+                                        
+
 
 
                                         var stack_check = new StackLayout // checkbox跟選項
@@ -2774,6 +2775,7 @@ namespace PULI.Views
                                                     {
                                                         Text = j,
                                                         TextColor = Color.Red,
+                                                        
                                                         //Margin = new Thickness(-10,0,0,0),
                                                         FontSize = 20
                                                     };
