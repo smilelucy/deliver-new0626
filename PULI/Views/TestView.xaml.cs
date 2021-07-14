@@ -45,7 +45,8 @@ namespace PULI.Views
         public static string ANS2;
         public static string ANS3;
         public static string Qtype;
-        private static int same_ans_coount; // 看同上的那筆問卷題目有幾筆
+        private static int same_ans_coount = 0; // 看同上的那筆問卷題目有幾筆
+        private static int same_ans_copy = 0; // 看他抓了幾筆同上的資料(用來判斷同上那邊的答案全部抓完之後再reset
 
         //public static string anslist;
         //public static string p;
@@ -231,20 +232,23 @@ namespace PULI.Views
                                             ////////Console.WriteLine("4444~~~~");
                                             if (TempAnsList.qb_s_num == i.qb_s_num) // 判斷哪一提
                                             {
-                                                ////////Console.WriteLine("ans~~ " + TempAnsList.wqb01);
-                                                ////////Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
-                                                ////////Console.WriteLine("name~~~ " + TempAnsList.ClientName);
+                                                Console.WriteLine("ans~~ " + TempAnsList.wqb01);
+                                                Console.WriteLine("wqh~~ " + TempAnsList.wqh_s_num);
+                                                Console.WriteLine("name~~~ " + TempAnsList.ClientName);
                                                 TmpAnsList[a.wqh_s_num + a.ClientName + i.qb_order] = TempAnsList.wqb01;
                                                 TmpAnsList_same_wqh[a.ClientName + i.qb_order] = a.wqh_s_num;
                                                 //TmpAnsList_same_wqh.Add(a.ClientName + i.qb_order, a.wqh_s_num);
                                                 TmpAnsList_same[a.wqh_s_num + i.qb_order] = TempAnsList.wqb01; // 給點擊同上判斷用
-                                                                                                               //Console.WriteLine("CC_name~~ " + a.ClientName);
-                                                                                                               //Console.WriteLine("CC_order~~ " + i.qb_order);
-                                                                                                               //Console.WriteLine("EEE~~~ " + TmpAnsList_same_wqh[a.ClientName + i.qb_order]);
-                                                                                                               //Console.WriteLine("DD_wqh~~ " + a.wqh_s_num);
-                                                                                                               //Console.WriteLine("DD_order~~ " + i.qb_order);
-                                                                                                               //Console.WriteLine("ZZZZ~~~ " + TmpAnsList_same[a.wqh_s_num + i.qb_order]);
+                                                //var check2 = new checkInfo
+                                                //{
+                                                //    wqh_s_num = a.wqh_s_num, // 問卷編號
+                                                //    qh_s_num = a.qh_s_num, // 工作問卷編號
+                                                //    qb_s_num = i.qb_s_num, // 問題編號(第幾題)
+                                                //    wqb01 = TempAnsList.wqb01,// 答案
+                                                    
 
+                                                //};
+                                                //checkList.Add(check2);
 
                                                 //for (int c = 0; c < checkList2.Count(); c++)
                                                 //{
@@ -2120,8 +2124,8 @@ namespace PULI.Views
                                         if (TmpAnsList.ContainsKey(questionList.wqh_s_num + questionList.ClientName + i.qb_order) && TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] != "")
                                         {
                                             //////Console.WriteLine("third~~ ");
-                                            //////Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
-                                            //////Console.WriteLine("qborder~~~ " + i.qb_order);
+                                            Console.WriteLine("wqh2222~~ " + questionList.wqh_s_num);
+                                            Console.WriteLine("qborder~~~ " + i.qb_order);
                                             var _wqhsnum = questionList.wqh_s_num;
                                             temp_j = TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order];
                                             Console.WriteLine("tempjjjjjjjj~~ " + temp_j);
@@ -2140,7 +2144,7 @@ namespace PULI.Views
                                                     //ANS2 = Convert.ToString(qb03_count);
                                                     ANS2 = d.ToString();
                                                     //////Console.WriteLine("jj~~ " + temp_j);
-                                                    //////Console.WriteLine("ANS2_2~~ " + ANS2);
+                                                    Console.WriteLine("ANS2_2~~ " + ANS2);
                                                 }
 
                                                 //////Console.WriteLine("qb0322~~ " + qb03_count);
@@ -2160,19 +2164,21 @@ namespace PULI.Views
                                             };
                                             ////////Console.WriteLine("count1~~ " + checkList2.Count());
                                             checkList2.Add(check3); // for save
-
+                                            Console.WriteLine("ch~~ " + checkList.Count());
+                                            checkList.Add(check3);
+                                            Console.WriteLine("ch2~~~ " + checkList.Count());
                                         }
                                         // 跑選是的reset把checkList抓回來判斷
                                         //////Console.WriteLine("checklist2~count3~ " + checkList2.Count());
                                         for (int a = 0; a < checkList.Count(); a++)
                                         {
-                                            //////Console.WriteLine("check11~~ " + checkList[a].wqh_s_num);
-                                            //////Console.WriteLine("ques11~~~ " + questionList.wqh_s_num);
+                                            Console.WriteLine("check11~~ " + checkList[a].wqh_s_num);
+                                            Console.WriteLine("ques11~~~ " + questionList.wqh_s_num);
                                             ////////Console.WriteLine("COUNT222~~~~" + MapView.AccDatabase.GetAccountAsync2().Count());
                                             if (checkList[a].wqh_s_num == questionList.wqh_s_num) // 判斷問卷編號
                                             {
-                                                ////////Console.WriteLine("IMMMM222~~~~");
-                                                //////Console.WriteLine("AAQ~~~ " + questionList.wqh_s_num);
+                                                Console.WriteLine("IMMMM222~~~~");
+                                                Console.WriteLine("AAQ~~~ " + questionList.wqh_s_num);
                                                 if (checkList[a].qb_s_num == i.qb_s_num) // 判斷哪一題
                                                 {
                                                     //////Console.WriteLine("BBQ~~~~ " + i.qb_s_num);
@@ -2180,8 +2186,8 @@ namespace PULI.Views
                                                     //foreach (var w in i.qb03)
                                                     for (int d = 0; d < i.qb03.Count(); d++)
                                                     {
-                                                        //////Console.WriteLine("check00~~ " + checkList[a].wqb01);
-                                                        //////Console.WriteLine("w00~~~ " + d.ToString());
+                                                        Console.WriteLine("check00~~ " + checkList[a].wqb01);
+                                                        Console.WriteLine("w00~~~ " + d.ToString());
                                                         if (checkList[a].wqb01 == d.ToString())
                                                         {
 
@@ -2189,7 +2195,7 @@ namespace PULI.Views
                                                             //////Console.WriteLine("check~~ " + checkList[a].wqb01);
                                                             //////Console.WriteLine("qb0311~~ " + qb03_count);
                                                             //////Console.WriteLine("j~~ " + j);
-                                                            //////Console.WriteLine("w~~~ " + i.qb03[d]);
+                                                            Console.WriteLine("w~~~ " + i.qb03[d]);
                                                             //ANS2 = Convert.ToString(qb03_count);
                                                             temp_j = i.qb03[d]; // 答案
                                                                                 //////Console.WriteLine("jj~~ " + temp_j);
@@ -3894,12 +3900,19 @@ namespace PULI.Views
                         {
                             foreach (string key in TmpAnsList_same_wqh.Keys)
                             {
-                                if (key == questionList.ClientName + i .qb_order)
+                                if (key == questionList.ClientName + i.qb_order)
                                 {
                                     same_ans_coount++;
                                 }
                             }
-                            Console.WriteLine("same_ans_coount~~~ " + same_ans_coount);
+                        }
+                    }
+                    Console.WriteLine("same_ans_count~~ " + same_ans_coount);
+                    foreach (var i in questionList.qbs)
+                    {
+                        if (TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order) && TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] != "")
+                        {
+                            same_ans_copy++;
                             //same_ans_coount = TmpAnsList_same_wqh.Sum(s => s == questionList.ClientName);
                             //same_ans_coount = TmpAnsList_same_wqh.ContainsKey(questionList.ClientName + i.qb_order);
                             //var total = tmp_name_list.Count(s => s == SQLlist[k].ClientName);
@@ -3999,13 +4012,31 @@ namespace PULI.Views
                             }
                             Console.WriteLine("lasttemp_j~~~ " + temp_j);
                             ResetSaveToDB(questionList.wqh_s_num, i.qb_order, color);
+                            Console.WriteLine("wqh~ " + questionList.wqh_s_num);
+                            Console.WriteLine("count~~ " + TmpAnsList.Keys.Count());
                             TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order] = temp_j;
+                            Console.WriteLine("count222~~ " + TmpAnsList[questionList.wqh_s_num + questionList.ClientName + i.qb_order]);
                             TmpAnsList_same_wqh[questionList.ClientName + i.qb_order] = questionList.wqh_s_num;
                             TmpAnsList_same[questionList.wqh_s_num + i.qb_order] = temp_j;
-                            QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, questionList.qb_s_num, temp_j, questionList.ClientName, i.qb_order);
-                          
-                            reset();
+                            //QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, j, questionList.ClientName, i.qb_order);
+                            Console.WriteLine("DBcount~~~ " + MapView.AccDatabase.GetAccountAsync2().Count());
+                            QuesSaveToSQLite(questionList.wqh_s_num, questionList.qh_s_num, i.qb_s_num, temp_j, questionList.ClientName, i.qb_order);
+                            Console.WriteLine("DB~~　" + MapView.AccDatabase.GetAccountAsync2().Count());
+
+                            Console.WriteLine("samecount~~ " + same_ans_coount);
+                            Console.WriteLine("samecopy~~~ " + same_ans_copy);
+                            if(same_ans_copy == same_ans_coount)
+                            {
+                                reset();
+                                same_ans_coount = 0;
+                                same_ans_copy = 0;
+                                Console.WriteLine("samecount222~~ " + same_ans_coount);
+                                Console.WriteLine("samecopy2222~~~ " + same_ans_copy);
+                            }
+                            
+
                         }
+                        
                     }
 
                 };
